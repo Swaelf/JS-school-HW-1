@@ -1,21 +1,52 @@
+
+ :root{
+  --maincolor: rgba(255, 255, 255, 1);
+  --shadowcolor: rgba(0, 0, 0, 0.5);
+  --buttoncolor: rgba(235, 230, 210, 1);
+  --bordercolor: rgba(150, 150, 100, 0.8);
+}
+
+
 a {
   color: black;
   font-family: verdana;
   font-size: 100%;
-  position: absolute;
-  top:  90%;
-  left: 90%;
-  transform: translate(-50%,-50%);
+  //position: relative;
+  //top:  90%;
+  //left: 90%;
+  //transform: translate(-50%,-50%);
 }
 h1 {
  color: blue;
  font-family: verdana;
  font-size: 300%;
 }
+h2 {
+ color: lightgray;
+ font-family: Arial;
+ font-size: 9px;
+}
+h3 {
+ color: lightgray;
+ font-family: Arial;
+ font-size: 16px;
+}
+h4 {
+ color: grey;
+ font-family: SF Compact;
+ font-size: 80%;
+}
 p {
  color: red;
  font-family: courier;
  font-size: 160%;
+}
+.dot{
+  background: lightgrey;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  display: inline-block;
 }
 
 body {
@@ -24,12 +55,29 @@ body {
   background-attachment: fixed;
   background-size: 100% 100%;
 }
+
 .box {
-  border-radius: 30px;
-  background: white;
-  border: 1px solid grey;
-  width: 265px;
-  height: 545px;
+  border-radius: 35px;
+  background: var(--maincolor);
+  border: 2px solid var(--bordercolor);
+  filter: drop-shadow(-16px -16px 10px var(--shadowcolor));
+  width: 268px;
+  height: 548px;
+  position: absolute;
+  top:  50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.boxsh {
+  border-radius: 35px;
+  background: var(--maincolor);
+  border: transparent;
+  filter: 
+    drop-shadow(-5px -5px 5px var(--bordercolor)) 
+    drop-shadow(3px 3px 3px var(--bordercolor))
+    blur(2px);
+  width: 264px;
+  height: 544px;
   position: absolute;
   top:  50%;
   left: 50%;
@@ -41,29 +89,52 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
-  width: 250px;
-  height: 440px;
+  border: 2px solid black;
+  width: 240px;
+  height: 425px;
   position: absolute;
   top:  50%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
+.stick {
+  background: lightgrey;
+  opacity: 0.5;
+  border-radius: 2px;
+  width: 20px;
+  height: 4px;
+  position: absolute;
+  top:  7px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.stick2 {
+  background: lightgrey;
+  opacity: 0.5;
+  border-radius: 2px;
+  width: 20px;
+  height: 4px;
+  position: absolute;
+  bottom:  3px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 .button {
-  background: white;
+  background: var(--maincolor);
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border: 2px solid grey;
   position: absolute;
-  top:  95%;
+  top:  517px;
   left: 50%;
   transform: translate(-50%,-50%);
 }
 .speaker {
   background: black;
   border-radius: 1px;
-  width: 40px;
-  height: 3.5px;
+  width: 38px;
+  height: 3px;
   position: absolute;
   top:  30px;
   left: 50%;
@@ -75,7 +146,7 @@ body {
   width: 5px;
   height: 5px;
   position: absolute;
-  top:  20px;
+  top:  14px;
   left: 50%;
   transform: translate(-50%,-50%);
 }
@@ -85,47 +156,124 @@ body {
   width: 7px;
   height: 7px;
   position: absolute;
-  top:  35px;
-  left: 30%;
+  top:  30px;
+  left: 36%;
   transform: translate(-50%,-50%);
 }
+.camerapng {
+  background: transparent;
+  background-image: url(Textures/camera.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 15px;
+  height: 12px;
+  position: absolute;
+  bottom:  -2px;
+  right: -4px;
+  transform: translate(-50%,-50%);
+}
+.battery {
+  background: transparent;
+  background-image: url(Textures/battery.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  float: right;
+}
+.topstr {
+  background: transparent;
+  display: inline-block;
+  width: inherit;
+  height: 15px;
+  position: absolute;
+  top:  0px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.wifi {
+  background: transparent;
+  display: inline-block;
+  background-image: url(Textures/wifi.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 15px;
+  height: 10px;
+  position: relative;
+  
+}
 .side_but1 {
-  background: white;
+  background: var(--buttoncolor);
   border-radius: 2px 0px 0px 2px;
   width: 2px;
-  height: 25px;
+  height: 19px;
   position: absolute;
-  top:  75px;
-  left: -2px;
+  top:  74px;
+  left: -3px;
   transform: translate(-50%,-50%);
 }
 .side_but2 {
-  background: white;
+  background: var(--buttoncolor);
   border-radius: 2px 0px 0px 2px;
   width: 2px;
-  height: 40px;
+  height: 32px;
   position: absolute;
-  top:  120px;
-  left: -2px;
+  top:  122px;
+  left: -3px;
   transform: translate(-50%,-50%);
 }
 .side_but3 {
-  background: white;
+  background: var(--buttoncolor);
   border-radius: 2px 0px 0px 2px;
   width: 2px;
-  height: 40px;
+  height: 32px;
   position: absolute;
-  top:  170px;
-  left: -2px;
+  top:  166px;
+  left: -3px;
   transform: translate(-50%,-50%);
 }
 .side_but4 {
-  background: white;
+  background: var(--buttoncolor);
   border-radius: 0px 2px 2px 0px;
-  width: 2px;
-  height: 40px;
+  width: 1px;
+  height: 34px;
   position: absolute;
-  top:  120px;
-  left: 267px;
+  top:  122px;
+  right: -3px;
   transform: translate(-50%,-50%);
+}
+
+.wrapper{
+  background-color: transparent;
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.flicker {
+  font-size: 1rem;
+  font-family: 'Consolas';
+  color: #fffefe61;
+  background: -webkit-gradient(linear, left center, 
+    right center, from(#e6e6e6), 
+    to(#1d1c1c), color-stop(0.5, #ffff)) no-repeat;
+  background: gradient(linear, left center, 
+    right center, from(#222), 
+    to(#1d1c1c), color-stop(0.5, #ffff)) no-repeat;
+  background-size: 50px 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: flick 2s infinite;
+}
+@keyframes flick {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: bottom right;
+  }
 }
