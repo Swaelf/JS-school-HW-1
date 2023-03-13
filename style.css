@@ -7,6 +7,8 @@
   --slidercolor: #fffefe61;
   --flickcolor: #1d1c1c;
   --flickcolor2: #e6e6e6;
+  --hsize: 548px;
+  --wsize: 266px;
 }
 
 @font-face {
@@ -47,29 +49,34 @@ h4 {
  font-family: HelveticaMediunFont;
  font-weight: 100;
 }
-
+html {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 body {
   background-image: url(Source/backgroundImage.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+  width: 100%;
+  height: calc(100% - 25px);
 }
 
-.container {
-  width: auto;
-  height: auto;
-  min-width:300px;
-  min-height:600px;
+.container { 
+  width: inherit;
+  height: inherit;
+  min-width: calc(var(--wsize) + 10px);
+  min-height: calc(var(--hsize) + 10px);
   position: relative;
-
 }
 .box {
   border-radius: 37px;
   background: var(--maincolor);
   border: 2px solid var(--bordercolor);
   filter: drop-shadow(-20px -16px 10px var(--shadowcolor));
-  width: 266px;
-  height: 548px;
+  width: var(--wsize);
+  height: var(--hsize);
   position: absolute;
   top:  50%;
   left: 50%;
@@ -82,8 +89,8 @@ body {
   border: transparent; 
   filter: drop-shadow(0px 0px 20px var(--bordercolor))
           blur(2px);
-  width: 262px;
-  height: 542px;
+  width: calc(var(--wsize) - 4px);
+  height: calc(var(--hsize) - 6px);
   position: absolute;
   top:  50%;
   left: 50%;
