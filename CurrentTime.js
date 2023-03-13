@@ -17,7 +17,7 @@ function showTime(){
         }
     }
     
-    let time = tm[0] + ":" + tm[1]  + ":" + tm[2];
+    let time = tm[0] + ":" + tm[1];
     let days = tm[3] + ", " + tm[4] + " " + tm[5];
 
     document.getElementById("DisplayClock").innerText = time;
