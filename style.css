@@ -1,131 +1,150 @@
-a {
-  color: black;
-  font-family: verdana;
-  font-size: 100%;
-  position: absolute;
-  top:  90%;
-  left: 90%;
-  transform: translate(-50%,-50%);
-}
-h1 {
- color: blue;
- font-family: verdana;
- font-size: 300%;
-}
-p {
- color: red;
- font-family: courier;
- font-size: 160%;
+:root{
+  --maincolor: rgba(0, 0, 0, 1);
+  --shadowcolor: rgba(100, 100, 100, 0.5);
+  --buttoncolor: rgba(230, 210, 200, 1);
+  --bordercolor: rgba(100, 100, 50, 0.8);
+  --slidercolor: #efefef61;
+  --flickcolor: #000000;
+  --flickcolor2: #e1e1e1;
+  --hsize: 15vh;
+  --wsize: 15vw;
+  --time: 0.816s;
+  }
+
+html, body {
+  height: 96vh;
+  width: 98vw;
 }
 
+audio {
+  //display: none;
+}
+video {
+  height: 100px;
+  width: 300px;
+  display: none;
+}
+
+embed { display: none; }
+
 body {
-  background-image: url(Textures/backgroundImage.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  position: fixed;
+  background: lightcyan;
+  //border: 2px solid white;
+}
+
+a {
+  position: absolute;
+  font-size: 10px;
+  color: white;
+}
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: 2px solid white;
+}
+
+.logo {
+  background-image: url(Source/Logo.png);
   background-size: 100% 100%;
-}
-.box {
-  border-radius: 30px;
-  background: white;
-  border: 1px solid grey;
-  width: 265px;
-  height: 545px;
+  height: var(--hsize);
+  width: var(--wsize);
   position: absolute;
-  top:  50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  top: 0%;
+  left: 0%;
+  transform: translate(-50% -50%);
+  animation: move 8.16s linear infinite, cch 5.712s step-start infinite;
 }
-.screen {
-  background: black;
-  background-image: url(Textures/iphone-classic.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  width: 250px;
-  height: 440px;
-  position: absolute;
-  top:  50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+
+.marker {
+  offset-path: path('M 1 1 L 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 \
+    L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 \
+    L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 \
+    L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 \
+    L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 Z');
+  offset-rotate: 0deg;
+  filter: invert(60%) sepia(67%) saturate(4197%) hue-rotate(84deg) brightness(128%) contrast(120%);
+  animation: move1 80s linear infinite, cch 14s step-start infinite;
 }
-.button {
-  background: white;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  border: 2px solid grey;
-  position: absolute;
-  top:  95%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+
+@keyframes move1 {
+  to {
+    offset-distance: 100%;
+  }
 }
-.speaker {
-  background: black;
-  border-radius: 1px;
-  width: 40px;
-  height: 3.5px;
-  position: absolute;
-  top:  30px;
-  left: 50%;
-  transform: translate(-50%,-50%);
+@keyframes cch {
+  0% {
+    filter: none;
+  }
+  14.28% { 
+    filter: invert(11%) sepia(100%) saturate(4182%) hue-rotate(242deg) brightness(103%) contrast(152%); 
+  }
+  28.57% { 
+    filter: invert(17%) sepia(72%) saturate(7057%) hue-rotate(357deg) brightness(101%) contrast(117%);
+  }
+  42.85% { 
+    filter: invert(73%) sepia(89%) saturate(4859%) hue-rotate(89deg) brightness(113%) contrast(140%);
+    }
+  57.14% { 
+    filter: invert(91%) sepia(41%) saturate(1518%) hue-rotate(347deg) brightness(107%) contrast(112%);
+    }
+  71.42% { 
+    filter: invert(75%) sepia(78%) saturate(573%) hue-rotate(117deg) brightness(106%) contrast(105%);
+    }
+  85.71% { 
+    filter: invert(18%) sepia(50%) saturate(6763%) hue-rotate(296deg) brightness(118%) contrast(125%);
+    }
+  100% {
+    filter: none;
+    }  
 }
-.camera {
-  background: black;
-  border-radius: 50%;
-  width: 5px;
-  height: 5px;
-  position: absolute;
-  top:  20px;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.camera1 {
-  background: black;
-  border-radius: 50%;
-  width: 7px;
-  height: 7px;
-  position: absolute;
-  top:  35px;
-  left: 30%;
-  transform: translate(-50%,-50%);
-}
-.side_but1 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 25px;
-  position: absolute;
-  top:  75px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but2 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  120px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but3 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  170px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but4 {
-  background: white;
-  border-radius: 0px 2px 2px 0px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  120px;
-  left: 267px;
-  transform: translate(-50%,-50%);
+
+@keyframes move {
+  0% {
+    top: 0%;
+    left: 0%;
+    //top: calc(100% - var(--hsize));
+    //left: calc(100% - var(--wsize));
+  }
+  10% {
+    top: calc(20*(100% - var(--hsize))/100);
+    left: calc(100% - var(--wsize));
+  }
+  20% {
+    top: calc(40*(100% - var(--hsize))/100);
+    left: 0%;
+  }
+  30% {
+    top: calc(60*(100% - var(--hsize))/100);
+    left: calc(100% - var(--wsize));
+  }
+  40% {
+    top: calc(80*(100% - var(--hsize))/100);
+    left: 0%;
+  }
+  50% {
+    top: calc(100% - var(--hsize));
+    left: calc(100% - var(--wsize));
+    }
+  60% {
+    top: calc(80*(100% - var(--hsize))/100);
+    left: 0%;
+  }
+  70% {
+    top: calc(60*(100% - var(--hsize))/100);
+    left: calc(100% - var(--wsize));
+    }
+  80% {
+    top: calc(40*(100% - var(--hsize))/100);;
+    left: 0%;
+    }
+  90% {
+    top: calc(20*(100% - var(--hsize))/100);
+    left: calc(100% - var(--wsize));
+    }
+  100% {
+    top: 0%;
+    left: 0%;
+  }
 }
