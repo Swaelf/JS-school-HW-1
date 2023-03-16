@@ -17,7 +17,7 @@ html, body {
 }
 
 audio {
-  //display: none;
+  display: none;
 }
 video {
   height: 100px;
@@ -65,7 +65,7 @@ a {
     L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 Z');
   offset-rotate: 0deg;
   filter: invert(60%) sepia(67%) saturate(4197%) hue-rotate(84deg) brightness(128%) contrast(120%);
-  animation: move1 80s linear infinite, cch 14s step-start infinite;
+  animation: move1 65.28s linear infinite, cch 11.424s step-start infinite;
 }
 
 @keyframes move1 {
