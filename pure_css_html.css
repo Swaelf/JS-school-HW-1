@@ -1,0 +1,149 @@
+:root{
+  --maincolor: rgba(0, 0, 0, 1);
+  --shadowcolor: rgba(100, 100, 100, 0.5);
+  --buttoncolor: rgba(230, 210, 200, 1);
+  --bordercolor: rgba(100, 100, 50, 0.8);
+  --slidercolor: #efefef61;
+  --flickcolor: #000000;
+  --flickcolor2: #e1e1e1;
+  --hsize: 20vh;
+  --wsize: 20vw;
+  --time: 0.816s;
+  }
+
+html, body {
+  height: 96vh;
+  width: 98vw;
+}
+
+audio {
+  display: none;
+}
+video {
+  height: 100px;
+  width: 300px;
+  display: none;
+}
+
+body {
+  position: fixed;
+  background: #303030;
+  //border: 2px solid white;
+}
+
+a {
+  position: absolute;
+  font-size: 10px;
+  color: white;
+}
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  //border: 2px solid white;
+}
+
+.logo {
+  background-image: url(Source/Logo.png);
+  background-size: 100% 100%;
+  height: var(--hsize);
+  width: var(--wsize);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translate(-0%, -0%);
+  animation: move calc(var(--time)*10) linear infinite, cch calc(var(--time)*7) step-start infinite;
+}
+
+
+@keyframes cch {
+  0% {
+    filter: none;
+  }
+  14.28% { 
+    filter: invert(11%) sepia(100%) saturate(4182%) hue-rotate(242deg) brightness(103%) contrast(152%); 
+  }
+  28.57% { 
+    filter: invert(17%) sepia(72%) saturate(7057%) hue-rotate(357deg) brightness(101%) contrast(117%);
+  }
+  42.85% { 
+    filter: invert(73%) sepia(89%) saturate(4859%) hue-rotate(89deg) brightness(113%) contrast(140%);
+    }
+  57.14% { 
+    filter: invert(91%) sepia(41%) saturate(1518%) hue-rotate(347deg) brightness(107%) contrast(112%);
+    }
+  71.42% { 
+    filter: invert(75%) sepia(78%) saturate(573%) hue-rotate(117deg) brightness(106%) contrast(105%);
+    }
+  85.71% { 
+    filter: invert(18%) sepia(50%) saturate(6763%) hue-rotate(296deg) brightness(118%) contrast(125%);
+    }
+  100% {
+    filter: none;
+    }  
+}
+
+@keyframes move {
+  0% {
+    top: 0%;
+    left: 0%;
+    //top: calc(100% - var(--hsize));
+    //left: calc(100% - var(--wsize));
+  }
+  10% {
+    top: calc(60*(100% - var(--hsize))/100);
+    left: calc(100*(100% - var(--wsize))/100);
+  }
+  16.66% {
+    top: calc(100*(100% - var(--hsize))/100);
+    left: calc(33.4*(100% - var(--wsize))/100);
+  }
+  20% {
+    top: calc(80*(100% - var(--hsize))/100);
+    left: calc(0*(100% - var(--wsize))/100);
+  }
+  30% {
+    top: calc(20*(100% - var(--hsize))/100);
+    left: calc(100*(100% - var(--wsize))/100);
+  }
+  33.34% {
+    top: calc(0*(100% - var(--hsize))/100);
+    left: calc(66.6*(100% - var(--wsize))/100);
+  }
+  40% {
+    top: calc(40*(100% - var(--hsize))/100);
+    left: calc(0*(100% - var(--wsize))/100);
+  }
+  50% {
+    top: calc(100*(100% - var(--hsize))/100);
+    left: calc(100*(100% - var(--wsize))/100);
+  }
+  60% {
+    top: calc(40*(100% - var(--hsize))/100);
+    left: calc(0*(100% - var(--wsize))/100);
+    }
+  66.6% {
+    top: calc(0*(100% - var(--hsize))/100);
+    left: calc(66.6*(100% - var(--wsize))/100);
+  }
+  70% {
+    top: calc(20*(100% - var(--hsize))/100);
+    left: calc(100*(100% - var(--wsize))/100);
+    }
+  80% {
+    top: calc(80*(100% - var(--hsize))/100);
+    left: calc(0*(100% - var(--wsize))/100);
+    }
+  83.4% {
+    top: calc(100*(100% - var(--hsize))/100);
+    left: calc(33.4*(100% - var(--wsize))/100);
+    }
+  90% {
+    top: calc(60*(100% - var(--hsize))/100);
+    left: calc(100*(100% - var(--wsize))/100);
+    }
+  100% {
+    top: 0%;
+    left: 0%;
+  }
+}
