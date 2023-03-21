@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <link rel="stylesheet" href="JS_3D.css">
+  <a style="color: transparent;" onselectstart="return false;" onmousedown="return false;"> This is HW 1 task for Quantory JS school </a>
+</head>
+
+<body> 
+  <video id="sound" controls playsinline muted>
+    <source src="Source/ES_PREL_Laser_3_-_SFX_Producer.mp3"> 
+  </video>
+  <div id="container" class="container" onclick="sound.muted = !sound.muted;">
+    <div class="cube">
+      <div class="cube__face cube__face--front"></div>
+      <div class="cube__face cube__face--back"></div>
+      <div class="cube__face cube__face--right"></div>
+      <div class="cube__face cube__face--left"></div>
+    </div>
+    <div id="anim1" class="logo"></div>
+    <div id="anim2" class="logo"></div>
+    <div id="anim3" class="logo"></div>
+  </div>
+  <script type="text/javascript" src="JS_3D.js"></script>
+  <button>
+    <a href="index.html">Back>></a> 
+  </button>
+</body>
+
+<footer>
+  
+</footer>
+</html>

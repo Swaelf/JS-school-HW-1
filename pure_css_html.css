@@ -1,19 +1,17 @@
 :root{
-  --maincolor: rgba(0, 0, 0, 1);
-  --shadowcolor: rgba(100, 100, 100, 0.5);
-  --buttoncolor: rgba(230, 210, 200, 1);
-  --bordercolor: rgba(100, 100, 50, 0.8);
-  --slidercolor: #efefef61;
-  --flickcolor: #000000;
-  --flickcolor2: #e1e1e1;
+  --maincolor: rgba(200, 200, 200, 1);
+  --shadowcolor: rgba(150, 150, 150, 0.5);
+  --buttoncolor: rgba(200, 200, 200, 0.5);
+  --bordercolor: rgba(50, 50, 100, 0.8);
   --hsize: 20vh;
   --wsize: 20vw;
   --time: 0.816s;
   }
 
 html, body {
-  height: 96vh;
-  width: 98vw;
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
 audio {
@@ -28,19 +26,47 @@ video {
 body {
   position: fixed;
   background: #303030;
-  //border: 2px solid white;
+}
+button {
+  position: absolute;
+  border: transparent;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px;
+  top: calc(100% - 25px);
+  left: calc(0% + 5px);
+  transform: translate(-0%, -0%);
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));;
+  //filter: drop-shadow(0px 0px 20px var(--shadowcolor));
+  transition: all;
+}
+button:hover {
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));
 }
 
 a {
-  position: absolute;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   font-size: 10px;
-  color: white;
+  color: black;
+  font-family: system-ui;
+  text-decoration: none;
+  font-weight: bold;
 }
 .container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  //border: 2px solid white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  border: 1px solid white;
 }
 
 .logo {

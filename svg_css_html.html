@@ -6,20 +6,22 @@
   <a style="color: transparent;" onselectstart="return false;" onmousedown="return false;"> This is HW 1 task for Quantory JS school </a>
 </head>
 
-<body onclick="sound.muted = !sound.muted;"> 
+<body> 
   <video id="sound"controls loop muted autoplay playsinline>
     <source src="Source/ES_PREL_Laser_3_-_SFX_Producer.mp3"> 
   </video>
-  <svg id="container" class="container" x="0px" y="0px" width="100%" height="100%" viewBox="-2.8 -1 27.8 23.5" preserveAspectRatio="none">
-    <path d="M 1 1 L 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 Z" fill="none" stroke-width="0.01" style="display: block; stroke: #ccc;">fill="none" stroke-width="0.01" style="stroke: #ccc;"></path>
-    <image id="logo1" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="marker" style="offset-path: path('M 1 1 L 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 Z'); animation: move calc(var(--time)*40) linear infinite, cch calc(var(--time)*7) step-start infinite;"></image>
-    <image id="logo2" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="marker" style="offset-path: path('M 14 21 L 7 1 L 1 18.1 L 2 21 L 9 1 L 16 21 L 21 6.7 L 19 1 L 12 21 L 5 1 L 1 12.4 L 4 21 L 11 1 L 18 21 L 21 12.4 L 17 1 L 10 21 L 3 1 L 1 6.7 L 6 21 L 13 1 L 20 21 L 21 18.1 L 15 1 L 8 21 L 1 1 L 8 21 L 15 1 L 21 18.1 L 20 21 L 13 1 L 6 21 L 1 6.7 L 3 1 L 10 21 L 17 1 L 21 12.4 L 18 21 L 11 1 L 4 21 L 1 12.4 L 5 1 L 12 21 L 19 1 L 21 6.7 L 16 21 L 9 1 L 2 21 L 1 18.1 L 7 1 L 14 21 L 21 1 L 14 21 Z'); animation: move calc(var(--time)*80) linear infinite, cch calc(var(--time)*14) step-start infinite;"></image>
-    <image id="logo3" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="marker" style="offset-path: path('M 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 L 1 1 Z'); animation: move calc(var(--time)*120) linear infinite, cch calc(var(--time)*21) step-start infinite;"></image>
-    <image id="logo4" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="marker" style="offset-path: path('M 10 21 L 17 1 L 21 12.4 L 18 21 L 11 1 L 4 21 L 1 12.4 L 5 1 L 12 21 L 19 1 L 21 6.7 L 16 21 L 9 1 L 2 21 L 1 18.1 L 7 1 L 14 21 L 21 1 L 14 21 L 7 1 L 1 18.1 L 2 21 L 9 1 L 16 21 L 21 6.7 L 19 1 L 12 21 L 5 1 L 1 12.4 L 4 21 L 11 1 L 18 21 L 21 12.4 L 17 1 L 10 21 L 3 1 L 1 6.7 L 6 21 L 13 1 L 20 21 L 21 18.1 L 15 1 L 8 21 L 1 1 L 8 21 L 15 1 L 21 18.1 L 20 21 L 13 1 L 6 21 L 1 6.7 L 3 1 Z'); animation: move calc(var(--time)*160) linear infinite, cch calc(var(--time)*28) step-start infinite;"></image>
+  <svg id="container" class="container" x="0px" y="0px" width="100%" height="100%" viewBox="-1.6 -1 25.4 24" preserveAspectRatio="none" onclick="sound.muted = !sound.muted;">
+    
+    <image id="logo1" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="logo1"></image>
+    <image id="logo2" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="logo2"></image>
+    <image id="logo3" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="logo3"></image>
+    <image id="logo4" href="Source/Logo.png"  width="8" height="4" transform-origin="4 2" class="logo4"></image> 
   </svg>
+  <button>
+    <a href="index.html">Back>></a> 
+  </button>
 </body>
 
 <footer>
-  <a href="index.html">Back>></a> 
 </footer>
 </html>

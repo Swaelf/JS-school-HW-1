@@ -1,19 +1,19 @@
 :root{
-  --maincolor: rgba(0, 0, 0, 1);
-  --shadowcolor: rgba(100, 100, 100, 0.5);
-  --buttoncolor: rgba(230, 210, 200, 1);
-  --bordercolor: rgba(100, 100, 50, 0.8);
-  --slidercolor: #efefef61;
-  --flickcolor: #000000;
-  --flickcolor2: #e1e1e1;
-  --hsize: 15vh;
-  --wsize: 15vw;
+  --maincolor: rgba(200, 200, 200, 1);
+  --shadowcolor: rgba(150, 150, 150, 0.5);
+  --buttoncolor: rgba(200, 200, 200, 0.5);
+  --bordercolor: rgba(50, 50, 100, 0.8);
   --time: 0.816s;
+  --path1: 'M 1 1 L 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 Z';
+  --path2: 'M 14 21 L 7 1 L 1 18.1 L 2 21 L 9 1 L 16 21 L 21 6.7 L 19 1 L 12 21 L 5 1 L 1 12.4 L 4 21 L 11 1 L 18 21 L 21 12.4 L 17 1 L 10 21 L 3 1 L 1 6.7 L 6 21 L 13 1 L 20 21 L 21 18.1 L 15 1 L 8 21 L 1 1 L 8 21 L 15 1 L 21 18.1 L 20 21 L 13 1 L 6 21 L 1 6.7 L 3 1 L 10 21 L 17 1 L 21 12.4 L 18 21 L 11 1 L 4 21 L 1 12.4 L 5 1 L 12 21 L 19 1 L 21 6.7 L 16 21 L 9 1 L 2 21 L 1 18.1 L 7 1 L 14 21 L 21 1 Z';
+  --path3: 'M 21 8 L 1 15 L 18.1 21 L 21 20 L 1 13 L 21 6 L 6.7 1 L 1 3 L 21 10 L 1 17 L 12.4 21 L 21 18 L 1 11 L 21 4 L 12.4 1 L 1 5 L 21 12 L 1 19 L 6.7 21 L 21 16 L 1 9 L 21 2 L 18.1 1 L 1 7 L 21 14 L 1 21 L 21 14 L 1 7 L 18.1 1 L 21 2 L 1 9 L 21 16 L 6.7 21 L 1 19 L 21 12 L 1 5 L 12.4 1 L 21 4 L 1 11 L 21 18 L 12.4 21 L 1 17 L 21 10 L 1 3 L 6.7 1 L 21 6 L 1 13 L 21 20 L 18.1 21 L 1 15 L 21 8 L 1 1 Z';
+  --path4: 'M 10 21 L 17 1 L 21 12.4 L 18 21 L 11 1 L 4 21 L 1 12.4 L 5 1 L 12 21 L 19 1 L 21 6.7 L 16 21 L 9 1 L 2 21 L 1 18.1 L 7 1 L 14 21 L 21 1 L 14 21 L 7 1 L 1 18.1 L 2 21 L 9 1 L 16 21 L 21 6.7 L 19 1 L 12 21 L 5 1 L 1 12.4 L 4 21 L 11 1 L 18 21 L 21 12.4 L 17 1 L 10 21 L 3 1 L 1 6.7 L 6 21 L 13 1 L 20 21 L 21 18.1 L 15 1 L 8 21 L 1 1 L 8 21 L 15 1 L 21 18.1 L 20 21 L 13 1 L 6 21 L 1 6.7 L 3 1 Z';
   }
 
 html, body {
-  height: 96vh;
-  width: 98vw;
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
 audio {
@@ -28,25 +28,77 @@ video {
 body {
   position: fixed;
   background: #303030;
-  //border: 2px solid white;
+}
+
+button {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px;
+  border: transparent;
+  top: calc(100% - 25px);
+  left: calc(0% + 5px);
+  transform: translate(-0%, -0%);
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));;
+  filter: drop-shadow(0px 0px 20px var(--shadowcolor));
+  transition: all;
+}
+button:hover {
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));
 }
 
 a {
-  position: absolute;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   font-size: 10px;
-  color: white;
+  color: black;
+  font-family: system-ui;
+  text-decoration: none;
+  font-weight: bold;
 }
 .container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  //border: 2px solid white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  border: 1px solid white;
 }
 
-.marker {
+.logo1 {
+  transform: rotateY(45deg);
   offset-rotate: 0deg;
-  filter: invert(60%) sepia(67%) saturate(4197%) hue-rotate(84deg) brightness(128%) contrast(120%);
-  animation: move calc(var(--time)*40) linear infinite, cch calc(var(--time)*7) step-start infinite;
+  offset-path: path(var(--path1));
+  animation:  move calc(var(--time)*40) linear infinite,
+              cch calc(var(--time)*7) step-start infinite;
+}
+.logo2 {
+  transform: rotateY(45deg);
+  offset-rotate: 0deg;
+  offset-path: path(var(--path2));
+  animation:  move calc(var(--time)*80) linear infinite, 
+              cch calc(var(--time)*14) step-start infinite;
+}
+.logo3 {
+  transform: rotateY(45deg);
+  offset-rotate: 0deg;
+  offset-path: path(var(--path3));
+  animation:  move calc(var(--time)*120) linear infinite, 
+              cch calc(var(--time)*21) step-start infinite;
+}
+.logo4 {
+  transform: rotateY(45deg);
+  offset-rotate: 0deg;
+  offset-path: path(var(--path4));
+  animation:  move calc(var(--time)*160) linear infinite, 
+              cch calc(var(--time)*28) step-start infinite;
 }
 
 @keyframes move {
