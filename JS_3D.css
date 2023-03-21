@@ -100,8 +100,6 @@ a {
 .cube__face--right  { transform: rotateY( 90deg); }
 .cube__face--back   { transform: rotateY(180deg); }
 .cube__face--left   { transform: rotateY(-90deg); }
-.cube__face--top    { transform: rotateX( 90deg); }
-.cube__face--bottom { transform: rotateX(-90deg); }
 
 .cube__face--front  { transform: rotateY(  0deg) translateZ(50vh); }
 .cube__face--right  { transform: rotateY( 90deg) translateZ(50vw); }
