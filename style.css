@@ -1,131 +1,34 @@
-a {
-  color: black;
-  font-family: verdana;
-  font-size: 100%;
-  position: absolute;
-  top:  90%;
-  left: 90%;
-  transform: translate(-50%,-50%);
+//variables
+$baseColor : white;
+$fontColor : red;
+$initdeg : 15deg;
+
+body{
+  background: $baseColor;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
 }
-h1 {
- color: blue;
- font-family: verdana;
- font-size: 300%;
+svg{
+  width: 100px;
+  height: 100px;
+  margin: 20px;
 }
-p {
- color: red;
- font-family: courier;
- font-size: 160%;
+.clock {
+  transform: translate(50px, 50px)
 }
 
-body {
-  background-image: url(Textures/backgroundImage.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+.clock__hour {
+  animation: rotate 50s linear infinite;
 }
-.box {
-  border-radius: 30px;
-  background: white;
-  border: 1px solid grey;
-  width: 265px;
-  height: 545px;
-  position: absolute;
-  top:  50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+.clock__minute {
+  animation: rotate 5.6s steps(60, end) infinite;
 }
-.screen {
-  background: black;
-  background-image: url(Textures/iphone-classic.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  width: 250px;
-  height: 440px;
-  position: absolute;
-  top:  50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.button {
-  background: white;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  border: 2px solid grey;
-  position: absolute;
-  top:  95%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.speaker {
-  background: black;
-  border-radius: 1px;
-  width: 40px;
-  height: 3.5px;
-  position: absolute;
-  top:  30px;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.camera {
-  background: black;
-  border-radius: 50%;
-  width: 5px;
-  height: 5px;
-  position: absolute;
-  top:  20px;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.camera1 {
-  background: black;
-  border-radius: 50%;
-  width: 7px;
-  height: 7px;
-  position: absolute;
-  top:  35px;
-  left: 30%;
-  transform: translate(-50%,-50%);
-}
-.side_but1 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 25px;
-  position: absolute;
-  top:  75px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but2 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  120px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but3 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  170px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but4 {
-  background: white;
-  border-radius: 0px 2px 2px 0px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  120px;
-  left: 267px;
-  transform: translate(-50%,-50%);
+
+@keyframes rotate {
+  from {
+    transform: translate(50px, 50px) rotate(0deg);
+  }
+  to {
+    transform: translate(50px, 50px) rotate(360deg);
+  }
 }
