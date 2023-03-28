@@ -13,10 +13,35 @@ svg{
   height: 100px;
   margin: 20px;
 }
-.clock {
-  transform: translate(50px, 50px)
+.container{
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-template-rows: auto auto;
+}
+.example {
+  grid-column: 2;
+  grid-row: 2;
+  width: 200px;
+  height: 150px;
+}
+.example__text{
+  text-align: center;
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 12px;
 }
 
+.clock {
+  grid-column: 1;
+  grid-row: 2;
+  transform: translate(50px, 50px);
+}
+.clock__text{
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
+  font-size: 12px;
+}
 .clock__hour {
   animation: rotate 50s linear infinite;
 }
