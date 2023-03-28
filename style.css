@@ -400,7 +400,7 @@ html, body {
   border-radius: 12px;
   background-color: #ffffff;
   flex-direction: column;
-  gap: 32px;
+  gap: 30px;
 }
 .container__body__frame__chart__header {
   display: flex;
@@ -419,11 +419,54 @@ html, body {
   height: 24px;
 }
 .container__body__frame__chart__axis {
-  display: flex;
-  margin-left: 0px;
-  margin-top: -2px;
+  display: grid;
+  height: 289px;
+  width: 100%;
   box-sizing: border-box;
+  grid-template-columns: 23px auto;
+  grid-template-rows: 240px auto;
+  grid-gap: 30px;
+  padding: 0px 24px 0px 24px;
 }
+.container__body__frame__chart__axis__linechart {
+  width: 100%;
+  height: 240px;
+  margin-left: 0px;
+  margin-top: 0px;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.container__body__frame__chart__axis__xaxis {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #9D9FA1;
+}
+.container__body__frame__chart__axis__yaxis {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #9D9FA1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  padding-bottom: 32px;
+}
+.container__body__frame__chart__axis__element{  }
 .container__body__frame__chart__legend {
   display: flex;
   min-height: 22px;
@@ -454,6 +497,8 @@ html, body {
 .container__body__frame__chart__legend__element__dot--green {
   background-color: #20C997;
 }
+
+
 .container__body__frame__table {
   display: flex;
   box-sizing: border-box;
@@ -505,7 +550,7 @@ html, body {
 }
 .container__body__frame__table__tablecontent__row__element { 
   display: flex;
-  height: 75px;
+  height: 76px;
   width: 100%;
   align-items: center;
   padding: 0px 20px 0px 20px;
@@ -638,14 +683,14 @@ html, body {
     padding: 0;
 
   }
-.container__body__frame__banner {
-  height: 196px;
-  align-items: center;
-  flex-direction: column;
-  padding: 32px;
-  justify-content: center;
-  gap: 2px;
-  box-sizing: border-box;
+  .container__body__frame__banner {
+    height: 196px;
+    align-items: center;
+    flex-direction: column;
+    padding: 32px;
+    justify-content: center;
+    gap: 2px;
+    box-sizing: border-box;
   }
   .container__body__frame__banner__button { 
     display: flex;
@@ -708,6 +753,7 @@ html, body {
   }
   .container__body__frame__chart__axis {
     min-height: 286px;
+    grid-gap: 10px;
   }
   .container__body__frame__table__tablecontent { 
     min-width: 300px;
