@@ -4,15 +4,49 @@
 <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
+  <div class="topbar">
+    <div class="topbar__side">
+        <div class="topbar__side__branding">
+          <object class="topbar__side__branding__logo" data="Source/Logo.svg"></object>
+        </div>
+    </div>
+
+    <div class="topbar__body">
+        <div class="topbar__body__search">
+          <div class="topbar__body__search__string">
+            <object class="topbar__body__search__string__icon" data="Source/Topbar/search.svg"></object>
+            <span class="topbar__body__search__string__form">Search...</span>
+          </div>
+        </div>
+        <div class="topbar__body__items">
+          <div class="topbar__body__items__icons">
+            <div class="topbar__body__items__icons__icon">
+              <div class="topbar__body__items__icons__icon__indicator"></div>
+              <object class="topbar__body__items__icons__icon__pic" data="Source/Topbar/Notification.svg"></object>
+            </div>
+            <div class="topbar__body__items__icons__icon">
+              <object class="topbar__body__items__icons__icon__pic" data="Source/Topbar/calendar.svg"></object>
+            </div>
+            <div class="topbar__body__items__icons__icon">
+              <object class="topbar__body__items__icons__icon__pic" data="Source/Topbar/layout-grid.svg"></object>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+    <div class="topbar__avatar">
+      <object class="topbar__avatar__icon" data="Source/Topbar/Avatar.svg"></object>
+    </div>
+
+
+
+  </div>
+
   <div class="container">
     <div class="container__sidebar" >
-      <div class="container__sidebar__header">
-        <div class="container__sidebar__header__branding">
-          <object class="container__sidebar__header__branding__logo" data="Source/Logo.svg"></object>
-        </div>
-      </div>
       <div class="container__sidebar__menu">
         <div class="container__sidebar__menu__section01">
           <div class="container__sidebar__menu__section01__title">D A S H B O A R D</div>
@@ -105,29 +139,7 @@
     </div>
 
     <div class="container__body">
-      <div class="container__body__topbar">
-        <div class="container__body__topbar__search">
-          <div class="container__body__topbar__search__string">
-            <object class="container__body__topbar__search__string__icon" data="Source/Topbar/search.svg"></object>
-            <span class="container__body__topbar__search__string__form">Search...</span>
-          </div>
-        </div>
-        <div class="container__body__topbar__items">
-          <div class="container__body__topbar__items__icons">
-            <div class="container__body__topbar__items__icons__icon">
-              <div class="container__body__topbar__items__icons__icon__indicator"></div>
-              <object class="container__body__topbar__items__icons__icon__pic" data="Source/Topbar/Notification.svg"></object>
-            </div>
-            <div class="container__body__topbar__items__icons__icon">
-              <object class="container__body__topbar__items__icons__icon__pic" data="Source/Topbar/calendar.svg"></object>
-            </div>
-            <div class="container__body__topbar__items__icons__icon">
-              <object class="container__body__topbar__items__icons__icon__pic" data="Source/Topbar/layout-grid.svg"></object>
-            </div>
-          </div>
-        </div>
-        <object class="container__body__topbar__items__avatar" data="Source/Topbar/Avatar.svg"></object>
-      </div>
+
 
       <div class="container__body__frame">
         <div class="container__body__frame__banner">
@@ -218,34 +230,35 @@
                 Installed apps</span>
             <object class="container__body__frame__table__cardheader__icon"  data="Source/Icon/Dots Vertical.svg"></object>
           </div>
-          <div class="container__body__frame__table__tableheader">
-            <span class="container__body__frame__table__tableheader__element">Source</span>
-            <span class="container__body__frame__table__tableheader__element">Amount</span>
-            <span class="container__body__frame__table__tableheader__element">Status</span>
-            <span class="container__body__frame__table__tableheader__element">User ID</span>
-            <span class="container__body__frame__table__tableheader__element">Joined</span>
-            <span class="container__body__frame__table__tableheader__element">Group</span>
-          </div>
           <div class="container__body__frame__table__tablecontent">
+            <div class="container__body__frame__table__tablecontent__row container__body__frame__table__tablecontent__row--header"> 
+                <span class="container__body__frame__table__tablecontent__tableheader__element">Source</span>
+                <span class="container__body__frame__table__tablecontent__tableheader__element">Amount</span>
+                <span class="container__body__frame__table__tablecontent__tableheader__element">Status</span>
+                <span class="container__body__frame__table__tablecontent__tableheader__element">User ID</span> 
+                <span class="container__body__frame__table__tablecontent__tableheader__element">Joined</span> 
+                <span class="container__body__frame__table__tablecontent__tableheader__element">Group</span>
+            </div>
+          
             <div class="container__body__frame__table__tablecontent__row">
               <div class="container__body__frame__table__tablecontent__row__element">
                 <object class="container__body__frame__table__tablecontent__row__element__icon" data="Source/Table/Zepelin.svg"></object>
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--main">Zepelin</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">686.00</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">686.00</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--active">Active</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">114423</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">114423</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">October</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">October</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">Design</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">Design</span>
               </div>
             </div>
          
@@ -255,19 +268,19 @@
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--main">Figma</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">864.00</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">864.00</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--pending">Pending</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">76223</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">76223</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">June</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">June</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">Finance</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">Finance</span>
               </div>
             </div>
 
@@ -277,19 +290,19 @@
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--main">Meta</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">176.00</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">176.00</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--cancelled">Cancelled</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">89453</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">89453</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">March</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">March</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">Coding</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">Coding</span>
               </div>
             </div>
 
@@ -299,19 +312,19 @@
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--main">Angular</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">49.00</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">49.00</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--active">Active</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">11467</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">11467</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">February</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">February</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">Marketing</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">Marketing</span>
               </div>
             </div>
 
@@ -321,27 +334,27 @@
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--main">Vue</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">999.00</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">999.00</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
                 <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--active">Active</span>
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">67385</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">67385</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">October</span> 
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">October</span> 
               </div>
               <div class="container__body__frame__table__tablecontent__row__element">
-                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--element">Finance</span>
+                <span class="container__body__frame__table__tablecontent__row__element__text container__body__frame__table__tablecontent__row__element__text--col">Finance</span>
               </div>
             </div>
        
           </div>
-          <div class="container__body__frame__table__tablecontent__navigation">
-              <object class="container__body__frame__table__tablecontent__navigation__arrow" data="Source/Table/arrow-left.svg"></object>
+          <div class="container__body__frame__table__navigation">
+              <object class="container__body__frame__table__navigation__arrow" data="Source/Table/arrow-left.svg"></object>
               1/15
-              <object class="container__body__frame__table__tablecontent__navigation__arrow" data="Source/Table/arrow-right.svg"></object>
+              <object class="container__body__frame__table__navigation__arrow" data="Source/Table/arrow-right.svg"></object>
           </div>
         </div>
       </div>
