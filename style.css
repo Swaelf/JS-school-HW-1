@@ -1,131 +1,359 @@
+
+ :root{
+  --maincolor: rgba(250, 250, 240, 1);
+  --shadowcolor: rgba(0, 0, 0, 0.5);
+  --buttoncolor: rgba(230, 210, 200, 1);
+  --bordercolor: rgba(100, 100, 50, 0.8);
+  --slidercolor: #efefef61;
+  --flickcolor: #000000;
+  --flickcolor2: #e1e1e1;
+  --hsize: 548px;
+  --wsize: 266px;
+}
+
+@font-face {
+  font-family: ClockFont;
+  src: url(Source/HelveticaNeue-UltraLight.otf);
+}
+@font-face {
+  font-family: HelveticaMediunFont;
+  src: url(Source/HelveticaNeue-Medium.otf);
+}
 a {
   color: black;
   font-family: verdana;
   font-size: 100%;
-  position: absolute;
-  top:  90%;
-  left: 90%;
-  transform: translate(-50%,-50%);
+  //position: relative;
+  //top:  90%;
+  //left: 90%;
+  //transform: translate(-50%,-50%);
 }
 h1 {
- color: blue;
- font-family: verdana;
- font-size: 300%;
+ color: lightgrey;
+ font-family: ClockFont;
+ font-weight: 100;
+ font-size: 50px;
 }
-p {
- color: red;
- font-family: courier;
- font-size: 160%;
+h2 {
+ color: lightgray;
+ font-family: Arial;
+ font-size: 9px;
+}
+h3 {
+ color: lightgray;
+ font-family: Arial;
+ font-size: 10px;
+}
+h4 {
+ color: grey;
+ font-family: HelveticaMediunFont;
+ font-weight: 100;
+}
+html {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-image: url(Source/backgroundImage.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 100%;
+  height: calc(100% - 25px);
 }
 
-body {
-  background-image: url(Textures/backgroundImage.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+.container { 
+  width: inherit;
+  height: inherit;
+  min-width: calc(var(--wsize) + 10px);
+  min-height: calc(var(--hsize) + 10px);
+  position: relative;
 }
 .box {
-  border-radius: 30px;
-  background: white;
-  border: 1px solid grey;
-  width: 265px;
-  height: 545px;
+  border-radius: 37px;
+  background: var(--maincolor);
+  border: 2px solid var(--bordercolor);
+  filter: drop-shadow(-20px -16px 10px var(--shadowcolor));
+  width: var(--wsize);
+  height: var(--hsize);
+  position: absolute;
+  top:  50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%,-50%);
+}
+.boxsh {
+  border-radius: 33px;
+  background: var(--maincolor);
+  border: transparent; 
+  filter: drop-shadow(0px 0px 20px var(--bordercolor))
+          blur(2px);
+  width: calc(var(--wsize) - 4px);
+  height: calc(var(--hsize) - 6px);
   position: absolute;
   top:  50%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
+
 .screen {
   background: black;
-  background-image: url(Textures/iphone-classic.jpg);
+  background-image: url(Source/iphone-classic.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
-  width: 250px;
-  height: 440px;
+  border: 2px solid black;
+  width: 239px;
+  height: 424px;
   position: absolute;
   top:  50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  animation: screenchange 15s infinite;
+  animation-delay: 5s;
+  will-change: background;
 }
-.button {
-  background: white;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  border: 2px solid grey;
+.stick {
+  background: lightgrey;
+  opacity: 0.5;
+  border-radius: 2px;
+  width: 21px;
+  height: 4px;
   position: absolute;
-  top:  95%;
+  top:  7px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition: top 1s;
+}
+.stick:hover {
+  top: 10px;
+}
+.stick2 {
+  background: lightgrey;
+  opacity: 0.5;
+  border-radius: 2px;
+  width: 21px;
+  height: 4px;
+  position: absolute;
+  bottom:  3px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition: bottom 1s;
+}
+.stick2:hover {
+  bottom: 6px;
+}
+.camerapng {
+  background: transparent;
+  background-image: url(Source/camera.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 15px;
+  height: 12px;
+  position: absolute;
+  bottom:  -2px;
+  right: -4px;
+  transform: translate(-50%,-50%);
+  transition: width 1s, height 1s;
+}
+.camerapng:hover {
+  width: 18px;
+  height: 15px;
+}
+.battery {
+  background: transparent;
+  background-image: url(Source/battery.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 22px;
+  height: 16px;
+  margin-top: -3px;
+  margin-right: 5px;
+  float: right;
+}
+.topstr {
+  background: transparent;
+  display: inline-block;
+  width: inherit;
+  height: 15px;
+  position: absolute;
+  padding-left: 10px;
+  padding-top: 4px;
+  top:  0px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.wifi {
+  background: transparent;
+  display: inline-block;
+  background-image: url(Source/wifi.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  width: 10px;
+  height: 8px;
+  display: inline-block;
+}
+.dot {
+  background: lightgrey;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  margin-inline: -1px;
+  display: inline-block;
+}
+.clock {
+  background: transparent;
+  color: lightgrey;
+  font-family: ClockFont;
+  font-weight: 100;
+  font-size: 48px;
+  letter-spacing: 2px;
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  height: 100px;
+  top:  93px;
+  left: calc(50%);
+  transform: translate(-50%,-50%);
+}
+.datestr {
+  background: transparent;
+  color: lightgrey;
+  font-family: HelveticaMediunFont;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+  position: absolute;
+  width: 200px;
+  height: 30px;
+  top:  calc(10% + 74px);
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.button {
+  background: var(--maincolor);
+  background: -webkit-radial-gradient(var(--maincolor), var(--maincolor), var(--buttoncolor)) padding-box,
+              -webkit-radial-gradient(10% 35%, 15px 15px, var(--maincolor), 
+                var(--maincolor), var(--bordercolor)) border-box;           
+  border-radius: 50%;
+  width: 33px;
+  height: 33px;
+  border: 2px solid transparent;
+  position: absolute;
+  top:  517px;
   left: 50%;
   transform: translate(-50%,-50%);
 }
 .speaker {
   background: black;
-  border-radius: 1px;
-  width: 40px;
-  height: 3.5px;
+  border-radius: 3px;
+  border: 1px solid var(--shadowcolor);
+  width: 36px;
+  height: 2px;
   position: absolute;
-  top:  30px;
+  top:  31px;
   left: 50%;
   transform: translate(-50%,-50%);
 }
 .camera {
   background: black;
   border-radius: 50%;
-  width: 5px;
-  height: 5px;
+  border: 1px solid var(--shadowcolor);
   position: absolute;
-  top:  20px;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-.camera1 {
-  background: black;
-  border-radius: 50%;
-  width: 7px;
-  height: 7px;
-  position: absolute;
-  top:  35px;
-  left: 30%;
   transform: translate(-50%,-50%);
 }
 .side_but1 {
-  background: white;
+  background: var(--buttoncolor);
+  background: -webkit-linear-gradient(left, var(--buttoncolor), var(--bordercolor));
   border-radius: 2px 0px 0px 2px;
   width: 2px;
-  height: 25px;
+  height: 19px;
   position: absolute;
-  top:  75px;
-  left: -2px;
+  top:  74px;
+  left: -3px;
   transform: translate(-50%,-50%);
 }
 .side_but2 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  120px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but3 {
-  background: white;
-  border-radius: 2px 0px 0px 2px;
-  width: 2px;
-  height: 40px;
-  position: absolute;
-  top:  170px;
-  left: -2px;
-  transform: translate(-50%,-50%);
-}
-.side_but4 {
-  background: white;
+  background: var(--buttoncolor);
+  background: -webkit-linear-gradient(left, var(--bordercolor), var(--maincolor));
   border-radius: 0px 2px 2px 0px;
   width: 2px;
-  height: 40px;
+  height: 34px;
   position: absolute;
-  top:  120px;
-  left: 267px;
+  top:  122px;
+  right: -4px;
   transform: translate(-50%,-50%);
+}
+.sidepin {
+  background: var(--maincolor);
+  width: 2px;
+  height: 7px;
+  position: absolute;
+  transform: translate(-50%,-50%);
+}
+
+.wrapper{
+  background-color: transparent;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.flicker {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--slidercolor);
+  background: -webkit-linear-gradient(left, 
+    var(--flickcolor), 
+    var(--flickcolor2), 
+    var(--flickcolor2), 
+    var(--flickcolor)) no-repeat;
+  background-size: 50px 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: flick 2s infinite;
+}
+.flicker:hover~.arrow {
+  left: 108px;
+}
+.arrow {
+  color: var(--slidercolor);
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  top: 28px;
+  left: -12px;
+  transform: translate(-50%,-50%); 
+  transition: all 500ms 
+}
+
+@keyframes flick {
+  0% {
+    background-position: center left;
+  }
+  100% {
+    background-position: center right;
+  }
+}
+@keyframes screenchange {
+  0% {
+    background-image: url('Source/iphone-classic.jpg');
+  }
+  10% {
+    background-image: url('Source/iphone-classic.jpg');
+  }
+  33% {
+    background-image: url('Source/Wall_1.jpg');
+  }
+  66% {
+    background-image: url('Source/Wall_3.jpg');
+  }
+  100% {
+    background-image: url('Source/iphone-classic.jpg');
+  }
 }

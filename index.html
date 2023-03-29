@@ -1,23 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+  <meta charset='UTF-8'>
+  <link rel="stylesheet" href="style.css">
+  <a style="color: transparent;" onselectstart="return false;" onmousedown="return false;"> This is HW 1 task for Quantory JS school </a>
 </head>
+
 <body>
-  <div class="box">
-    <div class="screen"></div>
-    <div class="speaker"></div>
-    <div class="camera"></div>
-    <div class="camera1"></div>
-    <div class="button"></div>
-    <div class="side_but1"></div>
-    <div class="side_but2"></div>
-    <div class="side_but3"></div>
-    <div class="side_but4"></div>
+  <div class="container">
+    <div class="box" style="display: inline-block;">
+      <div class="boxsh"></div>
+      <div class="screen">
+        <div id="DisplayClock" class="clock" onload="showTime()"></div>
+        <div id="DisplayDate" class="datestr"></div>
+        <div class="wrapper">
+          <h4>
+            <div class="flicker">
+              slide to unlock
+            </div>
+            <div class="arrow">
+              &#9002;
+            </div>
+          </h4>
+        </div>
+        <div class="camerapng"></div>
+        <div class="topstr">
+          <h2>  
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            SingTel
+            <span class="wifi"></span>
+            <span class="battery"></span>
+          </h2>
+        </div>
+        <div class="stick"></div>
+        <div class="stick2"></div>
+      </div>
+      <div class="speaker"></div>
+      <div class="camera" style="width: 3px; height: 3px; top:  15px; left: 50%;"></div>
+      <div class="camera" style="width: 5px; height: 5px; top:  31px; left: calc(50% - 38px);"></div>
+      <div class="button"></div>
+      <div class="side_but1" style="height: 19px; top:  74px;"></div>
+      <div class="side_but1" style="height: 32px; top:  122px;"></div>
+      <div class="side_but1" style="height: 32px; top:  166px;"></div>
+      <div class="side_but2"></div>
+      <div class="sidepin" style="top: 42px; left: -1px; opacity: 40%;"></div>
+      <div class="sidepin" style="top: 507px; left: -1px; opacity: 40%;"></div>
+      <div class="sidepin" style="top: 42px; right: -3px; opacity: 80%;"></div>
+      <div class="sidepin" style="top: 507px;  right: -3px; opacity: 80%;"></div>
+    </div>
   </div>
 </body>
 
 <footer>
-<a href="https://www.freepik.com/free-photo/wooden-textured-background_19134697.htm#query=wood%20texture&position=39&from_view=search&track=popular">Image by rawpixel.com on Freepik </a>
+  <script src="CurrentTime.js"></script>
+  <a href="https://www.freepik.com/free-photo/wooden-textured-background_19134697.htm#query=wood%20texture&position=39&from_view=search&track=popular" style="float: right; height: 10px;">Image by rawpixel.com on Freepik </a>
 </footer>
 </html>
