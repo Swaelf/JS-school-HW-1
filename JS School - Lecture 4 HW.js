@@ -24,7 +24,11 @@
   * [1,2,3,4] => [1,3]
   */
 const getOddValues = numbers => {
+  const result = [];
+  numbers.forEach(x => { if (x % 2 != 0) { result.push(x) }});
+  return result;
 };
+console.log(getOddValues([-1,0,1,2,3,4]));
 /**
   * Exercise 2
   *
@@ -32,7 +36,12 @@ const getOddValues = numbers => {
   * [4,2,10,27] => 2
   */
 const getSmallestValue = numbers => {
+  //return Math.min(...numbers);  //not in place)
+  let result = numbers[0];
+  numbers.forEach(x => { if (x < result) { result = x }});
+  return result;
 };
+console.log(getSmallestValue([4,2,10,27]));
 /**
   * Exercise 3
   *
@@ -40,7 +49,12 @@ const getSmallestValue = numbers => {
   * [5,22,9,43] => 43
   */
 const getBiggestValue = numbers => {
+  //return Math.max(...numbers);  //not in place)
+  let result = numbers[0];
+  numbers.forEach(x => { if (x > result) { result = x }});
+  return result;
 };
+console.log(getBiggestValue([5,22,9,43]));
 /**
   * Exercise 4
   *
@@ -59,7 +73,13 @@ const getBiggestValue = numbers => {
   * Use: filter
   */
 const getShorterStrings = (strings, characters = 20) => {
+  return strings.filter(str => str.length<characters);
 };
+console.log(getShorterStrings([
+   'I am a short string',
+   'I seem to be short too',
+   'And I am a long string'
+  ]));
 /**
   * Exercise 5
   *
@@ -78,7 +98,16 @@ const getShorterStrings = (strings, characters = 20) => {
   * Use: map
   */
 const getComputedStrings = fish => {
+  //fish.forEach(x => result.push(x.name + ' likes ' + x.likes)); //Old variant
+  return fish.map(x => x.name + ' likes ' + x.likes);
 };
+console.log(getComputedStrings(
+  [
+   { name: 'shark', likes: 'ocean' },
+   { name: 'turtle', likes: 'pond' },
+   { name: 'otter', likes: 'fish biscuits' }
+  ]
+  ));
 /**
   * Exercise 6
   *
@@ -90,7 +119,14 @@ const getComputedStrings = fish => {
   * We use: ...
   */
 const mergeObjects = objects => {
+  let result = {};
+  //objects.forEach(x => Object.keys(x).forEach(y => result[y] = x[y])) //Old variant
+  objects.forEach(x => result =  {...result,...x})
+  return result;
 };
+console.log(mergeObjects(
+  [{ name: 'Alice' }, { age: 11 }, {lastName: 'Rick'}]
+  ));
 /**
   * Exercise 7
   *
@@ -100,7 +136,11 @@ const mergeObjects = objects => {
   * Use: operator ... and Math.min
   */
 const getSmallestValue2 = numbers => {
+  return Math.min(...numbers);
 };
+console.log(getSmallestValue2(
+  [5,200,-5,41]
+  ));
 /**
   * Exercise 8
   *
@@ -110,7 +150,14 @@ const getSmallestValue2 = numbers => {
   * Use: reduce
   */
 const getOddValues2 = numbers => {
+   return numbers.reduce((acc, value) => {
+    if (value % 2 != 0) { acc.push(value) };
+    return acc;
+  }, []);
 };
+console.log(getOddValues2(
+  [5,200,-5,41]
+  ));
 /**
   * Exercise 9
   *
@@ -129,7 +176,16 @@ const getOddValues2 = numbers => {
   * Use: reduce
   */
 const calculateTotal = products => {
+  return products.reduce((acc, value) => acc += value.price * value.count ,0);
 };
+console.log(calculateTotal(
+  [
+   {price: 10, count: 2},
+   {price: 100, count: 1},
+   {price: 2, count: 5},
+   {price: 15, count: 6},
+  ]
+  ));
 /**
   * Exercise 10
   *
@@ -139,7 +195,14 @@ const calculateTotal = products => {
   * Use: reduce and indexOf
   */
 const getUniqueValues = numbers => {
+  return numbers.reduce((acc, value) => {
+    if (acc.indexOf(value) == -1) { acc.push(value) };
+    return acc;
+  },[])
 };
+console.log(getUniqueValues(
+  [1, 2, 2, 4, 5, 5]
+  ));
 /**
   * Exercise 11
   *
@@ -153,7 +216,16 @@ const getUniqueValues = numbers => {
   * Use: switch case or object like a map structure
   */
 const getErrorMessage = code => {
+  const errors = {500:'Server Error', 401:'Authorization failed', 402:'Server Error', 403:'Access denied', 404:'Not found'};
+  if (errors[code]) {
+    return errors[code];
+  } else {
+    return 'unknown error';
+  };
 };
+console.log(getErrorMessage(
+  401
+  ));
 /**
   * Exercise 12
   *
@@ -163,7 +235,11 @@ const getErrorMessage = code => {
   * Use: .sort()
   */
 const get2SmallestValues = numbers => {
+  return [numbers.sort()[0], numbers.sort()[1]];
 };
+console.log(get2SmallestValues(
+  [4,3,2,1]
+  ));
 /**
   * Exercise 13
   *
@@ -176,7 +252,17 @@ const get2SmallestValues = numbers => {
   * output line with the message 'Name: Petr Ivanovich Vasiliev'
   */
 const getFullName = user => {
+  return 'Name:' + (user.firstName ? ' ' + user.firstName : 'NoName') +  
+    (user.patronymic ? ' ' + user.patronymic : '') + 
+    (user.secondName ? ' ' + user.secondName : '');
 };
+console.log(getFullName(
+  {
+   firstName: 'Peter',
+   secondName: 'Vasiliev',
+   patronymic: 'Ivanovich'
+  }
+  ));
 /**
   * Exercise 14
   *
@@ -188,7 +274,11 @@ const getFullName = user => {
   * Use: map
   */
 const multiplyTo = (numbers, multiplier) => {
+  return numbers.map(x => x * multiplier);
 };
+console.log(multiplyTo(
+  [1,2,3,4], 15
+  ));
 /**
   * Exercise 15
   *
@@ -206,8 +296,18 @@ const multiplyTo = (numbers, multiplier) => {
   *
   * Use: filter, map, join
   */
-const getÐ¡haracterNames = (characters, franchise) => {
+const getCharacterNames = (characters, franchise) => {
+  return characters.filter(x => x.franchise == franchise).map(x => x.name).join(', ');
 };
+console.log(getCharacterNames(
+  [
+   {name: "Batman", franchise: "DC"},
+   {name: "Ironman", franchise: "Marvel"},
+   {name: "Thor", franchise: "Marvel"},
+   {name: "Superman", franchise: "DC"}
+  ],
+   'DC'
+  ));
 
 // ----==== Advanced exercises (8 items) ====----
 /**
@@ -223,7 +323,18 @@ const getÐ¡haracterNames = (characters, franchise) => {
   * => [1,2,3,4]
   */
 const getSmallestRow = numbers => {
+  const result = [];
+  numbers.forEach(x => result.push(Math.min(...x)));
+  return result;
 };
+console.log(getSmallestRow(
+  [
+   [10,1,300,4],
+   [20,2,300,400],
+   [30,3,300,4],
+   [40,5,300,4],
+  ]
+  ));
   /**
   * Exercise 17
   *
@@ -237,7 +348,18 @@ const getSmallestRow = numbers => {
   * => [1,2,3,4]
   */
 const getSmallestColumn = numbers => {
+  const result = [];
+  numbers[0].map((_, colIndex) => numbers.map(row => row[colIndex])).forEach(x => result.push(Math.min(...x)));
+  return result;
 };
+console.log(getSmallestColumn(
+  [
+   [1,2,3,4],
+   [1,2,3,4],
+   [1,2,30,4],
+   [1,2,3,40],
+  ]
+  ));
 /**
   * Exercise 18
   *
@@ -245,7 +367,12 @@ const getSmallestColumn = numbers => {
   * [4,3,2,1] => [4,3]
   */
 const get2BiggestValues = numbers => {
+  numbers.sort();
+  return [numbers[numbers.length-1], numbers[numbers.length-2]]
 };
+console.log(get2BiggestValues(
+  [4,3,2,1]
+  ));
 /**
   * Exercise 19
   *
@@ -255,7 +382,12 @@ const get2BiggestValues = numbers => {
   * 'Return the number (count) of vowels in the given string.' => 15
   */
 const getNumberOfVowels = string => {
+  //return string.match(/['aeiou']/gi).length; // to ignore case of letters 
+  return string.match(/['aeiou']/g).length;
 };
+console.log(getNumberOfVowels(
+  'Return the number (count) of vowels in the given string.'
+  ));
 /**
   * Exercise 20
   *
@@ -265,7 +397,18 @@ const getNumberOfVowels = string => {
   * 'abcdef' => ['AbCdEf', 'aBcDeF']
   */
 const getCapitalizedStrings = string => {
+  const result = [];
+  let temp = [];
+  string.split('').forEach((x, i) => (i % 2 == 0) ? temp.push(x.toUpperCase()) : temp.push(x.toLowerCase()));
+  result.push(temp.join(''))
+  temp = [];
+  string.split('').forEach((x, i) => (i % 2 == 0) ? temp.push(x.toLowerCase()) : temp.push(x.toUpperCase()));
+  result.push(temp.join(''))
+  return result;
 };
+console.log(getCapitalizedStrings(
+  'Return the number (count) of vowels in the given string.'
+  ));
 /**
   * Exercise 21
   *
@@ -285,7 +428,11 @@ const getCapitalizedStrings = string => {
   * S consists only of lowercase letters [a-z]
   */
 const getCorrectString = string => {
+  return string.replace(/([a-z])\1{2,}/g, x => x[0] + x[0]);
 };
+console.log(getCorrectString(
+  'uuuuuuxaaaaaaxuuuttttttyyyyyyyyasas'
+  ));
 /**
  * Exercise 22
  *
@@ -294,7 +441,14 @@ const getCorrectString = string => {
  * [1, 2, [3, 4], 5, [[6, 7], 8], 9] => [1, 2, 3, 4, 5, 6, 7, 8, 9]
  */
 const getFlattenedArray = numbers => {
+  const result = [];
+  const recursive = num => (typeof num == 'object') ? num.forEach(x => recursive(x)) : result.push(num);
+  recursive(numbers);
+  return result;
 };
+console.log(getFlattenedArray(
+  [1, 2, [3, 4], 5, [[6, [7, 6, [5, [4, 3], 2, 1]]], 8], 9]
+  ));
   /**
   * Exercise 23
   *
@@ -303,4 +457,11 @@ const getFlattenedArray = numbers => {
   * [1, 2, 2, 4, 5, 5] => [2, 5]
   */
 const getNotUniqueValues = numbers => {
+  const result = [];
+  const notresult = [];
+  numbers.forEach(x => notresult.includes(x) & !result.includes(x) ? result.push(x) :  notresult.push(x));
+  return result;
 };
+console.log(getNotUniqueValues(
+  [1, 2, 2, 2, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7]
+  ));
