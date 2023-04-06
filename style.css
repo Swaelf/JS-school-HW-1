@@ -666,14 +666,11 @@ html, body {
   .topbar { 
     width: 100%;
     padding: 16px;
-    gap: 24px;
+    //gap: 24px;
+    height: 150px;
     box-sizing: border-box;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
-
-  .topbar__container {
-    flex-direction: column;
   }
 
   .topbar__left{
@@ -681,6 +678,7 @@ html, body {
     min-width: 90px;
     width: 50%;
     height: 40px;
+
   }
 
   .branding {
@@ -700,6 +698,7 @@ html, body {
   .avatar { 
     padding: 0;
     order: 2;
+    max-height: 41px;
   }
 
   .topbar__center__items {
