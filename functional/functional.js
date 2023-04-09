@@ -170,7 +170,7 @@
                 let delButton = Button({id: "task_button_" + i, text: "", onClick: removeItem, appclass: "button__remove"});
                 let tagHolder = Div({id: "tagholder_task_" + i, text: "", appclass: "tasks__tagholder"});
                 let taskLabel = Label({id: "taskLabel_" + i, text: items[i], appclass: "task__text"});
-                let tag = Div({id: "tag_task_" + i, text: "tag", appclass: "tags__item tags__item--home"});
+                let tag = Div({id: "tag_task_" + i, text: "tag", appclass: "tags__item tags__item--other"});
                 let time = Div({id: "time_task_" + i, text: "time", appclass: "tags__item tags__item--time"});
                 tagHolder.append(tag, time);
                 labelContainer.append(taskLabel, tagHolder);
