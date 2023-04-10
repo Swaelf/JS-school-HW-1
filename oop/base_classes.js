@@ -31,6 +31,7 @@ class Component {
         }
         props.htmltext ? div.innerHTML = props.htmltext : div.innerHTML = ''
         div.append(...props.children)
+
         return div;
     }
 

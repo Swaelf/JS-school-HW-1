@@ -2,15 +2,24 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            items: ['item1', 'item2', 'item3'],
-            completeItems: ['Citem 1', 'Citem 2']
+            items: ['Task 1 Title', 'Task 2 Title', 'Task 3 Title'],
+            completeItems: ['Completed Task 1 Title', 'Completed Task 2 Title']
         };
+        console.log(localStorage.getItem("initTasks"));
+        if (localStorage.getItem("initTasks")) {
+            this.state.items = localStorage.getItem("initTasks").split(";");
+        }
+        if (localStorage.getItem("initComplete")) {
+            this.state.completeItems = localStorage.getItem("initComplete").split(";");
+        }
         this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
     }
 
     render(props) {
         let tasks = this.AddRows(this.state.items);
         let completetasks = this.AddCompleteRows(this.state.completeItems);
+        localStorage.setItem("initTasks", this.state.items.join(";"));
+        localStorage.setItem("initComplete", this.state.completeItems.join(";"));
         return super.render({
             children: [
                 new DivElement().render({
@@ -97,13 +106,9 @@ class App extends Component {
                     ]
                 }),
                 new DivElement().render({
-                    items: this.state.items,
-                    addItem: this.addItem,
+                    id: 'container',                
                     class: 'container',
                     removeItem: this.removeItem,
-                    removeCompleteItem: this.removeCompleteItem,     
-                    addRows: this.AddRows,
-                    addCompleteRows: this.addCompleteRows,
                     children: [
                         new Label().render({
                             text: 'To Do List',
@@ -116,27 +121,33 @@ class App extends Component {
                                     id: 'search_str',
                                     children: [],
                                     class: 'topbar__search',
-                                    text: 'Searchstr',
+                                    text: 'Search Task',
                                     type: 'search',
                                     onInput: this.SearchPattern
                                 }),
                                 new Button().render({
                                     class: 'button__add',
-                                    text: '+New Task',
+                                    text: '+ New Task',
                                     onClick: this.NewTask
                                 })
                                 ]
                         }),
                         new DivElement().render({
-                            class: 'tasks__label',
-                            htmltext: 'All Tasks',
-                            children: tasks 
+                            id: 'task_container',
+                            class: 'tasks',
+                            children: [
+                                new DivElement().render({
+                                    class: 'tasks__label',
+                                    htmltext: 'All Tasks',
+                                    children: tasks 
+                                }),
+                                new DivElement().render({
+                                    class: 'tasks__label',
+                                    htmltext: 'Completed Tasks',
+                                    children: completetasks 
+                                })
+                            ]
                         }),
-                        new DivElement().render({
-                            class: 'tasks__label',
-                            htmltext: 'Complete Tasks',
-                            children: completetasks 
-                        })
                     ]              
                 })
             ]
@@ -244,11 +255,33 @@ class App extends Component {
                         type: 'checkbox',
                         onChange: this.ItemComplete
                     }),
-                    new Label().render({
-                        id: 'tasksLabel_' + i,
-                        text: items[i],
-                        class: 'task__text'
-                    }),
+                    new DivElement().render({
+                        id: 'labelContainer_task',
+                        class: 'tasks__labelcontainer',
+                        children: [
+                            new Label().render({
+                                id: 'tasksLabel_' + i,
+                                text: items[i],
+                                class: 'task__text'
+                            }),
+                            new DivElement().render({
+                                id: 'tagholder_task_',
+                                class: 'tasks__tagholder',
+                                children: [
+                                    new Label().render({
+                                        id: 'tag_task_' + i,
+                                        text: 'tag',
+                                        class: 'tags__item tags__item--other'
+                                    }),
+                                    new Label().render({
+                                        id: 'time_task_' + i,
+                                        text: 'time',
+                                        class: 'tags__item tags__item--time'
+                                    })
+                                ]
+                            })
+                        ]
+                    }),     
                     new Button().render({
                         class: 'button__remove',
                         text: '',
@@ -276,12 +309,35 @@ class App extends Component {
                         onChange: this.ItemUnComplete,
                         checked: "checked"
                     }),
-                    new Label().render({
-                        id: 'completeLabel_' + i,
-                        text: items[i],
-                        class: 'task__text task--complete'
+                    new DivElement().render({
+                        id: 'labelContainer_complete_',
+                        class: 'tasks__labelcontainer',
+                        children: [
+                            new Label().render({
+                                id: 'completeLabel_' + i,
+                                text: items[i],
+                                class: 'task__text task--complete'
+                            }),
+                            new DivElement().render({
+                                id: 'tagholder_complete_',
+                                class: 'tasks__tagholder',
+                                children: [
+                                    new Label().render({
+                                        id: 'tag_complete_' + i,
+                                        text: 'tag',
+                                        class: 'tags__item tags__item--inactive'
+                                    }),
+                                    new Label().render({
+                                        id: 'time_complete_' + i,
+                                        text: 'time',
+                                        class: 'tags__item tags__item--time'
+                                    })
+                                ]
+                            })
+                        ]
                     }),
                     new Button().render({
+                        id: 'complete_button_',
                         class: 'button__remove ',
                         text: '',
                         style: "background: none"
