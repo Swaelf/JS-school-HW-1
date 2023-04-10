@@ -5,27 +5,32 @@ class App extends Component {
             items: ['Task 1 Title', 'Task 2 Title', 'Task 3 Title'],
             completeItems: ['Completed Task 1 Title', 'Completed Task 2 Title']
         };
-        console.log(localStorage.getItem("initTasks"));
+
         if (localStorage.getItem("initTasks")) {
             this.state.items = localStorage.getItem("initTasks").split(";");
-        }
+        };
+
         if (localStorage.getItem("initComplete")) {
             this.state.completeItems = localStorage.getItem("initComplete").split(";");
-        }
+        };
+
         this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
+
     }
 
     render(props) {
         let tasks = this.AddRows(this.state.items);
         let completetasks = this.AddCompleteRows(this.state.completeItems);
+
         localStorage.setItem("initTasks", this.state.items.join(";"));
         localStorage.setItem("initComplete", this.state.completeItems.join(";"));
+
         return super.render({
             id: 'oop_container',
             class: 'oop_container',
             children: [
                 new DivElement().render({
-                    id: 'screenlock',
+                    id: 'ScreenLock',
                     class: 'screenlock',
                     children: [
                         new DivElement().render({
@@ -33,12 +38,13 @@ class App extends Component {
                             class: 'newitembox',
                             children: [
                                 new Label().render({
+                                    id: 'NewItemLabel',
                                     text: 'Add New Item',
                                     class: 'newitembox__label',
                                     children: []
                                 }),
                                 new Input().render({
-                                    id: 'newItemInput',
+                                    id: 'NewItemInput',
                                     children: [],
                                     class: 'newitembox__input',
                                     text: 'New Task',
@@ -46,32 +52,33 @@ class App extends Component {
                                     onInput: this.AproveNewItem
                                 }),
                                 new DivElement().render({
+                                    id: 'NewItemAddition',
                                     class: 'newitembox__addition',
                                     children: [
                                         new DivElement().render({
-                                            id: 'newItemTags',
+                                            id: 'NewItemTags',
                                             class: 'newitembox__tags',
                                             children: [
                                                 new Label().render({
-                                                    id: 'newItemTag0',
+                                                    id: 'NewItemTag0',
                                                     class: 'tags__item tags__item--health',
                                                     text: 'health',
                                                     children: []
                                                 }),
                                                 new Label().render({
-                                                    id: 'newItemTag1',
+                                                    id: 'NewItemTag1',
                                                     class: 'tags__item tags__item--work',
                                                     text: 'work',
                                                     children: []
                                                 }),
                                                 new Label().render({
-                                                    id: 'newItemTag2',
+                                                    id: 'NewItemTag2',
                                                     class: 'tags__item tags__item--home',
                                                     text: 'home',
                                                     children: []
                                                 }),
                                                 new Label().render({
-                                                    id: 'newItemTag3',
+                                                    id: 'NewItemTag3',
                                                     class: 'tags__item tags__item--other',
                                                     text: 'other',
                                                     children: []
@@ -79,7 +86,7 @@ class App extends Component {
                                             ]
                                         }),
                                         new Label().render({
-                                            id: 'newItemDate',
+                                            id: 'NewItemDate',
                                             class: 'newitembox__date',
                                             text: this.currentDate,
                                             children: []
@@ -87,16 +94,17 @@ class App extends Component {
                                     ]
                                 }),
                                 new DivElement().render({
+                                    id: 'NewItemButtons',
                                     class: 'newitembox__buttons',
                                     children: [
                                         new Button().render({
-                                            id: 'newItemButtonCancel',
+                                            id: 'NewItemButtonCancel',
                                             class: 'newitembox__button newitembox__button--cancel',
                                             text: 'Cancel',
                                             onClick: this.CancelAction
                                         }),
                                         new Button().render({
-                                            id: 'newItemButtonApply',
+                                            id: 'NewItemButtonApply',
                                             class: 'newitembox__button newitembox__button--apply newitembox__button--enabled',
                                             text: 'Add Task',
                                             onClick: this.ApplyItem
@@ -108,19 +116,21 @@ class App extends Component {
                     ]
                 }),
                 new DivElement().render({
-                    id: 'container',                
+                    id: 'Container',                
                     class: 'container',
                     removeItem: this.removeItem,
                     children: [
                         new Label().render({
+                            id: 'ToDoLabel',
                             text: 'To Do List',
                             class: 'topLabel'
                         }),
                         new DivElement().render({
+                            id: 'TopBar',
                             class: 'topbar',
                             children: [
                                 new Input().render({
-                                    id: 'search_str',
+                                    id: 'SearchString',
                                     children: [],
                                     class: 'topbar__search',
                                     text: 'Search Task',
@@ -128,6 +138,7 @@ class App extends Component {
                                     onInput: this.SearchPattern
                                 }),
                                 new Button().render({
+                                    id: 'AddButton',
                                     class: 'button__add',
                                     text: '+ New Task',
                                     onClick: this.NewTask
@@ -135,15 +146,17 @@ class App extends Component {
                                 ]
                         }),
                         new DivElement().render({
-                            id: 'task_container',
+                            id: 'TaskContainer',
                             class: 'tasks',
                             children: [
                                 new DivElement().render({
+                                    id: 'AllTasks',
                                     class: 'tasks__label',
                                     htmltext: 'All Tasks',
                                     children: tasks 
                                 }),
                                 new DivElement().render({
+                                    id: 'CompletedTasks',
                                     class: 'tasks__label',
                                     htmltext: 'Completed Tasks',
                                     children: completetasks 
@@ -160,18 +173,18 @@ class App extends Component {
         let items = this.state.items;
         let itemsComplete = this.state.completeItems;
         let i;
-            const pattern = document.getElementById("search_str").value;
+            const pattern = document.getElementById("SearchString").value;
             console.log(items);
             for (i in items) {
                 console.log(i);
-                let element = document.getElementById("task_" + i);
+                let element = document.getElementById("Task_" + i);
                 element.style.display = "none";
                 if (items[i].match(pattern)){
                     element.style.display = "flex";
                 }     
             }
             for (i in itemsComplete) {
-                let element = document.getElementById("complete_" + i);
+                let element = document.getElementById("Complete_" + i);
                 element.style.display = "none";
                 if (itemsComplete[i].match(pattern)){
                     element.style.display = "flex";
@@ -180,9 +193,8 @@ class App extends Component {
         }
 
     addItem = () => {
-        const newItemInput = document.getElementById('newItemInput');
+        const newItemInput = document.getElementById('NewItemInput');
 
-        
         this.setState({
             items: [...this.state.items, 'item' + (this.state.items.length + 1)]
         });
@@ -191,19 +203,19 @@ class App extends Component {
     }
 
     ApplyItem = () => {
-        const newItemInput = document.getElementById("newItemInput");
+        const newItemInput = document.getElementById("NewItemInput");
         this.setState({
             items: [...this.state.items, newItemInput.value]
         });
 
-        const screenlock = document.getElementById("screenlock");
+        const screenlock = document.getElementById("ScreenLock");
         screenlock.style.display = "none"
     }
 
     removeItem = (element) => {
         let states = this.state.items;
         const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("task_", "tasksLabel_");
+        const label = parent.replace("Task_", "TasksLabel_");
         const item = document.getElementById(label);
         const removed = states.splice(states.indexOf(item.innerHTML), 1);
 
@@ -216,7 +228,7 @@ class App extends Component {
     removeCompletedItem = (element) => {
         let states = this.state.completeItems;
         const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("complete_", "completeLabel_");
+        const label = parent.replace("Complete_", "CompleteLabel_");
         const item = document.getElementById(label);
         const removed = states.splice(states.indexOf(item.innerHTML), 1);
 
@@ -228,17 +240,17 @@ class App extends Component {
     }
 
     CancelAction = () => {
-        const screenlock = document.getElementById("screenlock");
+        const screenlock = document.getElementById("ScreenLock");
         screenlock.style.display = "none"; 
     }
 
 
     NewTask = () => {
-        const newItemButtonApply = document.getElementById('newItemButtonApply');
+        const newItemButtonApply = document.getElementById('NewItemButtonApply');
         newItemButtonApply.classList.remove("newitembox__button--enabled");
         newItemButtonApply.classList.add("newitembox__button--disabled");
         newItemButtonApply.disabled = true;
-        const screenlock = document.getElementById("screenlock");
+        const screenlock = document.getElementById("ScreenLock");
         screenlock.style.display = "flex"
     }
 
@@ -248,9 +260,10 @@ class App extends Component {
         for (i in items) {
             rows.push(new DivElement().render({
                 class: 'tasks__row',
-                id: "task_" + i,
+                id: "Task_" + i,
                 children: [
                     new Input().render({
+                        id: 'TaskCheckBox_' + i,
                         children: [],
                         text: items[i],
                         class: 'task__checkbox',
@@ -258,25 +271,25 @@ class App extends Component {
                         onChange: this.ItemComplete
                     }),
                     new DivElement().render({
-                        id: 'labelContainer_task',
+                        id: 'LabelContainerTask' + i,
                         class: 'tasks__labelcontainer',
                         children: [
                             new Label().render({
-                                id: 'tasksLabel_' + i,
+                                id: 'TasksLabel_' + i,
                                 text: items[i],
                                 class: 'task__text'
                             }),
                             new DivElement().render({
-                                id: 'tagholder_task_',
+                                id: 'TaskTagHolder_' + i,
                                 class: 'tasks__tagholder',
                                 children: [
                                     new Label().render({
-                                        id: 'tag_task_' + i,
+                                        id: 'TaskTag_' + i,
                                         text: 'tag',
                                         class: 'tags__item tags__item--other'
                                     }),
                                     new Label().render({
-                                        id: 'time_task_' + i,
+                                        id: 'TaskTime_' + i,
                                         text: 'time',
                                         class: 'tags__item tags__item--time'
                                     })
@@ -285,6 +298,7 @@ class App extends Component {
                         ]
                     }),     
                     new Button().render({
+                        id: 'TasksButton_' + i,
                         class: 'button__remove',
                         text: '',
                         onClick: this.removeItem
@@ -301,9 +315,10 @@ class App extends Component {
         for (i in items) {
             rows.push(new DivElement().render({
                 class: 'tasks__row',
-                id: "complete_" + i,
+                id: "Complete_" + i,
                 children: [
                     new Input().render({
+                        id: 'CompleteCheckBox_' + i,
                         children: [],
                         text: items[i],
                         class: 'task__checkbox',
@@ -312,25 +327,25 @@ class App extends Component {
                         checked: "checked"
                     }),
                     new DivElement().render({
-                        id: 'labelContainer_complete_',
+                        id: 'LabelContainerComplete_' + i,
                         class: 'tasks__labelcontainer',
                         children: [
                             new Label().render({
-                                id: 'completeLabel_' + i,
+                                id: 'CompleteLabel_' + i,
                                 text: items[i],
                                 class: 'task__text task--complete'
                             }),
                             new DivElement().render({
-                                id: 'tagholder_complete_',
+                                id: 'CompleteTagHolder_' + i,
                                 class: 'tasks__tagholder',
                                 children: [
                                     new Label().render({
-                                        id: 'tag_complete_' + i,
+                                        id: 'CompleteTag_' + i,
                                         text: 'tag',
                                         class: 'tags__item tags__item--inactive'
                                     }),
                                     new Label().render({
-                                        id: 'time_complete_' + i,
+                                        id: 'CopleteTime_' + i,
                                         text: 'time',
                                         class: 'tags__item tags__item--time'
                                     })
@@ -339,7 +354,7 @@ class App extends Component {
                         ]
                     }),
                     new Button().render({
-                        id: 'complete_button_',
+                        id: 'CompleteButton_' + i,
                         class: 'button__remove ',
                         text: '',
                         style: "background: none"
@@ -351,8 +366,8 @@ class App extends Component {
     }
 
     AproveNewItem = () => {
-        const newItemInput = document.getElementById("newItemInput");
-        const newItemButtonApply = document.getElementById("newItemButtonApply");
+        const newItemInput = document.getElementById("NewItemInput");
+        const newItemButtonApply = document.getElementById("NewItemButtonApply");
         if (newItemInput.value) {
             if (newItemButtonApply.classList.contains("newitembox__button--disabled") == true) {
                 newItemButtonApply.classList.remove("newitembox__button--disabled");
