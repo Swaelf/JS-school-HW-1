@@ -10,7 +10,6 @@
      */
     function useState(initialValue) {
         state = state || initialValue;
-        //let state = initialValue
 
         function setValue(newValue) {
             state = newValue;
@@ -22,7 +21,6 @@
 
     function useStateComplete(initialValue) {
         stateComplete = stateComplete || initialValue;
-        //let state = initialValue
 
         function setValue(newValue) {
             stateComplete = newValue;
@@ -31,20 +29,6 @@
 
         return [stateComplete, setValue];
     }
-
-
-
-    /**
-     * Functional component for the list
-     * @param items {string[]}
-     * @returns {HTMLElement} - List element
-     */
-    /*function List({items}) {
-        const listItems = items.map((item) => `<li>${item}</li>`).join("");
-        const ul = document.createElement("ul");
-        ul.innerHTML = listItems;
-        return ul;
-    }*/
 
     /**
      * Button component
@@ -95,14 +79,13 @@
      * @returns {HTMLDivElement} - The app container
      */
     function App() {
-        let initTasks = ["Item 1", "Item 2", "Item 3"];
-        let initComplete = ["CItem 1", "CItem 2"];
-
-        //console.log(initTasks.join(";"));
-        //localStorage.clear();
+        let initTasks = ["Task 1 Title", "Task 2 Title", "Task 3 Title"];
+        let initComplete = ["Completed Task 1 Title", "Completed Task 2 Title"];
         
-        if (localStorage.getItem("initTasks") || localStorage.getItem("initComplete")) {
+        if (localStorage.getItem("initTasks")) {
             initTasks = localStorage.getItem("initTasks").split(";");
+        }
+        if (localStorage.getItem("initComplete")) {
             initComplete = localStorage.getItem("initComplete").split(";");
         }
 
@@ -113,18 +96,6 @@
         function dialog(title, defaultItem) {
 
         }
-
-        /*function addItem() {
-            const dialogBox = document.getElementById("newItemBox");
-            dialogBox.style.display = "flex";
-
-            //const maxitem = items.length - 1;
-            //const itemTitle = dialog('Please enter item title', `Item ${maxitem + 1}`);
-
-            //if (itemTitle) {
-               // setItems([...items, itemTitle]);
-            //}
-        }*/
 
         function addCompleteItem(item) {
             setItemsComplete([...itemsComplete, item]);
