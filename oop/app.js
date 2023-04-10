@@ -21,6 +21,8 @@ class App extends Component {
         localStorage.setItem("initTasks", this.state.items.join(";"));
         localStorage.setItem("initComplete", this.state.completeItems.join(";"));
         return super.render({
+            id: 'oop_container',
+            class: 'oop_container',
             children: [
                 new DivElement().render({
                     id: 'screenlock',
