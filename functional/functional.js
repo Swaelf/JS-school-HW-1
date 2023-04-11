@@ -80,12 +80,12 @@
      * @param placeHolder {function}
      * @returns {HTMLInputElement} - Input element
      */
-    function Input({id, text, appclass, type, onChange, onInput, placeHolder}) {
+    function Input({id, text, appclass, type, onChange, onInput, onSearch, placeHolder}) {
         const input = document.createElement("input");
         input.id = id;
-        //text ? input.value = text : '';
         input.onchange = onChange;
         input.oninput = onInput;
+        input.onsearch = onSearch;
         input.type = type;
         input.placeholder = placeHolder;
         input.classList = appclass;
@@ -298,7 +298,15 @@
 
             newItemButtonApply.classList.remove("newitembox__button--enabled");
             newItemButtonApply.classList.add("newitembox__button--disabled");
-            newItemButtonApply.disabled = true;                      
+            newItemButtonApply.disabled = true;  
+
+            const newItemBox = document.getElementById('newItemInput');
+            newItemBox.focus();                  
+        }
+
+        function NewTaskSearch() {
+            const newItemButtonApply = document.getElementById("newItemButtonApply");
+            newItemButtonApply.disabled == false ? newItemButtonApply.onclick.apply() : '';          
         }
 
         function ApplyItem() {
@@ -371,6 +379,7 @@
             appclass: "newitembox__input", 
             type: "search", 
             onChange: "", 
+            onSearch: NewTaskSearch,
             onInput: AproveNewItem
         });
 
