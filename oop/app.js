@@ -15,7 +15,7 @@ class App extends Component {
         };
 
         this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
-
+        this.defaultsearch = undefined;
     }
 
     render(props) {
@@ -24,7 +24,7 @@ class App extends Component {
 
         localStorage.setItem("initTasks", this.state.items.join(";"));
         localStorage.setItem("initComplete", this.state.completeItems.join(";"));
-
+        
         return super.render({
             id: 'oop_container',
             class: 'oop_container',
@@ -49,6 +49,7 @@ class App extends Component {
                                     class: 'newitembox__input',
                                     text: 'New Task',
                                     type: 'search',
+                                    onSearch: this.NewTaskSearch,
                                     onInput: this.AproveNewItem
                                 }),
                                 new DivElement().render({
@@ -100,13 +101,13 @@ class App extends Component {
                                         new Button().render({
                                             id: 'NewItemButtonCancel',
                                             class: 'newitembox__button newitembox__button--cancel',
-                                            text: 'Cancel',
+                                            htmltext: 'Cancel',
                                             onClick: this.CancelAction
                                         }),
                                         new Button().render({
                                             id: 'NewItemButtonApply',
                                             class: 'newitembox__button newitembox__button--apply newitembox__button--enabled',
-                                            text: 'Add Task',
+                                            htmltext: 'Add Task',
                                             onClick: this.ApplyItem
                                         }),
                                     ]
@@ -132,6 +133,7 @@ class App extends Component {
                                 new Input().render({
                                     id: 'SearchString',
                                     children: [],
+                                    value: this.defaultsearch,
                                     class: 'topbar__search',
                                     text: 'Search Task',
                                     type: 'search',
@@ -140,10 +142,10 @@ class App extends Component {
                                 new Button().render({
                                     id: 'AddButton',
                                     class: 'button__add',
-                                    text: '+ New Task',
+                                    htmltext: '+ New Task',
                                     onClick: this.NewTask
                                 })
-                                ]
+                            ]
                         }),
                         new DivElement().render({
                             id: 'TaskContainer',
@@ -167,30 +169,32 @@ class App extends Component {
                 })
             ]
         });
+        
     }
 
     SearchPattern = () => {
         let items = this.state.items;
         let itemsComplete = this.state.completeItems;
         let i;
-            const pattern = document.getElementById("SearchString").value;
-            console.log(items);
-            for (i in items) {
-                console.log(i);
-                let element = document.getElementById("Task_" + i);
-                element.style.display = "none";
-                if (items[i].match(pattern)){
-                    element.style.display = "flex";
-                }     
-            }
-            for (i in itemsComplete) {
-                let element = document.getElementById("Complete_" + i);
-                element.style.display = "none";
-                if (itemsComplete[i].match(pattern)){
-                    element.style.display = "flex";
-                }     
-            }
+        const pattern = document.getElementById("SearchString").value;
+        this.defaultsearch = pattern;
+        console.log(items);
+        for (i in items) {
+            console.log(i);
+            let element = document.getElementById("Task_" + i);
+            element.style.display = "none";
+            if (items[i].match(pattern)){
+                element.style.display = "flex";
+            }     
         }
+        for (i in itemsComplete) {
+            let element = document.getElementById("Complete_" + i);
+            element.style.display = "none";
+            if (itemsComplete[i].match(pattern)){
+                element.style.display = "flex";
+            }     
+        }
+    }
 
     addItem = () => {
         const newItemInput = document.getElementById('NewItemInput');
@@ -232,7 +236,6 @@ class App extends Component {
         const item = document.getElementById(label);
         const removed = states.splice(states.indexOf(item.innerHTML), 1);
 
-            
         this.setState({
             completeItems: [...states]
         });
@@ -250,61 +253,71 @@ class App extends Component {
         newItemButtonApply.classList.remove("newitembox__button--enabled");
         newItemButtonApply.classList.add("newitembox__button--disabled");
         newItemButtonApply.disabled = true;
+
         const screenlock = document.getElementById("ScreenLock");
         screenlock.style.display = "flex"
+        const NewItemBox = document.getElementById('NewItemInput');
+        NewItemBox.focus();
+    }
+
+    NewTaskSearch = () => {
+        const NewItemBox = document.getElementById('NewItemButtonApply');
+        NewItemBox.disabled == false ? NewItemBox.onclick.apply() : '';
     }
 
     AddRows = (items) => {
         let i;
         let rows = [];
         for (i in items) {
-            rows.push(new DivElement().render({
-                class: 'tasks__row',
-                id: "Task_" + i,
-                children: [
-                    new Input().render({
-                        id: 'TaskCheckBox_' + i,
-                        children: [],
-                        text: items[i],
-                        class: 'task__checkbox',
-                        type: 'checkbox',
-                        onChange: this.ItemComplete
-                    }),
-                    new DivElement().render({
-                        id: 'LabelContainerTask' + i,
-                        class: 'tasks__labelcontainer',
-                        children: [
-                            new Label().render({
-                                id: 'TasksLabel_' + i,
-                                text: items[i],
-                                class: 'task__text'
-                            }),
-                            new DivElement().render({
-                                id: 'TaskTagHolder_' + i,
-                                class: 'tasks__tagholder',
-                                children: [
-                                    new Label().render({
-                                        id: 'TaskTag_' + i,
-                                        text: 'tag',
-                                        class: 'tags__item tags__item--other'
-                                    }),
-                                    new Label().render({
-                                        id: 'TaskTime_' + i,
-                                        text: 'time',
-                                        class: 'tags__item tags__item--time'
-                                    })
-                                ]
-                            })
-                        ]
-                    }),     
-                    new Button().render({
-                        id: 'TasksButton_' + i,
-                        class: 'button__remove',
-                        text: '',
-                        onClick: this.removeItem
-                    })
+            rows.push(
+                new DivElement().render({
+                    class: 'tasks__row',
+                    id: "Task_" + i,
+                    children: [
+                        new Input().render({
+                            id: 'TaskCheckBox_' + i,
+                            children: [],
+                            text: items[i],
+                            class: 'task__checkbox',
+                            type: 'checkbox',
+                            onChange: this.ItemComplete
+                        }),
+                        new DivElement().render({
+                            id: 'LabelContainerTask' + i,
+                            class: 'tasks__labelcontainer',
+                            children: [
+                                new Label().render({
+                                    id: 'TasksLabel_' + i,
+                                    text: items[i],
+                                    class: 'task__text'
+                                }),
+                                new DivElement().render({
+                                    id: 'TaskTagHolder_' + i,
+                                    class: 'tasks__tagholder',
+                                    children: [
+                                        new Label().render({
+                                            id: 'TaskTag_' + i,
+                                            text: 'tag',
+                                            class: 'tags__item tags__item--other'
+                                        }),
+                                        new Label().render({
+                                            id: 'TaskTime_' + i,
+                                            text: 'time',
+                                            class: 'tags__item tags__item--time'
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),     
+                        new Button().render({
+                            id: 'TasksButton_' + i,
+                            class: 'button__remove',
+                            htmltext: '',
+                            onClick: this.removeItem
+                        })
                     ]
-            }));
+                })
+            );
         }
         return rows;
     }
@@ -356,7 +369,7 @@ class App extends Component {
                     new Button().render({
                         id: 'CompleteButton_' + i,
                         class: 'button__remove ',
-                        text: '',
+                        htmltext: '',
                         style: "background: none"
                     })
                     ]
@@ -405,8 +418,7 @@ class App extends Component {
             items: [...states, newitem]
         });
     }
-
-
+   
 }
 
 document.body.appendChild(new App().render());

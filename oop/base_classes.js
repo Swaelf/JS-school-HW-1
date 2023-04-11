@@ -10,11 +10,6 @@ class Component {
         this.update();
     }
 
-    /**
-     *
-     * @param props
-     * @returns {HTMLElement}
-     */
     render(props = {}) {
         this.props = {...props};
         const div = this.element;
@@ -29,7 +24,9 @@ class Component {
         if (props.style) {
             div.style = props.style;
         }
-        props.htmltext ? div.innerHTML = props.htmltext : div.innerHTML = ''
+        props.value ? div.value = props.value : '';
+        props.onSearch ? div.onsearch = props.onSearch: '';
+        props.htmltext ? div.innerHTML = props.htmltext : div.innerHTML = '';
         div.append(...props.children)
 
         return div;
@@ -37,5 +34,6 @@ class Component {
 
     update() {
         this.render(this.props);
+        document.getElementById("SearchString") ? document.getElementById("SearchString").oninput.apply(): '';
     }
 }

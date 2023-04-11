@@ -1,40 +1,38 @@
+    
+/**
+*
+* @param props
+* @returns {HTMLElement}
+*/
 class Button extends Component {
     constructor() {
         super();
         this.element = document.createElement('button');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.text {string}
-     * @param props.onClick {function}
-     * @returns {HTMLElement}
-     */
     render(props) {
         return super.render({
             id: props.id,
             onClick: props.onClick,
-            children: props.text,
+            children: [],
             class: props.class,
+            htmltext: props.htmltext,
             style: props.style
         });
     }
 }
 
+/**
+*
+* @param props
+* @returns {HTMLElement}
+*/
 class Label extends Component {
     constructor() {
         super();
         this.element = document.createElement('Label');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.text {string}
-     * @param props.onClick {function}
-     * @returns {HTMLElement}
-     */
     render(props) {
         return super.render({
             id: props.id,
@@ -47,34 +45,39 @@ class Label extends Component {
     }
 }
 
+/**
+*
+* @param props
+* @returns {HTMLElement}
+*/
 class Input extends Component {
     constructor() {
         super();
         this.element = document.createElement('Input');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.text {string}
-     * @param props.onClick {function}
-     * @returns {HTMLElement}
-     */
     render(props) {
         return super.render({
             id: props.id,
             children: [],
+            value: props.value,
             placeholder: props.text,
             class: props.class,
             type: props.type,
             style: this.state.style,
             onInput: props.onInput,
             onChange: props.onChange,
+            onSearch: props.onSearch,
             checked: props.checked
         });
     }
 }
 
+/**
+*
+* @param props
+* @returns {HTMLElement}
+*/
 class DivElement extends Component {
     constructor() {
         super();
