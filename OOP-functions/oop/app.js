@@ -256,13 +256,15 @@ class App extends Component {
 
         const screenlock = document.getElementById("ScreenLock");
         screenlock.style.display = "flex"
-        const NewItemBox = document.getElementById('NewItemInput');
-        NewItemBox.focus();
+        const newItemBox = document.getElementById('NewItemInput');
+        newItemBox.value = '';
+        newItemBox.focus();
     }
 
     NewTaskSearch = () => {
-        const NewItemBox = document.getElementById('NewItemButtonApply');
-        NewItemBox.disabled == false ? NewItemBox.onclick.apply() : '';
+        console.log('test');
+        const newItemBox = document.getElementById('NewItemButtonApply');
+        newItemBox.disabled == false ? newItemBox.onclick.apply() : '';
     }
 
     AddRows = (items) => {

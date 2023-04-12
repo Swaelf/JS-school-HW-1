@@ -301,6 +301,7 @@
             newItemButtonApply.disabled = true;  
 
             const newItemBox = document.getElementById('newItemInput');
+            newItemBox.value = '';
             newItemBox.focus();                  
         }
 
