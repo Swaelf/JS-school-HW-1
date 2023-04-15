@@ -1,7 +1,8 @@
 (function () {
-    let state = undefined;
+    let stateTasks = undefined;
     let stateComplete = undefined;
     let defaultsearch = undefined;
+    const localurl = 'http://localhost:3004/tasks';
 
     /**
      * Global application state
@@ -9,33 +10,19 @@
      * @param {T} initialValue
      * @returns {[T, function(T): void]}
      */
-    function useState(initialValue) {
+    function useState(state, initialValue) {
         state = state || initialValue;
 
-        function setValue(newValue) {
+        function setValue(state, newValue, mkr = true) {
             state = newValue;
-            renderApp();
+            mkr ? renderApp(): '';
+            return state;
+
         }
 
         return [state, setValue];
     }
 
-    /**
-     * Global application state for completed
-     * @template T
-     * @param {T} initialValue
-     * @returns {[T, function(T): void]}
-     */
-    function useStateComplete(initialValue) {
-        stateComplete = stateComplete || initialValue;
-
-        function setValue(newValue) {
-            stateComplete = newValue;
-            renderApp();
-        }
-
-        return [stateComplete, setValue];
-    }
 
     /**
      * Button component
@@ -125,43 +112,45 @@
         
         localStorage.getItem("initTasks") ? initTasks = localStorage.getItem("initTasks").split(";"): '';
         localStorage.getItem("initComplete") ? initComplete = localStorage.getItem("initComplete").split(";"): '';
-        
-        const [items, setItems] = useState(initTasks);
-        const [itemsComplete, setItemsComplete] = useStateComplete(initComplete);
+
+        let [items, setItems] = useState(stateTasks, initTasks);
+        let [itemsComplete, setItemsComplete] = useState(stateComplete, initComplete);
+
+        //console.log('complete', itemsComplete);
 
         function addCompleteItem(item) {
-            setItemsComplete([...itemsComplete, item]);
+            stateComplete = setItemsComplete(stateComplete, [...itemsComplete, item]);
         }
 
-        function ItemComplete(element) {      
-            const newitem = removeItem(element);
+        function ItemComplete(element) {  
+            const newitem = removeItem(element, false);
             console.log(newitem);
-            setItemsComplete([...itemsComplete, newitem]);
+            stateComplete = setItemsComplete(stateComplete, [...itemsComplete, newitem]);
         }
 
         function ItemUnComplete(element) {
-            const newitem = removeCompletedItem(element);
+            const newitem = removeCompletedItem(element, false);
             console.log(newitem);
-            setItems([...items, newitem]);
+            stateTasks = setItems(stateTasks, [...items, newitem]);
         }
 
-        function removeItem(element) {
+        function removeItem(element, mkr) {
             const parent = element.srcElement.parentElement.id;
             const label = parent.replace("task_", "taskLabel_");
             const item = document.getElementById(label);
             const removed = items.splice(items.indexOf(item.innerHTML), 1);
             
-            setItems(items);
+            stateTasks = setItems(stateTasks, items, mkr);
             return removed[0];
         }
 
-        function removeCompletedItem(element) {
+        function removeCompletedItem(element, mkr) {
             const parent = element.srcElement.parentElement.id;
             const label = parent.replace("complete_", "completeLabel_");
             const item = document.getElementById(label);
             const removed = itemsComplete.splice(itemsComplete.indexOf(item.innerHTML), 1);
 
-            setItemsComplete(itemsComplete);
+            stateComplete = setItemsComplete(stateComplete, itemsComplete, mkr);
             return removed[0];
         }
 
@@ -293,6 +282,8 @@
         function NewTask() {
             const screenlock = document.getElementById("screenlock");
             screenlock.style.display = "flex";
+            const newItemBox = document.getElementById("newItemBox");
+            newItemBox.style.display = "flex";
 
             const newItemButtonApply = document.getElementById("newItemButtonApply");
 
@@ -300,9 +291,9 @@
             newItemButtonApply.classList.add("newitembox__button--disabled");
             newItemButtonApply.disabled = true;  
 
-            const newItemBox = document.getElementById('newItemInput');
-            newItemBox.value = '';
-            newItemBox.focus();                  
+            const newItemInput = document.getElementById('newItemInput');
+            newItemInput.value = '';
+            newItemInput.focus();                  
         }
 
         function NewTaskSearch() {
@@ -313,14 +304,20 @@
         function ApplyItem() {
             const screenlock = document.getElementById("screenlock");
             screenlock.style.display = "none";
+            const newItemBox = document.getElementById("newItemBox");
+            newItemBox.style.display = "none";
 
             const newItemInput = document.getElementById("newItemInput");
-            setItems([...items, newItemInput.value]);
+            stateTasks = setItems(stateTasks, [...items, newItemInput.value]);
         }
 
         function CancelItem() {
             const screenlock = document.getElementById("screenlock");
-            screenlock.style.display = "none"
+            screenlock.style.display = "none";
+            const newItemBox = document.getElementById("newItemBox");
+            newItemBox.style.display = "none";
+            const newDayBox = document.getElementById("newDayBox");
+            newDayBox.style.display = "none";
         }
 
         function AproveNewItem() {
@@ -347,6 +344,34 @@
 
         }
 
+        function MorningGreatings(currentDate, screenlock, newdaybox) {
+
+            if (localStorage.getItem("currentDate")) {
+                const previouseData = localStorage.getItem("currentDate");
+                if (previouseData != currentDate) {
+                    localStorage.setItem("currentDate", currentDate);
+                    screenlock.style.display = "flex";
+                    newdaybox.style.display = "flex";
+                }
+            } else {
+                localStorage.setItem("currentDate", currentDate);
+                screenlock.style.display = "flex";
+                newdaybox.style.display = "flex";
+            }
+        }
+
+        function AddMorningRows() {
+
+            for (i in items) {
+                let morningTask = Label({
+                    id: "morningTask_" + i, 
+                    text: items[i], 
+                    appclass: "newdaybox__text"
+                })
+                newDayTasks.append(morningTask);
+            }
+        }
+
         const date = new Date().toJSON().slice(0, 10).split("-");
         const currentDate = date.reverse().join(".");
 
@@ -360,6 +385,37 @@
             id: "screenlock", 
             text: "", 
             appclass: "screenlock"
+        });
+
+        const newDayBox = Div({
+            id: "newDayBox", 
+            text: "", 
+            appclass: "newdaybox"
+        });
+
+        const newDayLabel = Label({
+            id: "newDayLabel", 
+            text: "Good Morning", 
+            appclass: "newdaybox__label"
+        });
+
+        const newDayButton = Button({
+            id: "newDayButton",
+            text: "OK",
+            appclass: "newdaybox__button newdaybox__button--apply",
+            onClick: CancelItem
+        });
+
+        const newDayTasksLabel = Label({
+            id: "newDayLabel", 
+            text: "You have the next planned tasks for today: ", 
+            appclass: "newdaybox__taskslabel"
+        });
+
+        const newDayTasks = Div({
+            id: "newDayTasks", 
+            text: "", 
+            appclass: "newdaybox__tasks"
         });
 
         const newItemBox = Div({
@@ -497,7 +553,9 @@
         newItemButtons.append(newItemButtonCancel, newItemButtonApply)
         newItemBox.append(newItemLabel, newItemInput, newItemAddition, newItemButtons);
 
-        screenlock.append(newItemBox);
+        newDayBox.append(newDayLabel, newDayTasksLabel, newDayTasks, newDayButton);
+
+        screenlock.append(newItemBox, newDayBox);
 
         topbar.append(searchBar, button);
 
@@ -508,8 +566,12 @@
         AddRows();
 
         AddRowsCompleted();
+
+        AddMorningRows();
         
         defaultsearch ? searchBar.value = defaultsearch : '';
+
+        MorningGreatings(currentDate, screenlock, newDayBox);
 
         localStorage.setItem("initTasks", items.join(";"));
         localStorage.setItem("initComplete", itemsComplete.join(";"));
@@ -521,11 +583,90 @@
      * Render the app.
      * On change whole app is re-rendered.
      */
-    function renderApp() {
+    async function renderApp() {
+        await getFromServer();
         const appContainer = document.getElementById("functional-example");
         appContainer.innerHTML = "";
         appContainer.append(App());
         document.getElementById("SearchString").oninput.apply();
+        await putIntoServer();
+
+    }
+
+    async function getFromServer() {
+        let itasks = [];
+        let icomplete = [];
+        localStorage.getItem("initTasks") ? localStorage.removeItem("initTasks") : '';
+        localStorage.getItem("initComplete") ? localStorage.removeItem("initComplete") : '';
+
+        const response = await fetch(localurl, { method: "GET" })
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
+        
+        if (Array.isArray(response)) {
+            console.log(response);
+            for (i of response) {
+                if (i.isCompleted) {
+                    icomplete.push(i.title);
+                    console.log('complete= ', i.title);
+                } else {
+                    itasks.push(i.title);
+                    console.log('task = ', i.title);
+                }
+            }
+        }
+
+        localStorage.setItem("initTasks", itasks.join(";"));
+        localStorage.setItem("initComplete", icomplete.join(";"));
+
+        return itasks, icomplete;
+    }
+
+    async function putIntoServer() {
+        let itasks = [];
+        let icomplete = [];
+        localStorage.getItem("initTasks") ? itasks = localStorage.getItem("initTasks").split(";"): '';
+        localStorage.getItem("initComplete") ? icomplete = localStorage.getItem("initComplete").split(";"): '';
+
+        let counter = 0;
+        let data = [];
+        for (i of itasks) {
+            ++counter;
+            data.push({ id: counter, title: i, isCompleted: false});
+        };
+        for (i of icomplete) {
+            ++counter;
+            data.push({ id: counter, title: i, isCompleted: true});
+        };
+
+        console.log(JSON.stringify(data));
+
+        const response = await fetch(localurl, { method: "GET" })
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
+
+        if (Array.isArray(response)) {
+            console.log(response);
+            for (i in response) { 
+                await fetch(localurl + '\/' + (Math.floor(i) + 1), { 
+                method: "DELETE", 
+                })
+                .catch((error) => console.log(error));
+            }
+        }
+
+        for (i in data) {
+            await fetch(localurl, { 
+                method: "POST", 
+                headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(data[i])
+                })
+                .catch((error) => console.log(error));
+            }
+
+        return itasks, icomplete;
     }
 
     // initial render

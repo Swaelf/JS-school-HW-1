@@ -91,12 +91,60 @@ body {
     outline: none;
 }
 
-.topLabel {
+.toplabelbox__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toplabelbox__widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 332px;
+    height: 65px;
+    padding: 22px;
+    box-sizing: border-box;
+    gap: 23px;
+
+}
+
+.toplabelbox__label {
     font-weight: 700;
     font-size: 32px;
     line-height: 36px;
     color: #1D1D1D;
 }
+
+.widget__text {
+    font-size: 18px;
+    line-height: 36px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.widget__text--city {
+    font-weight: 500;
+    color: #838383;
+    width: auto;
+    min-width: 70px;
+}
+
+.widget__text--temperature {
+    font-weight: 700;
+    color: #000000;
+    width: 100%;
+}
+
+.widget__icon {
+    background-image: url(icons/Sunny_with_cloud.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 44px;
+    min-width: 57px;
+
+}
+
 
 .tasks {
     display: flex;
@@ -162,8 +210,77 @@ body {
     color: #838383!important;
 }
 
-.newitembox {
+.newdaybox {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    width: 524px;
+    height: 349px;
+    border-radius: 24px;
+    background-color: #FFFFFF;
+    transform: translate(-50%, -50%);
+    padding: 32px;
+    box-sizing: border-box;
+    gap: 24px;
+}
+
+.newdaybox__label {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    height: 33px;
+    min-height: 33px;
+    box-sizing: border-box;
+}
+
+.newdaybox__taskslabel {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.newdaybox__tasks {
     display: flex;
+    flex-direction: column;
+    height: 349px;
+    gap: 17px;
+    padding: 8px 12px 8px 12px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+
+}
+
+.newdaybox__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.82px;
+    padding-left: 12px;
+    box-sizing: border-box;
+    height: 22px;
+
+}
+
+.newdaybox__button {
+    width: 100%;
+    height: 52px;
+    padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+}
+
+.newdaybox__button--apply {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: #3C86F4;
+}
+
+.newitembox {
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 50vh;

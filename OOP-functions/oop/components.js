@@ -85,6 +85,7 @@ class DivElement extends Component {
     }
 
     render(props) {
+        //console.log(props.class + ' ' + props.style);
         return super.render({
             class: props.class,
             children: props.children,
