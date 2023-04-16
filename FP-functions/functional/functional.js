@@ -3,6 +3,14 @@
     let stateComplete = undefined;
     let defaultsearch = undefined;
     const localurl = 'http://localhost:3004/tasks';
+    let weather = {
+        position: 'Tbilisi',
+        temperature: '??',
+        icon: 'icons/weather/64x64/day/116.png',
+        key: 'd9e8739732f24f7f942112753231504',
+        url: 'http://api.weatherapi.com/v1',
+        isLoad: false
+    };
 
     /**
      * Global application state
@@ -86,11 +94,12 @@
      * @param appclass {string}
      * @returns {HTMLDivElement} - Div element
      */
-    function Div({id, text, appclass}) {
+    function Div({id, text, appclass, background = undefined}) {
         const div = document.createElement("div");
         div.id = id;
         div.innerHTML = text;
         div.classList = appclass;
+        background ? div.style.background = background : '';
         return div;
     }
 
@@ -507,7 +516,7 @@
         const label = Label({
             id: "todo", 
             text: "To Do List", 
-            appclass: "topLabel"
+            appclass: "toplabelbox__label"
         });
 
         const button = Button({
@@ -548,6 +557,40 @@
             onInput: SearchPattern
         });
 
+        const topLabelBox = Div({
+            id: "topLabelBox", 
+            text: "", 
+            appclass: "toplabelbox__container"
+        });
+
+        const topLabelWidget = Div({
+            id: "topLabelWidget", 
+            text: "", 
+            appclass: "toplabelbox__widget"
+        });
+
+        const topLabelIcon = Div({
+            id: "topLabelIcon", 
+            text: "", 
+            style: 'background-image: url(' + weather.icon + ');',
+            appclass: "widget__icon"
+        });
+
+        const topLabelTemperature = Label({
+            id: 'topLabelTemperature',
+            text: weather.temperature + '&#176',
+            appclass: 'toplabelbox__text widget__text--temperature'
+        });
+
+        const topLabelCity = Label({
+            id: 'topLabelTemperature',
+            text: weather.position,
+            appclass: 'toplabelbox__text widget__text--city'
+        });
+
+        topLabelWidget.append(topLabelIcon, topLabelTemperature, topLabelCity);
+        topLabelBox.append(label, topLabelWidget);
+
         newItemTags.append(...newItemTag);
         newItemAddition.append(newItemTags, newItemDate);
         newItemButtons.append(newItemButtonCancel, newItemButtonApply)
@@ -561,7 +604,7 @@
 
         tasks.append(allTasks, completedTasks);
 
-        div.append(screenlock, label, topbar, tasks);
+        div.append(screenlock, topLabelBox, topbar, tasks);
 
         AddRows();
 
@@ -572,6 +615,8 @@
         defaultsearch ? searchBar.value = defaultsearch : '';
 
         MorningGreatings(currentDate, screenlock, newDayBox);
+
+        WeatherCall();
 
         localStorage.setItem("initTasks", items.join(";"));
         localStorage.setItem("initComplete", itemsComplete.join(";"));
@@ -591,6 +636,13 @@
         document.getElementById("SearchString").oninput.apply();
         await putIntoServer();
 
+    }
+
+    function updateForWeather() {
+        const appContainer = document.getElementById("functional-example");
+        appContainer.innerHTML = "";
+        appContainer.append(App());
+        document.getElementById("SearchString").oninput.apply();   
     }
 
     async function getFromServer() {
@@ -669,6 +721,46 @@
         return itasks, icomplete;
     }
 
+    function LocateMe() {
+        if (!navigator.geolocation) {
+            console.log("Geolocation is not supported by your browser");
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    weather.isLoad = true;
+                    weather.position = position.coords.latitude + ',' + position.coords.longitude;
+                    console.log(position.coords.latitude + ',' + position.coords.longitude);
+                    weather.isLoad ? renderApp() : '';
+                },  
+                (error) => {
+                    weather.isLoad = true;
+                    console.log(error);
+                    weather.isLoad ? renderApp() : '';
+                }
+            );
+        }
+    }
+
+    async function WeatherCall() {
+        if (weather.isLoad) {
+            const response = await fetch(
+                weather.url + '/current.json?key=' + weather.key + '&q=' + weather.position
+                )
+                .then(response => response.json())
+                .then(response => {
+                    weather.temperature = response.current.temp_c;
+                    weather.icon = response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons');
+                    weather.position = response.location.name;   
+                    weather.isLoad = false;
+                    console.log('weatherLoad = ok');
+                    updateForWeather();
+                });
+        } else {
+            console.log('weatherLoad = skip')
+        }
+    }
+
     // initial render
+    LocateMe();
     renderApp();
 })();

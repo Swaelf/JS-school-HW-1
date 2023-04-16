@@ -91,12 +91,60 @@ body {
     outline: none;
 }
 
-.topLabel {
+.toplabelbox__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toplabelbox__widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 332px;
+    height: 65px;
+    padding: 22px;
+    box-sizing: border-box;
+    gap: 23px;
+
+}
+
+.toplabelbox__label {
     font-weight: 700;
     font-size: 32px;
     line-height: 36px;
     color: #1D1D1D;
 }
+
+.widget__text {
+    font-size: 18px;
+    line-height: 36px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.widget__text--city {
+    font-weight: 500;
+    color: #838383;
+    width: auto;
+    min-width: 70px;
+}
+
+.widget__text--temperature {
+    font-weight: 700;
+    color: #000000;
+    width: 100%;
+}
+
+.widget__icon {
+    background-image: url(icons/Sunny_with_cloud.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 44px;
+    min-width: 57px;
+
+}
+
 
 .tasks {
     display: flex;
@@ -201,6 +249,7 @@ body {
     padding: 8px 12px 8px 12px;
     box-sizing: border-box;
     overflow-y: scroll;
+    overflow-wrap: break-word;
 
 }
 
