@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Clonify</title>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar__left">
+        <svg class="branding">
+          <image class="branding__logo" href="Source/Logo.svg"></image>
+        </svg>
+    </div>
+    <div class="topbar__center">
+        <div class="topbar__search">
+          <div class="search__string">
+            <svg class="search__element">
+              <image class="search__icon" href="Source/Topbar/search.svg"></image>
+            </svg>
+            <span class="search__element">Search...</span>
+          </div> 
+        </div>
+        <div class="topbar__center__items">
+            <svg class="topbar__items">
+              <circle class="topbar__indicator" cx="21" cy="3" r="3" fill="#E25563"></circle>
+              <image class="topbar__icon" href="Source/Topbar/Notification.svg"></image>
+            </svg>
+            <svg class="topbar__items">
+              <image class="topbar__icon" href="Source/Topbar/calendar.svg"></image>
+            </svg>
+            <svg class="topbar__items">
+              <image class="topbar__icon" href="Source/Topbar/layout-grid.svg"></image>
+            </svg>
+        </div>   
+    </div>
+    <svg class="avatar">
+      <image class="avatar__icon" href="Source/Topbar/Avatar.svg"></image>
+    </svg>
+  </div>
+
+ <div class="container">
+    <div class="sidebar" >
+      <div class="sidebar__menu">
+        <div class="menu__section">
+          <div class="menu__title">D A S H B O A R D</div>
+          <div class="menu__links">
+            <div class="menu__element">
+              <div class="menu__header">
+                <span class="menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/Stats.svg"></img>
+                    <span class="menu__text menu__text--active">Dashboard</span>
+                </span>
+                <span class="menu__element__number"></span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-up.svg"></img>
+              </div>
+              <div class="menu__element__links">
+                <div class="menu__text menu__text--active">Analytics</div>
+                <div class="menu__text menu__text--passive">Finance</div>
+                <div class="menu__text menu__text--passive">Job Board</div>
+              </div>
+            </div>
+            <div class="menu__element">
+              <span class="menu__header">
+                <span class="menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/email.svg"></img>
+                    <span class="menu__text menu__text--passive">Messages</span>
+                </span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-down.svg"></img>
+              </span>
+            </div>
+            <div class="menu__element">
+              <span class="menu__header">
+                <span class="menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/user.svg"></img>
+                    <span class="menu__text menu__text--passive">Friends</span>
+                </span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-down.svg"></img>
+              </span>
+            </div>
+            <div class="menu__element">
+              <span class="menu__header">
+                <span class="menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/grid.svg"></img>
+                    <span class="menu__text menu__text--passive">Apps</span>
+                </span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-down.svg"></img>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="menu__section">
+          <div class="menu__title">P A G E S</div>
+          <div class="menu__links">
+            <div class="menu__element">
+              <span class="menu__header">
+                <span class=" menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/Support.svg"></img>
+                    <span class="menu__text menu__text--passive">Help Center</span>
+                </span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-down.svg"></img>
+              </span>
+            </div>
+            <div class="menu__element">
+              <span class="menu__header">
+                <span class="menu__header header__frame">
+                    <img class="sidebar__icon" src="Source/Icon/Folder.svg"></img>
+                    <span class="menu__text menu__text--passive">File Manager</span>
+                </span>
+                <img class="sidebar__icon" src="Source/Icon/chevron-down.svg"></img>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar__footer">
+        <img class="sidebar__icon" src="Source/Icon/icon_settings.svg"></img>
+        <img class="sidebar__icon" src="Source/Icon/icon_logout.svg"></img>
+        <img class="sidebar__icon" src="Source/Icon/icon_globe.svg"></img>
+      </div>
+    </div>
+
+    <div class="container__mainfield">
+      <div class="mainfield__frame">
+        <div class="mainfield__banner">
+          <span class="banner__message">
+            <div class="message__text message__text--heading">
+              Unlock premium stats
+            </div>
+            <div class="message__text message__text--regular">
+              Get up to 10TB of storage for a limited time
+            </div>
+          </span>
+          <span class="banner__button">
+            <img class="banner__button__icon" src="Source/Icon/bolt.svg"></img>
+            <span class="banner__button__text">Upgrade</span>
+          </span>
+        </div>
+
+        <div class="mainfield__metrics">
+          <div class="metrics__card">
+            <div class="card__content">
+              <div class="card__header">
+                <div class="card__top">Revenue</div>
+                <div class="card__value">$56,945</div>
+              </div>
+              <div class="card__info">
+                <span class="card__badge mainfield--badge mainfield--active"> +45%</span>
+                <span class="card__text">From 4.6%</span>
+              </div>
+            </div>
+          </div>
+          <div class="metrics__card">
+            <div class="card__content">
+              <div class="card__header">
+                <div class="card__top">Users</div>
+                <div class="card__value">76.8%</div>
+              </div>
+              <div class="card__info">
+                <span class="card__badge mainfield--badge mainfield--canceled"> -1.7%</span>
+                <span class="card__text">From 4.6%</span>
+              </div>
+            </div>
+          </div>
+          <div class="metrics__card">
+            <div class="card__content">
+              <div class="card__header">
+                <div class="card__top">New Signups</div>
+                <div class="card__value">116</div>
+              </div>
+              <div class="card__info">
+                <span class="card__badge mainfield--badge mainfield--passive"> 0.00</span>
+                <span class="card__text"></span>
+              </div>
+            </div>
+          </div>
+          <div class="metrics__card">
+            <div class="card__content">
+              <div class="card__header">
+                <div class="card__top">Retention</div>
+                <div class="card__value">12.67%</div>
+              </div>
+              <div class="card__info">
+                <span class="card__badge mainfield--badge mainfield--active"> +0.6%</span>
+                <span class="card__text">From 4.6%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mainfield__chart">    
+          <div class="chart__header">
+            Performance
+            <img class="chart__image" src="Source/Icon/Dots Vertical.svg"></img>
+          </div>
+          <div class="chart__axis">
+            <div class="axis__xaxis">
+              <span class="axis__element">Sun</span>
+              <span class="axis__element">Mon</span>
+              <span class="axis__element">Tue</span>
+              <span class="axis__element">Wed</span>
+              <span class="axis__element">Thu</span>
+              <span class="axis__element">Fri</span>
+              <span class="axis__element">Sat</span>
+            </div>
+            <div class="axis__yaxis">
+              <span class="axis__element">0</span>
+              <span class="axis__element">100</span>
+              <span class="axis__element">200</span>
+              <span class="axis__element">300</span>
+              <span class="axis__element">400</span>
+            </div>
+            <img class="axis__linechart" src="Source/Line Chart.svg"></img>
+          </div>
+          <div class="chart__legend">
+            <span class="legend__element">
+              <span class="legend__dot legend__dot--blue"></span>
+              <span class="legend__text"> Instagram</span>
+            </span>
+            <span class="legend__element">
+              <span class="legend__dot legend__dot--green"></span>
+              <span class="legend__text"> Facebook</span>
+            </span>
+          </div>
+        </div>
+        <div class="mainfield__table">
+          <div class="table__cardheader">
+            <span class="table__cardheader__text">
+                Installed apps</span>
+            <img class="table__cardheader__icon"  src="Source/Icon/Dots Vertical.svg"></img>
+          </div>
+          <div class="table__tablecontent">
+            <div class="tablecontent__row tablecontent__row--header"> 
+                <span class="tablecontent__element tablecontent__element--header">Source</span>
+                <span class="tablecontent__element tablecontent__element--header">Amount</span>
+                <span class="tablecontent__element tablecontent__element--header">Status</span>
+                <span class="tablecontent__element tablecontent__element--header">User ID</span> 
+                <span class="tablecontent__element tablecontent__element--header">Joined</span> 
+                <span class="tablecontent__element tablecontent__element--header">Group</span>
+            </div>
+          
+            <div class="tablecontent__row">
+              <div class="tablecontent__element tablecontent__element--row">
+                <img class="tablecontent__icon" src="Source/Table/Zepelin.svg"></img>
+                <span class="tablecontent__text tablecontent__text--main">Zepplin</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">686.00</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--active">Active</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">114423</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">October</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">Design</span>
+              </div>
+            </div>
+         
+            <div class="tablecontent__row">
+              <div class="tablecontent__element tablecontent__element--row">
+                <img class="tablecontent__icon" src="Source/Table/Figma.svg"></img>
+                <span class="tablecontent__text tablecontent__text--main">Figma</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">864.00</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--pending">Pending</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">76223</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">June</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">Finance</span>
+              </div>
+            </div>
+
+            <div class="tablecontent__row">
+              <div class="tablecontent__element tablecontent__element--row">
+                <img class="tablecontent__icon" src="Source/Table/Meta.svg"></img>
+                <span class="tablecontent__text tablecontent__text--main">Meta</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">176.00</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--cancelled">Cancelled</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">89453</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">March</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">Coding</span>
+              </div>
+            </div>
+
+            <div class="tablecontent__row">
+              <div class="tablecontent__element tablecontent__element--row">
+                <img class="tablecontent__icon" src="Source/Table/Angular.svg"></img>
+                <span class="tablecontent__text tablecontent__text--main">Angular</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">49.00</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--active">Active</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">11467</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">February</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">Marketing</span>
+              </div>
+            </div>
+
+            <div class="tablecontent__row">
+              <div class="tablecontent__element tablecontent__element--row">
+                <img class="tablecontent__icon" src="Source/Table/Vue.svg"></img>
+                <span class="tablecontent__text tablecontent__text--main">Vue</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">999.00</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--active">Active</span>
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">67385</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">October</span> 
+              </div>
+              <div class="tablecontent__element tablecontent__element--row">
+                <span class="tablecontent__text tablecontent__text--col">Finance</span>
+              </div>
+            </div>
+       
+          </div>
+          <div class="table__navigation">
+              <img class="navigation__arrow" src="Source/Table/arrow-left.svg"></img>
+              1/15
+              <img class="navigation__arrow" src="Source/Table/arrow-right.svg"></img>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+</body>
+
+</html>
