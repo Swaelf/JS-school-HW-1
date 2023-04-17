@@ -452,7 +452,7 @@ class App extends Component {
         if (Array.isArray(response)) {
             let i;
             for (i of response) {
-                console.log('get: ' + i);
+                console.log('get: ' + i.title);
                 if (i.isCompleted) {
                     icomplete.push(i.title);
                 } else {
