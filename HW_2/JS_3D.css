@@ -1,0 +1,107 @@
+:root{
+  --maincolor: rgba(200, 200, 200, 1);
+  --shadowcolor: rgba(150, 150, 150, 0.5);
+  --buttoncolor: rgba(200, 200, 200, 0.5);
+  --bordercolor: rgba(50, 50, 100, 0.8);
+  --hsize: 20vh;
+  --wsize: 20vw;
+  --time: 0.816s;
+  }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+body {
+  position: fixed;
+  background: #303030;
+}
+
+audio {
+  display: none;
+}
+video {
+  height: 100px;
+  width: 300px;
+  display: none;
+}
+
+button {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px;
+  border: transparent;
+  top: calc(100% - 25px);
+  left: calc(0% + 5px);
+  transform: translate(-0%, -0%);
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));;
+  filter: drop-shadow(0px 0px 20px var(--shadowcolor));
+  transition: all;
+}
+button:hover {
+  background: -webkit-linear-gradient(top, var(--bordercolor), 
+                                            var(--buttoncolor), 
+                                            var(--buttoncolor), 
+                                            var(--bordercolor));
+}
+
+a {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: black;
+  font-family: system-ui;
+  text-decoration: none;
+  font-weight: bold;
+}
+.container {
+  perspective: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.logo {
+  background-image: url(Source/Logo.png);
+  background-size: 100% 100%;
+  height: var(--hsize);
+  width: var(--wsize);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform-style: preserve-3d;
+  transform: translateZ(-0vh);
+}
+
+
+.cube {
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  position: relative;
+  transform-style: preserve-3d;
+  border: 1px solid white;
+}
+
+.cube__face {
+  position: absolute;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border: 1px solid white;
+}
+
+.cube__face--front  { transform: rotateY(  0deg); }
+.cube__face--right  { transform: rotateY( 90deg); }
+.cube__face--back   { transform: rotateY(180deg); }
+.cube__face--left   { transform: rotateY(-90deg); }
+
+.cube__face--front  { transform: rotateY(  0deg) translateZ(50vh); }
+.cube__face--right  { transform: rotateY( 90deg) translateZ(50vw); }
+.cube__face--back   { transform: rotateY(180deg) translateZ(50vw); }
+.cube__face--left   { transform: rotateY(-90deg) translateZ(50vw); }
