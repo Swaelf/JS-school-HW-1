@@ -2,9 +2,26 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            items: ['Task 1 Title', 'Task 2 Title', 'Task 3 Title'],
-            completeItems: ['Completed Task 1 Title', 'Completed Task 2 Title']
-        };
+            items: [],
+            completeItems: [],
+            defaultsearch: undefined,
+            newdayMkr: false,
+            currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
+            localurl: 'http://localhost:3004/tasks',
+            style: {
+                screenLock: 'display: none;', 
+                newMorning: 'display: none;', 
+                newBox: "display: none;"
+            },
+            weather: {
+                position: 'Tbilisi',
+                temperature: '??',
+                icon: 'icons/weather/64x64/day/116.png',
+                key: 'd9e8739732f24f7f942112753231504',
+                url: 'https://api.weatherapi.com/v1',
+                isLoad: false
+            }
+            };
 
         if (localStorage.getItem("initTasks")) {
             this.state.items = localStorage.getItem("initTasks").split(";");
@@ -14,26 +31,6 @@ class App extends Component {
             this.state.completeItems = localStorage.getItem("initComplete").split(";");
         };
 
-        this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
-
-        this.defaultsearch = undefined;
-        this.newdayMkr = false;
-
-        this.style = {
-            screenLock: 'display: none;',
-            newMorning: 'display: none;',
-            newBox: "display: none;"
-        };
-        this.localurl = 'http://localhost:3004/tasks';
-        this.weather = {
-            position: 'Tbilisi',
-            temperature: '??',
-            icon: 'icons/weather/64x64/day/116.png',
-            key: 'd9e8739732f24f7f942112753231504',
-            url: 'https://api.weatherapi.com/v1',
-            isLoad: false
-        };
-
         this.LocateMe();
     }
 
@@ -41,8 +38,10 @@ class App extends Component {
         let tasks = this.AddRows(this.state.items);
         let completetasks = this.AddCompleteRows(this.state.completeItems);
         let morningrows = this.AddMorningRows(this.state.items);
-        this.MorningGreatings(this.currentDate);
+        this.MorningGreatings(this.state.currentDate);
         this.WeatherCall();
+
+        this.SearchPatternOnLoad(tasks, completetasks);
 
         localStorage.setItem("initTasks", this.state.items.join(";"));
         localStorage.setItem("initComplete", this.state.completeItems.join(";"));
@@ -56,122 +55,24 @@ class App extends Component {
                 new DivElement().render({
                     id: 'ScreenLock',
                     class: 'screenlock',
-                    style: this.style.screenLock,
+                    style: this.state.style.screenLock,
                     children: [
-                        new DivElement().render({
+                        new NewItemWindow().render({
                             id: 'NewItemBox',
                             class: 'newitembox',
-                            style: this.style.newBox,
-                            children: [
-                                new Label().render({
-                                    id: 'NewItemLabel',
-                                    text: 'Add New Item',
-                                    class: 'newitembox__label',
-                                    children: []
-                                }),
-                                new Input().render({
-                                    id: 'NewItemInput',
-                                    children: [],
-                                    class: 'newitembox__input',
-                                    text: 'New Task',
-                                    type: 'search',
-                                    onSearch: this.NewTaskSearch,
-                                    onInput: this.AproveNewItem
-                                }),
-                                new DivElement().render({
-                                    id: 'NewItemAddition',
-                                    class: 'newitembox__addition',
-                                    children: [
-                                        new DivElement().render({
-                                            id: 'NewItemTags',
-                                            class: 'newitembox__tags',
-                                            children: [
-                                                new Label().render({
-                                                    id: 'NewItemTag0',
-                                                    class: 'tags__item tags__item--health',
-                                                    text: 'health',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag1',
-                                                    class: 'tags__item tags__item--work',
-                                                    text: 'work',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag2',
-                                                    class: 'tags__item tags__item--home',
-                                                    text: 'home',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag3',
-                                                    class: 'tags__item tags__item--other',
-                                                    text: 'other',
-                                                    children: []
-                                                })
-                                            ]
-                                        }),
-                                        new Label().render({
-                                            id: 'NewItemDate',
-                                            class: 'newitembox__date',
-                                            text: this.currentDate,
-                                            children: []
-                                        })
-                                    ]
-                                }),
-                                new DivElement().render({
-                                    id: 'NewItemButtons',
-                                    class: 'newitembox__buttons',
-                                    children: [
-                                        new Button().render({
-                                            id: 'NewItemButtonCancel',
-                                            class: 'newitembox__button newitembox__button--cancel',
-                                            htmltext: 'Cancel',
-                                            onClick: this.CancelAction
-                                        }),
-                                        new Button().render({
-                                            id: 'NewItemButtonApply',
-                                            class: 'newitembox__button newitembox__button--apply newitembox__button--enabled',
-                                            htmltext: 'Add Task',
-                                            onClick: this.ApplyItem
-                                        }),
-                                    ]
-                                })
-                            ]
+                            style: this.state.style.newBox,
+                            onSearch: this.NewTaskSearch,
+                            onInput: this.AproveNewItem,
+                            currentDate: this.state.currentDate,
+                            buttonOnClick_cancel: this.CancelAction,
+                            buttonOnClick_apply: this.ApplyItem
                         }),
-                        new DivElement().render({
+                        new GreetingWindow().render({
                             id: 'NewDayBox',
                             class: 'newdaybox',
-                            style: this.style.newMorning,
-                            children: [
-                                new Label().render({
-                                    id: 'NewDayLabel',
-                                    text: 'Good morning',
-                                    class: 'newdaybox__label',
-                                    children: []
-                                }),
-                                new Label().render({
-                                    id: 'NewDayTasksLabel',
-                                    text: 'You have the next planned tasks for today: ',
-                                    class: 'newdaybox__taskslabel',
-                                    children: []
-                                }),
-                                new DivElement().render({
-                                    id: 'NewDayTasks',
-                                    text: '',
-                                    class: 'newdaybox__tasks',
-                                    children: morningrows
-                                }),
-                                new Button().render({
-                                    id: 'NewDayLabel',
-                                    htmltext: 'Ok',
-                                    class: 'newdaybox__button newdaybox__button--apply',
-                                    onClick: this.CancelAction,
-                                    children: []
-                                })
-                            ]
-
+                            style: this.state.style.newMorning,
+                            buttonOnClick: this.CancelAction,
+                            rows: morningrows
                         })
                     ]
                 }),
@@ -189,28 +90,10 @@ class App extends Component {
                                     text: 'To Do List',
                                     class: 'toplabelbox__label'
                                 }),
-                                new DivElement().render({
+                                new WeatherWiget().render({
                                     id: 'topLabelWidget',
                                     class: 'toplabelbox__widget',
-                                    children: [
-                                        new DivElement().render({
-                                            id: 'topLabelIcon',
-                                            class: 'widget__icon',
-                                            style: 'background-image: url(' + this.weather.icon + ');',
-                                            children: []
-                                        }),
-                                        new Label().render({
-                                            id: 'topLabelTemperature',
-                                            text: this.weather.temperature + '&#176',
-                                            class: 'toplabelbox__text widget__text--temperature'
-                                        }),
-                                        new Label().render({
-                                            id: 'topLabelCity',
-                                            text: this.weather.position,
-                                            class: 'toplabelbox__text widget__text--city'
-                                        }),
-
-                                    ]
+                                    weather: this.state.weather,
                                 })
                             ]
                         }),
@@ -222,7 +105,7 @@ class App extends Component {
                                 new Input().render({
                                     id: 'SearchString',
                                     children: [],
-                                    value: this.defaultsearch,
+                                    value: this.state.defaultsearch,
                                     class: 'topbar__search',
                                     text: 'Search Task',
                                     type: 'search',
@@ -267,31 +150,31 @@ class App extends Component {
         } else {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    this.weather.isLoad = true;
-                    this.weather.position = position.coords.latitude + ',' + position.coords.longitude;
+                    this.state.weather.isLoad = true;
+                    this.state.weather.position = position.coords.latitude + ',' + position.coords.longitude;
                     console.log(position.coords.latitude + ',' + position.coords.longitude);
-                    this.weather.isLoad ? this.update() : '';
+                    this.state.weather.isLoad ? this.update() : '';
                 },  
                 (error) => {
-                    this.weather.isLoad = true;
+                    this.state.weather.isLoad = true;
                     console.log(error);
-                    this.weather.isLoad ? this.update() : '';
+                    this.state.weather.isLoad ? this.update() : '';
                 }
             );
         }
     }
 
     WeatherCall = async () => {
-        if (this.weather.isLoad) {
+        if (this.state.weather.isLoad) {
             const response = await fetch(
-                this.weather.url + '/current.json?key=' + this.weather.key + '&q=' + this.weather.position
+                this.state.weather.url + '/current.json?key=' + this.state.weather.key + '&q=' + this.state.weather.position
                 )
                 .then(response => response.json())
                 .then(response => {
-                    this.weather.temperature = response.current.temp_c;
-                    this.weather.icon = response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons');
-                    this.weather.position = response.location.name;   
-                    this.weather.isLoad = false;
+                    this.state.weather.temperature = response.current.temp_c;
+                    this.state.weather.icon = response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons');
+                    this.state.weather.position = response.location.name;   
+                    this.state.weather.isLoad = false;
                     console.log('weatherLoad = ok');     
                     this.update();            
                 });
@@ -301,52 +184,60 @@ class App extends Component {
     }
 
     MorningGreatings = (currentDate) => {
-        console.log('Good morning greetings');
+        if (localStorage.getItem("currentDate")) {
+            const previouseData = localStorage.getItem("currentDate");
 
-            if (localStorage.getItem("currentDate")) {
-
-                const previouseData = localStorage.getItem("currentDate");
-
-                if (previouseData != currentDate) {
-
-                    localStorage.setItem("currentDate", currentDate);
-                    this.newdayMkr = true;
-                }
-
-            } else {
-
+            if (previouseData != currentDate) {
                 localStorage.setItem("currentDate", currentDate);
-                this.newdayMkr = true;
+                this.state.newdayMkr = true;
             }
-
-            if (this.newdayMkr) {
-
-                this.style.screenLock = "display: flex;";
-                this.style.newMorning = "display: flex;";
-                this.style.newBox = "display: none;";  
-            }
-            
+        } else {
+            localStorage.setItem("currentDate", currentDate);
+            this.state.newdayMkr = true;
         }
 
-    SearchPattern = () => {
-        let items = this.state.items;
-        let itemsComplete = this.state.completeItems;
+        if (this.state.newdayMkr) {
+
+            this.state.style.screenLock = "display: flex;";
+            this.state.style.newMorning = "display: flex;";
+            this.state.style.newBox = "display: none;";  
+        }
+        
+    }
+
+    SearchPatternOnLoad = (tasks, tasksComplete) => {
         let i;
-        const pattern = document.getElementById("SearchString").value;
-        this.defaultsearch = pattern;
-        console.log(items);
-        for (i in items) {
-            console.log(i);
+        for (i in tasks) {
+            tasks[i].style.display = "none";
+
+            if (this.state.items[i].match(this.state.defaultsearch)){
+                tasks[i].style.display = "flex";
+            }  
+        }
+        for (i in tasksComplete) {
+            tasksComplete[i].style.display = "none";
+
+            if (this.state.completeItems[i].match(this.state.defaultsearch)){
+                tasksComplete[i].style.display = "flex";
+            }
+        } 
+    }
+
+    SearchPattern = () => {
+
+        this.state.defaultsearch = document.getElementById("SearchString").value;
+        let i;
+        for (i in this.state.items) {
             let element = document.getElementById("Task_" + i);
             element.style.display = "none";
-            if (items[i].match(pattern)){
+            if (this.state.items[i].match(this.state.defaultsearch)){
                 element.style.display = "flex";
             }     
         }
-        for (i in itemsComplete) {
+        for (i in this.state.completeItems) {
             let element = document.getElementById("Complete_" + i);
             element.style.display = "none";
-            if (itemsComplete[i].match(pattern)){
+            if (this.state.completeItems[i].match(this.state.defaultsearch)){
                 element.style.display = "flex";
             }     
         }
@@ -356,7 +247,6 @@ class App extends Component {
         let rows = [];
         let i;
         for (i in items) {
-            console.log(items[i]);
             rows.push(
                 new Label().render({
                     id: "morningTask_" + i, 
@@ -371,9 +261,9 @@ class App extends Component {
     addItem = () => {
         const newItemInput = document.getElementById('NewItemInput');
 
-        this.style.screenLock = "display: none;";
-        this.style.newBox = "display: none;";  
-        this.style.newMorning = "display: none;";   
+        this.state.style.screenLock = "display: none;";
+        this.state.style.newBox = "display: none;";  
+        this.state.style.newMorning = "display: none;";   
 
         this.setState(
         {items: [...this.state.items, 'item' + (this.state.items.length + 1)]},
@@ -384,9 +274,9 @@ class App extends Component {
     ApplyItem = () => {
         const newItemInput = document.getElementById("NewItemInput");
 
-        this.style.screenLock = "display: none;";
-        this.style.newBox = "display: none;";  
-        this.style.newMorning = "display: none;";       
+        this.state.style.screenLock = "display: none;";
+        this.state.style.newBox = "display: none;";  
+        this.state.style.newMorning = "display: none;";       
         this.setState(
         {items: [...this.state.items, newItemInput.value]},
         this.putIntoServer
@@ -427,10 +317,10 @@ class App extends Component {
 
     CancelAction = () => {
         console.log('cancel');
-        this.style.screenLock = "display: none;";
-        this.style.newBox = "display: none;";  
-        this.style.newMorning = "display: none;";  
-        this.newdayMkr = false;               
+        this.state.style.screenLock = "display: none;";
+        this.state.style.newBox = "display: none;";  
+        this.state.style.newMorning = "display: none;";  
+        this.state.newdayMkr = false;               
         this.update();
     }
 
@@ -440,9 +330,9 @@ class App extends Component {
         newItemButtonApply.classList.add("newitembox__button--disabled");
         newItemButtonApply.disabled = true;
 
-        this.style.screenLock = "display: flex;";
-        this.style.newBox = "display: flex;";  
-        this.style.newMorning = "display: none;";
+        this.state.style.screenLock = "display: flex;";
+        this.state.style.newBox = "display: flex;";  
+        this.state.style.newMorning = "display: none;";
         this.update();
 
         const newItemInput = document.getElementById('NewItemInput');
@@ -451,7 +341,6 @@ class App extends Component {
     }
 
     NewTaskSearch = () => {
-        console.log('test');
         const newItemBox = document.getElementById('NewItemButtonApply');
         newItemBox.disabled == false ? newItemBox.onclick.apply() : '';
     }
@@ -461,52 +350,18 @@ class App extends Component {
         let rows = [];
         for (i in items) {
             rows.push(
-                new DivElement().render({
+                new TaskRow().render({
                     class: 'tasks__row',
                     id: "Task_" + i,
-                    children: [
-                        new Input().render({
-                            id: 'TaskCheckBox_' + i,
-                            children: [],
-                            text: items[i],
-                            class: 'task__checkbox',
-                            type: 'checkbox',
-                            onChange: this.ItemComplete
-                        }),
-                        new DivElement().render({
-                            id: 'LabelContainerTask' + i,
-                            class: 'tasks__labelcontainer',
-                            children: [
-                                new Label().render({
-                                    id: 'TasksLabel_' + i,
-                                    text: items[i],
-                                    class: 'task__text'
-                                }),
-                                new DivElement().render({
-                                    id: 'TaskTagHolder_' + i,
-                                    class: 'tasks__tagholder',
-                                    children: [
-                                        new Label().render({
-                                            id: 'TaskTag_' + i,
-                                            text: 'tag',
-                                            class: 'tags__item tags__item--other'
-                                        }),
-                                        new Label().render({
-                                            id: 'TaskTime_' + i,
-                                            text: 'time',
-                                            class: 'tags__item tags__item--time'
-                                        })
-                                    ]
-                                })
-                            ]
-                        }),     
-                        new Button().render({
-                            id: 'TasksButton_' + i,
-                            class: 'button__remove',
-                            htmltext: '',
-                            onClick: this.removeItem
-                        })
-                    ]
+                    prefix: "Tasks",
+                    i: i,
+                    item: items[i],
+                    onChange: this.ItemComplete,
+                    checked: false,
+                    labelState: '',
+                    tagState: ' tags__item--other',
+                    buttonBacground: "background: flex",
+                    buttonOnClick: this.removeItem
                 })
             );
         }
@@ -517,54 +372,21 @@ class App extends Component {
         let i;
         let rows = [];
         for (i in items) {
-            rows.push(new DivElement().render({
-                class: 'tasks__row',
-                id: "Complete_" + i,
-                children: [
-                    new Input().render({
-                        id: 'CompleteCheckBox_' + i,
-                        children: [],
-                        text: items[i],
-                        class: 'task__checkbox',
-                        type: 'checkbox',
-                        onChange: this.ItemUnComplete,
-                        checked: "checked"
-                    }),
-                    new DivElement().render({
-                        id: 'LabelContainerComplete_' + i,
-                        class: 'tasks__labelcontainer',
-                        children: [
-                            new Label().render({
-                                id: 'CompleteLabel_' + i,
-                                text: items[i],
-                                class: 'task__text task--complete'
-                            }),
-                            new DivElement().render({
-                                id: 'CompleteTagHolder_' + i,
-                                class: 'tasks__tagholder',
-                                children: [
-                                    new Label().render({
-                                        id: 'CompleteTag_' + i,
-                                        text: 'tag',
-                                        class: 'tags__item tags__item--inactive'
-                                    }),
-                                    new Label().render({
-                                        id: 'CopleteTime_' + i,
-                                        text: 'time',
-                                        class: 'tags__item tags__item--time'
-                                    })
-                                ]
-                            })
-                        ]
-                    }),
-                    new Button().render({
-                        id: 'CompleteButton_' + i,
-                        class: 'button__remove ',
-                        htmltext: '',
-                        style: "background: none"
-                    })
-                    ]
-            }));
+            rows.push( 
+                new TaskRow().render({
+                    class: 'tasks__row',
+                    id: "Complete_" + i,
+                    prefix: "Complete",
+                    i: i,
+                    item: items[i],
+                    onChange: this.ItemUnComplete,
+                    checked: true,
+                    labelState: ' task--complete',
+                    tagState: ' tags__item--inactive',
+                    buttonBacground: "background: none",
+                    buttonOnClick: ''
+                })
+            );
         }
         return rows;
     }
@@ -618,12 +440,11 @@ class App extends Component {
         localStorage.getItem("initTasks") ? localStorage.removeItem("initTasks") : '';
         localStorage.getItem("initComplete") ? localStorage.removeItem("initComplete") : '';
 
-        const response = await fetch(this.localurl, { method: "GET" })
+        const response = await fetch(this.state.localurl, { method: "GET" })
             .then((response) => response.json())
             .catch((error) => console.log(error));
         
         if (Array.isArray(response)) {
-            console.log(response);
             let i;
             for (i of response) {
                 if (i.isCompleted) {
@@ -637,8 +458,6 @@ class App extends Component {
         localStorage.setItem("initTasks", itasks.join(";"));
         localStorage.setItem("initComplete", icomplete.join(";"));
 
-        console.log('itasks0 = ' + itasks);
-
         this.state.items = itasks;
         this.state.completeItems = icomplete;
     }
@@ -650,7 +469,6 @@ class App extends Component {
         localStorage.getItem("initTasks") ? itasks = localStorage.getItem("initTasks").split(";"): '';
         localStorage.getItem("initComplete") ? icomplete = localStorage.getItem("initComplete").split(";"): '';
 
-        console.log('itasks = ' + itasks);
         let counter = 0;
         let data = [];
         for (i of itasks) {
@@ -662,17 +480,13 @@ class App extends Component {
             data.push({ id: counter, title: i, isCompleted: true});
         };
 
-        console.log(JSON.stringify(data));
-
-        const response = await fetch(this.localurl, { method: "GET" })
+        const response = await fetch(this.state.localurl, { method: "GET" })
             .then((response) => response.json())
             .catch((error) => console.log(error));
 
         if (Array.isArray(response)) {
-            console.log(response);
             for (i in response) { 
-                console.log('deleting task ' + (Math.floor(i) + 1));
-                await fetch(this.localurl + '\/' + (Math.floor(i) + 1), { 
+                await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
                 method: "DELETE", 
                 })
                 .catch((error) => console.log(error));
@@ -680,8 +494,7 @@ class App extends Component {
         }
 
         for (i in data) {
-            console.log('post data =', data[i]);
-            await fetch(this.localurl, { 
+            await fetch(this.state.localurl, { 
                 method: "POST", 
                 headers: {
                 'Content-type': 'application/json; charset=UTF-8',

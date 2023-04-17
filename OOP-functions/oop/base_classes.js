@@ -36,7 +36,6 @@ class Component {
 
     update() {
         this.render(this.props);
-        document.getElementById("SearchString") ? document.getElementById("SearchString").oninput.apply(): '';
     }
 
 }

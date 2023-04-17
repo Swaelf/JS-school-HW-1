@@ -110,23 +110,14 @@
      * @returns {HTMLDivElement} - The app container
      */
     function App() {
-        let initTasks = [
-            "Task 1 Title", 
-            "Task 2 Title", 
-            "Task 3 Title"
-            ];
-        let initComplete = [
-            "Completed Task 1 Title", 
-            "Completed Task 2 Title"
-            ];
+        let initTasks = [];
+        let initComplete = [];
         
         localStorage.getItem("initTasks") ? initTasks = localStorage.getItem("initTasks").split(";"): '';
         localStorage.getItem("initComplete") ? initComplete = localStorage.getItem("initComplete").split(";"): '';
 
         let [items, setItems] = useState(stateTasks, initTasks);
         let [itemsComplete, setItemsComplete] = useState(stateComplete, initComplete);
-
-        //console.log('complete', itemsComplete);
 
         function addCompleteItem(item) {
             stateComplete = setItemsComplete(stateComplete, [...itemsComplete, item]);
@@ -138,7 +129,7 @@
             stateComplete = setItemsComplete(stateComplete, [...itemsComplete, newitem]);
         }
 
-        function ItemUnComplete(element) {
+        function ItemUncomplete(element) {
             const newitem = removeCompletedItem(element, false);
             console.log(newitem);
             stateTasks = setItems(stateTasks, [...items, newitem]);
@@ -224,7 +215,7 @@
                     id: "checkbox_complete_" + i, 
                     text: "", appclass: "task__checkbox", 
                     type: "checkbox", 
-                    onChange: ItemUnComplete
+                    onChange: ItemUncomplete
                 });
 
                 taskCheck.checked = "checked";
@@ -661,14 +652,11 @@
             .catch((error) => console.log(error));
         
         if (Array.isArray(response)) {
-            console.log(response);
             for (i of response) {
                 if (i.isCompleted) {
                     icomplete.push(i.title);
-                    console.log('complete= ', i.title);
                 } else {
                     itasks.push(i.title);
-                    console.log('task = ', i.title);
                 }
             }
         }
@@ -696,14 +684,11 @@
             data.push({ id: counter, title: i, isCompleted: true});
         };
 
-        console.log(JSON.stringify(data));
-
         const response = await fetch(localurl, { method: "GET" })
             .then((response) => response.json())
             .catch((error) => console.log(error));
 
         if (Array.isArray(response)) {
-            console.log(response);
             for (i in response) { 
                 await fetch(localurl + '\/' + (Math.floor(i) + 1), { 
                 method: "DELETE", 
