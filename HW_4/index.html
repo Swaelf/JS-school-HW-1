@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HW 4. JS intro</title>
+  <style type="text/css">
+    .container {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .container__row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      flex-direction: row;
+    }
+    button {
+      width: 200px; 
+      height: 40px;
+    }
+    a {
+      display: flex;
+      width: 200px;
+      height: 100px;
+      border: 1px solid black;
+      align-items: center;
+      padding-left: 2px;
+      padding-right: 2px;
+      overflow: auto;
+    }
+    textarea {
+      width: 400px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="container__row">
+      <textarea type="text" id="Exercise 1">
+[-1,0,1,2,3,4,5]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 1').value)
+        console.log(getOddValues(arr[0]));
+        document.getElementById('Ex1out').innerHTML = JSON.stringify(getOddValues(arr[0]));
+        }">Exercise 1<br>(getOddValues)
+      </button>
+      <a id="Ex1out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 2">
+[4,2,10,27]
+      </textarea>
+        <button onclick="{
+          const arr = rdStr(document.getElementById('Exercise 2').value);
+          console.log(getSmallestValue(arr[0]));
+          document.getElementById('Ex2out').innerHTML = JSON.stringify(getSmallestValue(arr[0]));
+          }">Exercise 2<br>(getSmallestValue)
+        </button>
+        <a id="Ex2out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 3">
+[4,25,10,2,71]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 3').value);
+        console.log(getBiggestValue(arr[0]));
+        document.getElementById('Ex3out').innerHTML = JSON.stringify(getBiggestValue(arr[0]));
+        }">Exercise 3<br>(getBiggestValue)
+      </button>
+      <a id="Ex3out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 4">
+['I am a short string',
+'I seem to be short too',
+'And I am a long string']
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 4').value);
+        console.log(getShorterStrings(arr[0]));
+        document.getElementById('Ex4out').innerHTML = JSON.stringify(getShorterStrings(arr[0]));
+        }">Exercise 4<br>(getShorterStrings)
+      </button>
+      <a id="Ex4out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 5">
+[{ name: 'shark', likes: 'ocean' },
+{ name: 'turtle', likes: 'pond' },
+{ name: 'otter', likes: 'fish biscuits' }]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 5').value);
+        console.log(getComputedStrings(arr[0]));
+        document.getElementById('Ex5out').innerHTML = JSON.stringify(getComputedStrings(arr[0]));
+        }">Exercise 5<br>(getComputedStrings)
+      </button>
+      <a id="Ex5out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 6">
+[{ name: 'Alice' },
+{ age: 11 }]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 6').value);
+        console.log(mergeObjects(arr[0]));
+        document.getElementById('Ex6out').innerHTML = JSON.stringify(mergeObjects(arr[0]));
+        }">Exercise 6<br>(mergeObjects)
+      </button>
+      <a id="Ex6out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 7">
+[5,200,-5,41]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 7').value);
+        console.log(getSmallestValue2(arr[0]));
+        document.getElementById('Ex7out').innerHTML = JSON.stringify(getSmallestValue2(arr[0]));
+        }">Exercise 7<br>(getSmallestValue2)
+      </button>
+      <a id="Ex7out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 8">
+[5,200,-5,41,7,20]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 8').value);
+        console.log(getOddValues2(arr[0]));
+        document.getElementById('Ex8out').innerHTML = JSON.stringify(getOddValues2(arr[0]));
+        }">Exercise 8<br>(getOddValues2)
+      </button>
+      <a id="Ex8out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 9">
+[{price: 10, count: 2},
+{price: 100, count: 1},
+{price: 2, count: 5},
+{price: 15, count: 6}]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 9').value);
+        console.log(calculateTotal(arr[0]));
+        document.getElementById('Ex9out').innerHTML = JSON.stringify(calculateTotal(arr[0]));
+        }">Exercise 9<br>(calculateTotal)
+      </button>
+      <a id="Ex9out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 10">
+[1, 2, 2, 4, 5, 5, 5, 6, 6, 6]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 10').value);
+        console.log(getUniqueValues(arr[0]));
+        document.getElementById('Ex10out').innerHTML = JSON.stringify(getUniqueValues(arr[0]));
+        }">Exercise 10<br>(getUniqueValues)
+      </button>
+      <a id="Ex10out"> </a>
+    </div>
+
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 11">
+401
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 11').value);
+        console.log(getErrorMessage(arr[0]));
+        document.getElementById('Ex11out').innerHTML = JSON.stringify(getErrorMessage(arr[0]));
+        }">Exercise 11<br>(getErrorMessage)
+      </button>
+      <a id="Ex11out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 12">
+[4,3,2,1]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 12').value);
+        console.log(get2SmallestValues(arr[0]));
+        document.getElementById('Ex12out').innerHTML = JSON.stringify(get2SmallestValues(arr[0]));
+        }">Exercise 12<br>(get2SmallestValues)
+      </button>
+      <a id="Ex12out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 13">
+{
+firstName: 'Peter',
+secondName: 'Vasiliev',
+patronymic: 'Ivanovich'
+}
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 13').value);
+        console.log(getFullName(arr[0]));
+        document.getElementById('Ex13out').innerHTML = JSON.stringify(getFullName(arr[0]));
+        }">Exercise 13<br>(getFullName)
+      </button>
+      <a id="Ex13out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 14">
+[1,2,3,4], 15
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 14').value);
+        console.log(multiplyTo(arr[0], arr[1]));
+        document.getElementById('Ex14out').innerHTML = JSON.stringify(multiplyTo(arr[0], arr[1]));
+        }">Exercise 14<br>(multiplyTo)
+      </button>
+      <a id="Ex14out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 15">
+[
+{name: "Batman", franchise: "DC"},
+{name: "Ironman", franchise: "Marvel"},
+{name: "Thor", franchise: "Marvel"},
+{name: "Superman", franchise: "DC"}
+],
+  'DC'
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 15').value);
+        console.log(getCharacterNames(arr[0], arr[1]));
+        document.getElementById('Ex15out').innerHTML = JSON.stringify(getCharacterNames(arr[0], arr[1]));
+        }">Exercise 15<br>(getCharacterNames)
+      </button>
+      <a id="Ex15out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 16">
+[
+[10,1,300,4],
+[20,2,300,400],
+[30,3,300,4],
+[40,5,300,4],
+[10,12,6]
+]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 16').value);
+        console.log(getSmallestRow(arr[0]));
+        document.getElementById('Ex16out').innerHTML = JSON.stringify(getSmallestRow(arr[0]));
+        }">Exercise 16<br>(getSmallestRow)
+      </button>
+      <a id="Ex16out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 17">
+[
+[8, 2, 8, 8, 9],
+[8, 8, 8, 4],
+[8, 8, 3, 8, 1, 4],
+[1, 8, 8]
+]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 17').value);
+        console.log(getSmallestColumn(arr[0]));
+        document.getElementById('Ex17out').innerHTML = JSON.stringify(getSmallestColumn(arr[0]));
+        }">Exercise 17<br>(getSmallestColumn)
+      </button>
+      <a id="Ex17out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 18">
+[4,3,2,1]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 18').value);
+        console.log(get2BiggestValues(arr[0]));
+        document.getElementById('Ex18out').innerHTML = JSON.stringify(get2BiggestValues(arr[0]));
+        }">Exercise 18<br>(get2BiggestValues)
+      </button>
+      <a id="Ex18out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 19">
+'Return the number (count) of vowels in the given string.'
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 19').value);
+        console.log(getNumberOfVowels(arr[0]));
+        document.getElementById('Ex19out').innerHTML = JSON.stringify(getNumberOfVowels(arr[0]));
+        }">Exercise 19<br>(getNumberOfVowels)
+      </button>
+      <a id="Ex19out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 20">
+'Return the Odd end Even numbers Capitalized Strings of the given string.'
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 20').value);
+        console.log(getCapitalizedStrings(arr[0]));
+        document.getElementById('Ex20out').innerHTML = JSON.stringify(getCapitalizedStrings(arr[0]));
+        }">Exercise 20<br>(getCapitalizedStrings)
+      </button>
+      <a id="Ex20out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 21">
+'uuuuuuxaaaaaaxuuuttttttyyyyyyyyasas'
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 21').value)
+        console.log(getCorrectString(arr[0]));
+        document.getElementById('Ex21out').innerHTML = JSON.stringify(getCorrectString(arr[0]));
+        }">Exercise 21<br>(getCorrectString)
+      </button>
+      <a id="Ex21out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 22">
+[1, 2, [3, 4], 5, [[6, [7, 6, [5, [4, 3], 2, 1]]], 8], 9]
+      </textarea>
+        <button onclick="{
+          const arr = rdStr(document.getElementById('Exercise 22').value);
+          console.log(getFlattenedArray(arr[0]));
+          document.getElementById('Ex22out').innerHTML = JSON.stringify(getFlattenedArray(arr[0]));
+          }">Exercise 22<br>(getFlattenedArray)
+        </button>
+        <a id="Ex22out"> </a>
+    </div>
+
+    <div class="container__row">
+      <textarea type="text" id="Exercise 23">
+[1, 2, 2, 2, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7]
+      </textarea>
+      <button onclick="{
+        const arr = rdStr(document.getElementById('Exercise 23').value);
+        console.log(getNotUniqueValues(arr[0]));
+        document.getElementById('Ex23out').innerHTML = JSON.stringify(getNotUniqueValues(arr[0]));
+        }">Exercise 23<br>(getNotUniqueValues)
+      </button>
+      <a id="Ex23out"> </a>
+    </div>
+
+  </div>
+</body>
+
+<footer>
+  <script src="JS School - Lecture 4 HW.js"></script>
+  <script type="text/javascript">
+    function rdStr(inputStr) {
+      if (inputStr[0] != /[\[\{]]/ & inputStr[inputStr.length-1] != /[\]\}]]/) {
+        inputStr = '[' + inputStr + ']'
+      }
+      const prepStr = inputStr.
+      replace(/\'/g,'"').
+      replace(/[a-zA-Z]+:/g, x => '"' + x.replace(':', '') + '":').
+      replace(/[\n]+/g,'');
+      const varStr = JSON.parse(prepStr);
+      return varStr;
+    };
+  </script>
+</footer>
+</html>
