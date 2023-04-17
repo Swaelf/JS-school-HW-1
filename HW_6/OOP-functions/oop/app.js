@@ -8,7 +8,7 @@ class App extends Component {
             newdayMkr: false,
             currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
             localurl: 'http://localhost:3004/tasks',
-            githuburl: '',
+            githuburl: 'https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks',
             style: {
                 screenLock: 'display: none;', 
                 newMorning: 'display: none;', 
@@ -441,14 +441,30 @@ class App extends Component {
     getFromServer = async () => {
         let itasks = [];
         let icomplete = [];
+        let response = undefined;
         console.log('get from server:')
         localStorage.getItem("initTasks") ? localStorage.removeItem("initTasks") : '';
         localStorage.getItem("initComplete") ? localStorage.removeItem("initComplete") : '';
+        try {
+            response = await fetch(this.state.localurl, { method: "GET" })
+                .then((response) => response.json())
+        } catch (err) {
+            console.log(err);
+            if (err = TypeError()) {
+                console.log(err);
+                try {
+                    response = await fetch(this.state.githuburl, { method: "GET" })
+                    .then((response) => response.json())
+                } catch (err1) {
+                   console.log(err1); 
+                   response = undefined;
+                }
+            } else {
+                console.log('failed to connect to server')
+                response = undefined;
+            }
+        }
 
-        const response = await fetch(this.state.localurl, { method: "GET" })
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
-        
         if (Array.isArray(response)) {
             let i;
             for (i of response) {
@@ -471,6 +487,7 @@ class App extends Component {
     putIntoServer = async () => {
         let itasks = [];
         let icomplete = [];
+        let response = undefined;
         console.log('put into server:')
         let i;
         localStorage.getItem("initTasks") ? itasks = localStorage.getItem("initTasks").split(";"): '';
@@ -487,21 +504,73 @@ class App extends Component {
             data.push({ id: counter, title: i, isCompleted: true});
         };
 
-        const response = await fetch(this.state.localurl, { method: "GET" })
-            .then((response) => response.json())
-            .catch((error) => console.log(error));
+        try {
+            response = await fetch(this.state.localurl, { method: "GET" })
+                .then((response) => response.json())
 
-        if (Array.isArray(response)) {
-            for (i in response) { 
-                console.log('deleting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
-                await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
-                method: "DELETE", 
-                })
-                .catch((error) => console.log(error));
+            if (Array.isArray(response)) {
+                for (i in response) { 
+                    console.log('deleting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
+                    await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
+                    method: "DELETE", 
+                    })
+                    .catch((error) => console.log(error));
+                }
+            }
+
+            for (i in data) {
+                console.log('posting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
+                await fetch(this.state.localurl, { 
+                    method: "POST", 
+                    headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    },
+                    body: JSON.stringify(data[i])
+                    })
+                    .catch((error) => console.log(error));
+            }
+
+        } catch (err) {
+            console.log(err);
+            if (err = TypeError()) {
+                console.log(err);
+                try {
+                    response = await fetch(this.state.githuburl, { method: "GET" })
+                    .then((response) => response.json())
+
+                    if (Array.isArray(response)) {
+                        for (i in response) { 
+                            console.log('deleting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
+                            await fetch(this.state.githuburl + '\/' + (Math.floor(i) + 1), { 
+                            method: "DELETE", 
+                            })
+                            .catch((error) => console.log(error));
+                        }
+                    }
+
+                    for (i in data) {
+                        console.log('posting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
+                        await fetch(this.state.githuburl, { 
+                            method: "POST", 
+                            headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            },
+                            body: JSON.stringify(data[i])
+                            })
+                            .catch((error) => console.log(error));
+                    }
+
+                } catch (err1) {
+                   console.log(err1); 
+                   response = undefined;
+                }
+            } else {
+                console.log('failed to connect to server')
+                response = undefined;
             }
         }
 
-        for (i in data) {
+        /*for (i in data) {
             console.log('posting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
             await fetch(this.state.localurl, { 
                 method: "POST", 
@@ -511,7 +580,7 @@ class App extends Component {
                 body: JSON.stringify(data[i])
                 })
                 .catch((error) => console.log(error));
-        }
+        }*/
     }
    
 }
