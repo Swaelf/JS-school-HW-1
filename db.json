@@ -38,6 +38,11 @@
       "id": 4,
       "title": "Completed Task 1 Title",
       "isCompleted": true
+    },
+    {
+      "id": 5,
+      "title": "Completed Task 6 Title",
+      "isCompleted": true
     }
   ],
   "profile": {
