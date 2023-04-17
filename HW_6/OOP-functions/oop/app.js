@@ -8,6 +8,7 @@ class App extends Component {
             newdayMkr: false,
             currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
             localurl: 'http://localhost:3004/tasks',
+            githuburl: '',
             style: {
                 screenLock: 'display: none;', 
                 newMorning: 'display: none;', 
@@ -31,6 +32,8 @@ class App extends Component {
             this.state.completeItems = localStorage.getItem("initComplete").split(";");
         };
 
+        this.getFromServer();
+
         this.LocateMe();
     }
 
@@ -38,6 +41,7 @@ class App extends Component {
         let tasks = this.AddRows(this.state.items);
         let completetasks = this.AddCompleteRows(this.state.completeItems);
         let morningrows = this.AddMorningRows(this.state.items);
+
         this.MorningGreatings(this.state.currentDate);
         this.WeatherCall();
 
@@ -437,6 +441,7 @@ class App extends Component {
     getFromServer = async () => {
         let itasks = [];
         let icomplete = [];
+        console.log('get from server:')
         localStorage.getItem("initTasks") ? localStorage.removeItem("initTasks") : '';
         localStorage.getItem("initComplete") ? localStorage.removeItem("initComplete") : '';
 
@@ -447,6 +452,7 @@ class App extends Component {
         if (Array.isArray(response)) {
             let i;
             for (i of response) {
+                console.log('get: ' + i);
                 if (i.isCompleted) {
                     icomplete.push(i.title);
                 } else {
@@ -465,6 +471,7 @@ class App extends Component {
     putIntoServer = async () => {
         let itasks = [];
         let icomplete = [];
+        console.log('put into server:')
         let i;
         localStorage.getItem("initTasks") ? itasks = localStorage.getItem("initTasks").split(";"): '';
         localStorage.getItem("initComplete") ? icomplete = localStorage.getItem("initComplete").split(";"): '';
@@ -486,6 +493,7 @@ class App extends Component {
 
         if (Array.isArray(response)) {
             for (i in response) { 
+                console.log('deleting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
                 await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
                 method: "DELETE", 
                 })
@@ -494,6 +502,7 @@ class App extends Component {
         }
 
         for (i in data) {
+            console.log('posting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
             await fetch(this.state.localurl, { 
                 method: "POST", 
                 headers: {
