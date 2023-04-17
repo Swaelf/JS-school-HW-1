@@ -15,7 +15,10 @@ class App extends Component {
         };
 
         this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
+
         this.defaultsearch = undefined;
+        this.newdayMkr = false;
+
         this.style = {
             screenLock: 'display: none;',
             newMorning: 'display: none;',
@@ -301,24 +304,28 @@ class App extends Component {
         console.log('Good morning greetings');
 
             if (localStorage.getItem("currentDate")) {
+
                 const previouseData = localStorage.getItem("currentDate");
-                console.log('previouseData = ' + previouseData);
-                console.log('currentDate = ' + currentDate);
-                console.log('previouseData != currentDate ' + previouseData != currentDate);
+
                 if (previouseData != currentDate) {
 
                     localStorage.setItem("currentDate", currentDate);
-                    this.style.screenLock = "display: flex;";
-                    this.style.newMorning = "display: flex;"; 
-                    this.style.newBox = "display: none;";
+                    this.newdayMkr = true;
                 }
 
             } else {
+
                 localStorage.setItem("currentDate", currentDate);
+                this.newdayMkr = true;
+            }
+
+            if (this.newdayMkr) {
+                
                 this.style.screenLock = "display: flex;";
                 this.style.newMorning = "display: flex;";
                 this.style.newBox = "display: none;";  
             }
+            
         }
 
     SearchPattern = () => {
@@ -422,7 +429,8 @@ class App extends Component {
         console.log('cancel');
         this.style.screenLock = "display: none;";
         this.style.newBox = "display: none;";  
-        this.style.newMorning = "display: none;";                 
+        this.style.newMorning = "display: none;";  
+        this.newdayMkr = false;               
         this.update();
     }
 

@@ -2,6 +2,7 @@
     let stateTasks = undefined;
     let stateComplete = undefined;
     let defaultsearch = undefined;
+    let newdayMkr = false;
     const localurl = 'http://localhost:3004/tasks';
     let weather = {
         position: 'Tbilisi',
@@ -327,6 +328,7 @@
             newItemBox.style.display = "none";
             const newDayBox = document.getElementById("newDayBox");
             newDayBox.style.display = "none";
+            newdayMkr = false;
         }
 
         function AproveNewItem() {
@@ -359,11 +361,14 @@
                 const previouseData = localStorage.getItem("currentDate");
                 if (previouseData != currentDate) {
                     localStorage.setItem("currentDate", currentDate);
-                    screenlock.style.display = "flex";
-                    newdaybox.style.display = "flex";
+                    newdayMkr = true;
                 }
             } else {
                 localStorage.setItem("currentDate", currentDate);
+                newdayMkr = true;
+            }
+
+            if (newdayMkr) {
                 screenlock.style.display = "flex";
                 newdaybox.style.display = "flex";
             }
