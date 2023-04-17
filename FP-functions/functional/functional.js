@@ -9,7 +9,7 @@
         temperature: '??',
         icon: 'icons/weather/64x64/day/116.png',
         key: 'd9e8739732f24f7f942112753231504',
-        url: 'http://api.weatherapi.com/v1',
+        url: 'https://api.weatherapi.com/v1',
         isLoad: false
     };
 

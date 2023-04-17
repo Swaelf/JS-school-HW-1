@@ -30,7 +30,7 @@ class App extends Component {
             temperature: '??',
             icon: 'icons/weather/64x64/day/116.png',
             key: 'd9e8739732f24f7f942112753231504',
-            url: 'http://api.weatherapi.com/v1',
+            url: 'https://api.weatherapi.com/v1',
             isLoad: false
         };
 
@@ -320,7 +320,7 @@ class App extends Component {
             }
 
             if (this.newdayMkr) {
-                
+
                 this.style.screenLock = "display: flex;";
                 this.style.newMorning = "display: flex;";
                 this.style.newBox = "display: none;";  
