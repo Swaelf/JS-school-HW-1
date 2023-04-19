@@ -1,0 +1,51 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Task 1",
+      "isCompleted": false
+    },
+    {
+      "id": 2,
+      "title": "Task 2",
+      "isCompleted": false
+    },
+    {
+      "id": 3,
+      "title": "Task 3",
+      "isCompleted": false
+    },
+    {
+      "id": 5,
+      "title": "Completed Task 2 Title",
+      "isCompleted": true
+    },
+    {
+      "id": 4,
+      "title": "Completed Task 1 Title",
+      "isCompleted": true
+    },
+    {
+      "id": 6,
+      "title": "Completed Task 6 Title",
+      "isCompleted": true
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

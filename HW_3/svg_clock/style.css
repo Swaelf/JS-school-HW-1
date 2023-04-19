@@ -1,0 +1,59 @@
+//variables
+$baseColor : white;
+$fontColor : red;
+$initdeg : 15deg;
+
+body{
+  background: $baseColor;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+}
+svg{
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+}
+.container{
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-template-rows: auto auto;
+}
+.example {
+  grid-column: 2;
+  grid-row: 2;
+  width: 200px;
+  height: 150px;
+}
+.example__text{
+  text-align: center;
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 12px;
+}
+
+.clock {
+  grid-column: 1;
+  grid-row: 2;
+  transform: translate(50px, 50px);
+}
+.clock__text{
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
+  font-size: 12px;
+}
+.clock__hour {
+  animation: rotate 50s linear infinite;
+}
+.clock__minute {
+  animation: rotate 5.6s steps(60, end) infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(50px, 50px) rotate(0deg);
+  }
+  to {
+    transform: translate(50px, 50px) rotate(360deg);
+  }
+}
