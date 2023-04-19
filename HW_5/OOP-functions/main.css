@@ -140,8 +140,9 @@ body {
     background-image: url(icons/Sunny_with_cloud.svg);
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 44px;
-    min-width: 57px;
+    background-size: cover;
+    min-height: 64px;
+    min-width: 64px;
 
 }
 

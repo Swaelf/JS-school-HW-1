@@ -5,10 +5,10 @@ class Component {
         this.element = document.createElement('div');
     }
 
-    setState(state, funct) {
+    setState(state, funct = false, reload = true) {
         this.state = {...this.state, ...state};
-        this.update();
-        funct();
+        reload ? this.update(): '';
+        funct ? funct(): '';
     }
 
     render(props = {}) {
