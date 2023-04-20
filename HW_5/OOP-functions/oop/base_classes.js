@@ -23,6 +23,7 @@ class Component {
         div.onchange = props.onChange;
         div.checked = props.checked;
         div.onload = props.onLoad;
+        props.isDisabled ? div.disabled = props.isDisabled: div.disabled = false;
         if (props.style) {
             div.style = props.style;
         }

@@ -4,7 +4,8 @@ class App extends Component {
         this.state = {
             taskItems: [],
             completeItems: [],
-            defaultSearchPattern: undefined,
+            listOfTaskElements: '',
+            listOfCompletedTaskElements: '',
             currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
             localurl: 'http://localhost:3004/tasks',
             githuburl: 'https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks',
@@ -13,7 +14,7 @@ class App extends Component {
             style: {
                 screenLock: 'display: none;', 
                 newMorning: 'display: none;', 
-                newBox: "display: none;"
+                newBox: 'display: none;'
             },
             weather: {
                 position: 'Tbilisi',
@@ -23,21 +24,25 @@ class App extends Component {
             }
             };
 
+        localStorage.setItem("searchPattern", '');
+
         this.GetDataFromServer();
 
-        this.LocateMe()
+        this.LocateMe();
     }
 
     render(props) {
 
-        let listOfTaskElements = this.CreateListOfElements(this.state.taskItems, false);
-        let listOfCompletedTaskElements = this.CreateListOfElements(this.state.completeItems, true);
+        this.setState({
+            listOfTaskElements: this.CreateListOfElements(this.state.taskItems, false),
+            listOfCompletedTaskElements: this.CreateListOfElements(this.state.completeItems, true)
+        }, false, false);
 
         this.MorningGreatings(this.state.currentDate);
 
         this.WeatherCall();
 
-        this.SearchOnLoad(listOfTaskElements, listOfCompletedTaskElements);
+        this.SearchOnLoad();
         
         return super.render({
             id: 'oop_container',
@@ -59,11 +64,11 @@ class App extends Component {
                     class: 'container',
                     RemoveItemFromTaskList: this.RemoveItemFromTaskList,
                     weather: this.state.weather,
-                    inputSearchValue: this.state.defaultSearchPattern,
-                    onSearchInput: this.SearchInListsOfTasks,
-                    onButtonClick: this.NewTask,
-                    actualTasksChildren: listOfTaskElements ,
-                    completedTasksChildren: listOfCompletedTaskElements          
+                    taskItems: this.state.taskItems,
+                    completeItems: this.state.completeItems,
+                    onButtonClick: this.CallNewTaskWindow,
+                    actualTasksChildren: this.state.listOfTaskElements ,
+                    completedTasksChildren: this.state.listOfCompletedTaskElements          
                 })
             ]
         });
@@ -149,49 +154,34 @@ class App extends Component {
         }
     }
 
-    SearchOnLoad = (tasksActual, tasksComplete) => {
+    SearchOnLoad = () => {
+        let searchPattern = '';
+        if (localStorage.getItem("searchPattern")) {
+            searchPattern = localStorage.getItem("searchPattern");
+        }
         let i;
-        for (i in tasksActual) {
-            tasksActual[i].style.display = "none";
-
-            if (this.state.taskItems[i].match(this.state.defaultSearchPattern)){
-                tasksActual[i].style.display = "flex";
+        for (i in this.state.listOfTaskElements) {
+            this.state.listOfTaskElements[i].style.display = "none";
+            console.log(this.state.taskItems[i]);
+            console.log(searchPattern);
+            if (this.state.taskItems[i].name.match(searchPattern)){
+                this.state.listOfTaskElements[i].style.display = "flex";
             }  
         }
-        for (i in tasksComplete) {
-            tasksComplete[i].style.display = "none";
+        for (i in this.state.listOfCompletedTaskElements) {
+            this.state.listOfCompletedTaskElements[i].style.display = "none";
 
-            if (this.state.completeItems[i].match(this.state.defaultSearchPattern)){
-                tasksComplete[i].style.display = "flex";
+            if (this.state.completeItems[i].name.match(searchPattern)){
+                this.state.listOfCompletedTaskElements[i].style.display = "flex";
             }
         } 
-    }
-
-    SearchInListsOfTasks = () => {
-
-        this.state.defaultSearchPattern = document.getElementById("SearchString").value;
-        let i;
-        for (i in this.state.taskItems) {
-            let element = document.getElementById("Task_" + i);
-            element.style.display = "none";
-            if (this.state.taskItems[i].match(this.state.defaultSearchPattern)){
-                element.style.display = "flex";
-            }     
-        }
-        for (i in this.state.completeItems) {
-            let element = document.getElementById("Complete_" + i);
-            element.style.display = "none";
-            if (this.state.completeItems[i].match(this.state.defaultSearchPattern)){
-                element.style.display = "flex";
-            }     
-        }
     }
 
     ApplyItem = () => {
         const newItemInput = document.getElementById("NewItemInput");
 
         this.setState({
-            taskItems: [...this.state.taskItems, newItemInput.value],
+            taskItems: [...this.state.taskItems, {name: newItemInput.value, isCompleted: false}],
             style: {
                     screenLock: 'display: none;', 
                     newMorning: 'display: none;', 
@@ -211,7 +201,7 @@ class App extends Component {
         const parent = element.srcElement.parentElement.id;
         const label = parent.replace("Task_", "TasksLabel_");
         const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf(item.innerHTML), 1);
+        const removed = states.splice(states.indexOf({name: item.innerHTML, isCompleted: false}), 1);
 
         this.setState(
             {taskItems: [...states]},
@@ -225,7 +215,7 @@ class App extends Component {
         const parent = element.srcElement.parentElement.id;
         const label = parent.replace("Complete_", "CompleteLabel_");
         const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf(item.innerHTML), 1);
+        const removed = states.splice(states.indexOf({name: item.innerHTML, isCompleted: true}), 1);
 
         this.setState(
             {completeItems: [...states]}, 
@@ -246,7 +236,7 @@ class App extends Component {
         });
     }
 
-    NewTask = () => {
+    CallNewTaskWindow = () => {
         const newItemButtonApply = document.getElementById('NewItemButtonApply');
         newItemButtonApply.classList.remove("newitembox__button--enabled");
         newItemButtonApply.classList.add("newitembox__button--disabled");
@@ -306,10 +296,11 @@ class App extends Component {
 
     SetItemAsCompleted = (element) => {     
         let states = this.state.completeItems; 
-        const newitem = this.RemoveItemFromTaskList(element, false);
-        console.log(newitem);
+        const removedItem = this.RemoveItemFromTaskList(element, false);
+        removedItem.isCompleted = true;
+        console.log(removedItem);
         this.setState({
-            completeItems: [...states, newitem]
+            completeItems: [...states, removedItem]
         },
         this.PutDataIntoServer
         );
@@ -317,10 +308,11 @@ class App extends Component {
 
     SetItemAsActual = (element) => {
         let states = this.state.taskItems;
-        const newitem = this.RemoveItemFromCompletedTaskList(element, false);
-        console.log(newitem);
+        const removedItem = this.RemoveItemFromCompletedTaskList(element, false);
+        removedItem.isCompleted = false;
+        console.log(removedItem);
         this.setState(
-            {taskItems: [...states, newitem]},
+            {taskItems: [...states, removedItem]},
             this.PutDataIntoServer
         );
     }
@@ -356,9 +348,9 @@ class App extends Component {
             for (i of response) {
                 console.log('get: ' + i.title);
                 if (i.isCompleted) {
-                    icomplete.push(i.title);
+                    icomplete.push({name: i.title, id: i.id, isCompleted: i.isCompleted});
                 } else {
-                    itasks.push(i.title);
+                    itasks.push({name: i.title, id: i.id, isCompleted: i.isCompleted});
                 }
             }
         }
@@ -377,11 +369,11 @@ class App extends Component {
         let data = [];
         for (i of this.state.taskItems) {
             ++counter;
-            data.push({ id: counter, title: i, isCompleted: false});
+            data.push({ id: counter, title: i.name, isCompleted: false});
         };
         for (i of this.state.completeItems) {
             ++counter;
-            data.push({ id: counter, title: i, isCompleted: true});
+            data.push({ id: counter, title: i.name, isCompleted: true});
         };
 
         try {

@@ -18,7 +18,8 @@ class Button extends Component {
             children: [],
             class: props.class,
             htmltext: props.htmltext,
-            style: props.style
+            style: props.style,
+            isDisabled: props.isDisabled
         });
     }
 }
@@ -143,7 +144,7 @@ class LabelContainer extends Component {
             children: [
                 new Label().render({
                     id: props.prefix + 'Label_' + props.i,
-                    text: props.item,
+                    text: props.item.name,
                     class: 'task__text' + props.labelState
                 }),
                 new TagHolder().render({
@@ -234,7 +235,7 @@ class GreetingWindow extends Component {
             rows.push(
                 new Label().render({
                     id: "morningTask_" + i, 
-                    text: items[i], 
+                    text: items[i].name, 
                     class: "newdaybox__text"
                 })
             )
@@ -275,23 +276,11 @@ class NewItemWindow extends Component {
                     class: 'newitembox__addition',
                     currentDate: props.currentDate,
                 }),
-                new DivElement().render({
+                new NewItemButtonsContainerElement().render({
                     id: 'NewItemButtons',
                     class: 'newitembox__buttons',
-                    children: [
-                        new Button().render({
-                            id: 'NewItemButtonCancel',
-                            class: 'newitembox__button newitembox__button--cancel',
-                            htmltext: 'Cancel',
-                            onClick: props.buttonOnClick_cancel
-                        }),
-                        new Button().render({
-                            id: 'NewItemButtonApply',
-                            class: 'newitembox__button newitembox__button--apply newitembox__button--enabled',
-                            htmltext: 'Add Task',
-                            onClick: props.buttonOnClick_apply
-                        }),
-                    ]
+                    buttonOnClick_cancel: props.buttonOnClick_cancel,
+                    buttonOnClick_apply: props.buttonOnClick_apply
                 })
             ]
         });
@@ -322,6 +311,36 @@ class NewItemWindow extends Component {
     NewTaskOnEnter = () => {
         const newItemBox = document.getElementById('NewItemButtonApply');
         newItemBox.disabled == false ? newItemBox.onclick.apply() : '';
+    }
+}
+
+class NewItemButtonsContainerElement extends Component {
+    constructor() {
+        super();
+        this.element = document.createElement('div');
+    }
+
+    render(props) {
+        return super.render({
+            id: props.id,
+            class: props.class,
+            children: [
+                new Button().render({
+                    id: 'NewItemButtonCancel',
+                    class: 'newitembox__button newitembox__button--cancel',
+                    htmltext: 'Cancel',
+                    isDisabled: false,
+                    onClick: props.buttonOnClick_cancel
+                }),
+                new Button().render({
+                    id: 'NewItemButtonApply',
+                    class: 'newitembox__button newitembox__button--apply newitembox__button--disabled',
+                    htmltext: 'Add Task',
+                    isDisabled: true,
+                    onClick: props.buttonOnClick_apply
+                }),
+            ]
+        });
     }
 }
 
@@ -427,9 +446,20 @@ class TopBarElement extends Component {
     constructor() {
         super();
         this.element = document.createElement('div');
+        this.state = {
+            taskItems: [],
+            completeItems: []
+        };
     }
 
     render(props) {
+        const searchPattern = localStorage.getItem("searchPattern");
+
+        this.setState({
+            taskItems: props.taskItems,
+            completeItems: props.completeItems
+        }, false, false);
+
         return super.render({
             id: props.id,
             class: props.class,
@@ -437,11 +467,11 @@ class TopBarElement extends Component {
                 new Input().render({
                     id: 'SearchString',
                     children: [],
-                    value: props.inputSearchValue,
+                    value: searchPattern,
                     class: 'topbar__search',
                     text: 'Search Task',
                     type: 'search',
-                    onInput: props.onSearchInput
+                    onInput: this.SearchInListsOfTasks
                 }),
                 new Button().render({
                     id: 'AddButton',
@@ -452,8 +482,83 @@ class TopBarElement extends Component {
             ]
         });
     }
+
+    SearchInListsOfTasks = () => {
+        const searchPattern = document.getElementById("SearchString").value
+
+        localStorage.setItem("searchPattern", searchPattern);
+
+        let i;
+        for (i in this.state.taskItems) {
+            let element = document.getElementById("Task_" + i);
+            element.style.display = "none";
+            if (this.state.taskItems[i].name.match(searchPattern)){
+                element.style.display = "flex";
+            }     
+        }
+        for (i in this.state.completeItems) {
+            let element = document.getElementById("Complete_" + i);
+            element.style.display = "none";
+            if (this.state.completeItems[i].name.match(searchPattern)){
+                element.style.display = "flex";
+            }     
+        }
+    }
 }
 
+class TopLabelBoxElement extends Component {
+    constructor() {
+        super();
+        this.element = document.createElement('div');
+    }
+
+    render(props) {
+        return super.render({
+            id: props.id,
+            class: props.class,
+            children: [
+                new Label().render({
+                    id: 'ToDoLabel',
+                    text: 'To Do List',
+                    class: 'toplabelbox__label'
+                }),
+                new WeatherWiget().render({
+                    id: 'topLabelWidget',
+                    class: 'toplabelbox__widget',
+                    weather: props.weather,
+                })
+            ]
+        });
+    }
+}
+
+class TaskContainerElement extends Component {
+    constructor() {
+        super();
+        this.element = document.createElement('div');
+    }
+
+    render(props) {
+        return super.render({
+            id: props.id,
+            class: props.class,
+            children: [
+                new DivElement().render({
+                    id: 'AllTasks',
+                    class: 'tasks__label',
+                    htmltext: 'All Tasks',
+                    children: props.actualTasksChildren 
+                }),
+                new DivElement().render({
+                    id: 'CompletedTasks',
+                    class: 'tasks__label',
+                    htmltext: 'Completed Tasks',
+                    children: props.completedTasksChildren 
+                })
+            ]
+        });
+    }
+}
 
 class ContainerElement extends Component {
     constructor() {
@@ -466,52 +571,29 @@ class ContainerElement extends Component {
             id: props.id,
             class: props.class,
             children: [
-                new DivElement().render({
+                new TopLabelBoxElement().render({
                     id: 'topLabelBox',
                     class: 'toplabelbox__container',
-                    children: [
-                        new Label().render({
-                            id: 'ToDoLabel',
-                            text: 'To Do List',
-                            class: 'toplabelbox__label'
-                        }),
-                        new WeatherWiget().render({
-                            id: 'topLabelWidget',
-                            class: 'toplabelbox__widget',
-                            weather: props.weather,
-                        })
-                    ]
+                    weather: props.weather
                 }),
                 new TopBarElement().render({
                     id: 'TopBar',
                     class: 'topbar',
-                    inputSearchValue: props.defaultSearchPattern,
+                    taskItems: props.taskItems,
+                    completeItems: props.completeItems,
                     onSearchInput: props.onSearchInput,
                     onButtonClick: props.onButtonClick,
                 }),
-                new DivElement().render({
+                new TaskContainerElement().render({
                     id: 'TaskContainer',
                     class: 'tasks',
-                    children: [
-                        new DivElement().render({
-                            id: 'AllTasks',
-                            class: 'tasks__label',
-                            htmltext: 'All Tasks',
-                            children: props.actualTasksChildren 
-                        }),
-                        new DivElement().render({
-                            id: 'CompletedTasks',
-                            class: 'tasks__label',
-                            htmltext: 'Completed Tasks',
-                            children: props.completedTasksChildren 
-                        })
-                    ]
+                    actualTasksChildren: props.actualTasksChildren,
+                    completedTasksChildren: props.completedTasksChildren
                 }),
             ] 
         });
     }
 }
-
 
 class ScreenlockElement extends Component {
     constructor() {
@@ -520,6 +602,7 @@ class ScreenlockElement extends Component {
     }
 
     render(props) {
+
         return super.render({
             id: props.id,
             class: props.class,
