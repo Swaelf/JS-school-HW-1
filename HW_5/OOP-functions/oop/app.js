@@ -33,9 +33,17 @@ class App extends Component {
 
     render(props) {
 
+        console.log('render');
+
+        const [actualTasksElement, actualTaskElementId] = this.CreateListOfElements(this.state.taskItems, false);
+        const [completedTasksElement, completedTaskElementId] = this.CreateListOfElements(this.state.completeItems, true);
+        console.log('id =' + actualTasksElement);
+
         this.setState({
-            listOfTaskElements: this.CreateListOfElements(this.state.taskItems, false),
-            listOfCompletedTaskElements: this.CreateListOfElements(this.state.completeItems, true)
+            taskItems: actualTaskElementId,
+            completeItems: completedTaskElementId,
+            listOfTaskElements: actualTasksElement,
+            listOfCompletedTaskElements: completedTasksElement
         }, false, false);
 
         this.MorningGreatings(this.state.currentDate);
@@ -198,10 +206,16 @@ class App extends Component {
 
     RemoveItemFromTaskList = (element, mkr = true) => {
         let states = this.state.taskItems;
+        let i;
         const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("Task_", "TasksLabel_");
-        const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf({name: item.innerHTML, isCompleted: false}), 1);
+        const item = document.getElementById(parent);
+        let pickedElement = -1;
+        for (i in states) {
+            if (item.id == states[i].elementID) {
+                pickedElement = i;
+            }
+        }
+        const removed = states.splice(pickedElement, 1);
 
         this.setState(
             {taskItems: [...states]},
@@ -212,10 +226,16 @@ class App extends Component {
 
     RemoveItemFromCompletedTaskList = (element, mkr = true) => {
         let states = this.state.completeItems;
+        let i;
         const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("Complete_", "CompleteLabel_");
-        const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf({name: item.innerHTML, isCompleted: true}), 1);
+        const item = document.getElementById(parent);
+        let pickedElement = -1;
+        for (i in states) {
+            if (item.id == states[i].elementID) {
+                pickedElement = i;
+            }
+        }
+        const removed = states.splice(pickedElement, 1);
 
         this.setState(
             {completeItems: [...states]}, 
@@ -258,6 +278,7 @@ class App extends Component {
         let i;
         let params;
         let rows = [];
+        let fixedItems = [...items];
         if (complete == false) {
             params = {
                 class: 'tasks__row',
@@ -290,8 +311,9 @@ class App extends Component {
             rows.push(
                 new TaskRow().render(params)
             );
+            fixedItems[i].elementID = params.pattern + i;
         }
-        return rows;
+        return [rows, fixedItems];
     }
 
     SetItemAsCompleted = (element) => {     
@@ -447,5 +469,6 @@ class App extends Component {
 }
 
 document.body.appendChild(new App().render());
+
 
        
