@@ -1,4 +1,5 @@
-    
+import Component from './base.js'   
+
 /**
 *
 * @param props
@@ -82,7 +83,7 @@ class DivElement extends Component {
     }
 }
 
-class TaskRow extends Component {
+export class TaskRow extends Component {
     constructor() {
         super();
         this.element = document.createElement('div');
@@ -560,7 +561,7 @@ class TaskContainerElement extends Component {
     }
 }
 
-class ContainerElement extends Component {
+export class ContainerElement extends Component {
     constructor() {
         super();
         this.element = document.createElement('div');
@@ -595,7 +596,7 @@ class ContainerElement extends Component {
     }
 }
 
-class ScreenlockElement extends Component {
+export class ScreenlockElement extends Component {
     constructor() {
         super();
         this.element = document.createElement('div');

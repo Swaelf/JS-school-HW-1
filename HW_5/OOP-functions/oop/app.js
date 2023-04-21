@@ -1,3 +1,7 @@
+import './main.css' ;
+import Component from './base.js'
+import {ScreenlockElement, ContainerElement, TaskRow} from './components.js'
+
 class App extends Component {
     constructor() {
         super();
