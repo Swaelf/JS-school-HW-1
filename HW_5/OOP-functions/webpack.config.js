@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const path = require('path');
 
 module.exports = {
@@ -17,6 +18,10 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'dist'),
+    port: 9000
   },
 
 };
