@@ -58,7 +58,7 @@ export default class WeatherWiget extends Component {
                 .then(response => {
                     localStorage.setItem("positionGPS", response.location.name);   
                     localStorage.setItem('temperature', response.current.temp_c);
-                    localStorage.setItem('icon', response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons'));
+                    localStorage.setItem('weathericon', response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons'));
                     console.log('weatherLoad = ok'); 
                     this.update(); 
                 });
