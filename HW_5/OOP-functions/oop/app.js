@@ -15,22 +15,18 @@ class App extends Component {
             currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
             localurl: 'http://localhost:3004/tasks',
             githuburl: 'https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks',
-            weatherUrl: 'https://api.weatherapi.com/v1',
-            weatherKey: 'd9e8739732f24f7f942112753231504',
             style: {
                 screenLock: 'display: none;', 
                 newMorning: 'display: none;', 
                 newBox: 'display: none;'
-            },
-            weather: {
-                position: 'Tbilisi',
-                temperature: '??',
-                icon: 'icons/weather/64x64/day/116.png',
-                forLoad: false
             }
-            };
+        };
 
         localStorage.setItem("searchPattern", '');
+        localStorage.setItem("weatherForLoad", false);
+        localStorage.setItem("positionGPS", false);
+        localStorage.setItem('temperature', '??');
+        localStorage.setItem('weathericon', 'icons/weather/64x64/day/116.png');
 
         this.GetDataFromServer();
 
@@ -38,7 +34,6 @@ class App extends Component {
     }
 
     render(props) {
-
         console.log('render');
 
         const [actualTasksElement, actualTaskElementId] = this.CreateListOfElements(this.state.taskItems, false);
@@ -53,8 +48,6 @@ class App extends Component {
         }, false, false);
 
         this.MorningGreatings(this.state.currentDate);
-
-        this.WeatherCall();
 
         this.SearchOnLoad();
         
@@ -73,7 +66,6 @@ class App extends Component {
                 }),
                 new ContainerElement().render({
                     RemoveItemFromTaskList: this.RemoveItemFromTaskList,
-                    weather: this.state.weather,
                     taskItems: this.state.taskItems,
                     completeItems: this.state.completeItems,
                     onButtonClick: this.CallNewTaskWindow,
@@ -86,55 +78,29 @@ class App extends Component {
     }
 
     LocateMe = () => {
+        localStorage.setItem("positionGPS", 'Tbilisi');
+
         if (!navigator.geolocation) {
             console.log("Geolocation is not supported by your browser");
+            localStorage.setItem("weatherForLoad", true);
+            this.update();
         } else {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    this.setState({
-                        weather: {
-                            position: position.coords.latitude + ',' + position.coords.longitude,
-                            temperature: this.state.weather.temperature,
-                            icon: this.state.weather.icon,
-                            forLoad: true
-                        }
-                    });
-                   console.log(position.coords.latitude + ',' + position.coords.longitude);
+                    localStorage.setItem(
+                        "positionGPS", 
+                        position.coords.latitude + ',' + position.coords.longitude
+                        );   
+                    localStorage.setItem("weatherForLoad", true);  
+                    console.log(position.coords.latitude + ',' + position.coords.longitude);
+                    this.update();
                 },  
                 (error) => {
-                    this.setState({
-                        weather: {
-                            position: this.state.weather.position,
-                            temperature: this.state.weather.temperature,
-                            icon: this.state.weather.icon,
-                            forLoad: true
-                        }
-                    });
                     console.log(error);
+                    localStorage.setItem("weatherForLoad", true);
+                    this.update();
                 }
             );
-        }
-    }
-
-    WeatherCall = async () => {
-        if (this.state.weather.forLoad) {
-            const response = await fetch(
-                this.state.weatherUrl + '/current.json?key=' + this.state.weatherKey + '&q=' + this.state.weather.position
-                )
-                .then(response => response.json())
-                .then(response => {
-                    this.setState({
-                        weather: {
-                            position: response.location.name,
-                            temperature: response.current.temp_c,
-                            icon: response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons'),
-                            forLoad: false
-                        } 
-                    });
-                    console.log('weatherLoad = ok');              
-                });
-        } else {
-            console.log('weatherLoad = skip')
         }
     }
 
@@ -172,8 +138,6 @@ class App extends Component {
         let i;
         for (i in this.state.listOfTaskElements) {
             this.state.listOfTaskElements[i].style.display = "none";
-            console.log(this.state.taskItems[i]);
-            console.log(searchPattern);
             if (this.state.taskItems[i].name.match(searchPattern)){
                 this.state.listOfTaskElements[i].style.display = "flex";
             }  

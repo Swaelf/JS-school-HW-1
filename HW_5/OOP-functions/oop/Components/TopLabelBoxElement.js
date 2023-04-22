@@ -19,9 +19,7 @@ export default class TopLabelBoxElement extends Component {
                     text: 'To Do List',
                     class: 'toplabelbox__label'
                 }),
-                new WeatherWiget().render({
-                    weather: props.weather,
-                })
+                new WeatherWiget().render()
             ]
         });
     }

@@ -15,9 +15,7 @@ export default class ContainerElement extends Component {
             id: 'Container',                
             class: 'container',
             children: [
-                new TopLabelBoxElement().render({
-                    weather: props.weather
-                }),
+                new TopLabelBoxElement().render(),
                 new TopBarElement().render({
                     taskItems: props.taskItems,
                     completeItems: props.completeItems,

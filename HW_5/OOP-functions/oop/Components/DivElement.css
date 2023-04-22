@@ -21,14 +21,6 @@
 
 }
 
-.newitembox__tags {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 12px;
-    padding-top: 12px;
-}
-
 .tasks__label {
     display: flex;
     flex-direction: column;
