@@ -1,0 +1,4 @@
+.tasks__labelcontainer {
+    display: flex;
+    flex-direction: column;
+}

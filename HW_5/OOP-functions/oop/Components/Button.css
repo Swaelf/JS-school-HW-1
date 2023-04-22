@@ -1,0 +1,73 @@
+
+.button__add {
+    width: 158.15px;
+    background-color: #3C86F426;
+    border-radius: 12px;
+    padding: 16px 32px 16px 32px;
+    gap: 10px;
+    border: none;
+    color: #0053CF;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.button__remove {
+    background-image: url(icons/Delete.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+.button__remove:hover {
+    background-image: url(icons/Delete_hover.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+}
+
+.newdaybox__button {
+    width: 100%;
+    height: 52px;
+    padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+}
+
+.newdaybox__button--apply {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: #3C86F4;
+}
+
+.newitembox__button {
+    width: 50%;
+    height: 100%;
+    padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+}
+
+.newitembox__button--disabled {
+    background-color: #D3D3D3;
+}
+
+.newitembox__button--enabled {
+    background-color: #3C86F4;
+}
+
+.newitembox__button--apply {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.newitembox__button--cancel {
+    background-color: #FFFFFF;
+    color: #0053CF;
+    font-size: 16px;
+    font-weight: 800;
+}

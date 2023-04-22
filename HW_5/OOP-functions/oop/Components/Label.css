@@ -1,0 +1,138 @@
+.toplabelbox__label {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 36px;
+    color: #1D1D1D;
+}
+
+.widget__text {
+    font-size: 18px;
+    line-height: 36px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.widget__text--city {
+    font-weight: 500;
+    color: #838383;
+    width: auto;
+    min-width: 70px;
+}
+
+.widget__text--temperature {
+    font-weight: 700;
+    color: #000000;
+    width: 100%;
+}
+
+.task__text {
+    width: 381px;
+    font-size: 18px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+}
+
+.tasks__label {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32.74px;
+    gap: 12px;
+}
+
+.task--complete {
+    color: #838383!important;
+}
+
+.newdaybox__label {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    height: 33px;
+    min-height: 33px;
+    box-sizing: border-box;
+}
+
+.newdaybox__taskslabel {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.newdaybox__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.82px;
+    padding-left: 12px;
+    box-sizing: border-box;
+    height: 22px;
+
+}
+
+.newitembox__label {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    height: 33px;
+    min-height: 33px;
+    box-sizing: border-box;
+}
+
+.newitembox__date {
+    display: flex;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 10px 16px 10px 16px;
+    border: 1px solid red;
+    box-sizing: border-box;
+    border: 2px solid #3C86F499;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.tags__item {
+    display: flex;
+    padding: 2px 8px 2px 8px;
+    height: 19px;
+    width: 52px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    justify-content: center;
+}
+
+.tags__item--health {
+    background-color: #3C86F44F;
+    color: #0053CF;
+}
+
+.tags__item--work {
+    background-color: #E8D7FF;
+    color: #9747FF;
+}
+
+.tags__item--home {
+    background-color: #E2F6E2;
+    color: #639462;
+}
+
+.tags__item--other {
+    background-color: #FFECC7;
+    color: #EA8C00;
+}
+
+.tags__item--time {
+    background-color: transparent;
+    color: #838383;
+    width: auto;
+}
+
+.tags__item--inactive {
+    background-color: #F5F5F5;
+    color: #838383;
+}

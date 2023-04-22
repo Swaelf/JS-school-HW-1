@@ -1,6 +1,8 @@
-import './main.css' ;
-import Component from './base.js'
-import {ScreenlockElement, ContainerElement, TaskRow} from './components.js'
+import './app.css';
+import Component from './Components/base.js';
+import ScreenlockElement from './Components/ScreenlockElement.js';
+import ContainerElement from './Components/ContainerElement.js';
+import TaskRow from './Components/TaskRow.js';
 
 class App extends Component {
     constructor() {
@@ -63,8 +65,6 @@ class App extends Component {
             GetDataFromServer: this.GetDataFromServer, 
             children: [
                 new ScreenlockElement().render({
-                    id: 'ScreenLock',
-                    class: 'screenlock',
                     style: this.state.style,
                     currentDate: this.state.currentDate,
                     buttonOnClick_cancel: this.CancelAction,
@@ -72,8 +72,6 @@ class App extends Component {
                     tasks: this.state.taskItems
                 }),
                 new ContainerElement().render({
-                    id: 'Container',                
-                    class: 'container',
                     RemoveItemFromTaskList: this.RemoveItemFromTaskList,
                     weather: this.state.weather,
                     taskItems: this.state.taskItems,
@@ -285,7 +283,6 @@ class App extends Component {
         let fixedItems = [...items];
         if (complete == false) {
             params = {
-                class: 'tasks__row',
                 pattern: "Task_",
                 prefix: "Tasks",
                 onChange: this.SetItemAsCompleted,
@@ -297,7 +294,6 @@ class App extends Component {
             }
         } else {
             params = {
-                class: 'tasks__row',
                 pattern: "Complete_",
                 prefix: "Complete",
                 onChange: this.SetItemAsActual,
