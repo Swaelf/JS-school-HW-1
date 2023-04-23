@@ -1,15 +1,19 @@
-import Component from './base.js';  
-import Label from './Label.js';  
-import WeatherWiget from './WeatherWiget.js';  
+import Component from './base.ts';  
+import Label from './Label.ts';  
+import WeatherWiget from './WeatherWiget.ts'; 
+import Properities from './Properities.ts'; 
 import './TopLabelBoxElement.css';
 
 export default class TopLabelBoxElement extends Component {
+    props: Properities;
+    element: HTMLDivElement;     
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: 'topLabelBox',
             class: 'toplabelbox__container',
@@ -19,7 +23,10 @@ export default class TopLabelBoxElement extends Component {
                     text: 'To Do List',
                     class: 'toplabelbox__label'
                 }),
-                new WeatherWiget().render()
+                new WeatherWiget().render({
+                    id: 'topLabelWidget',
+                    class: 'toplabelbox__widget'
+                })
             ]
         });
     }

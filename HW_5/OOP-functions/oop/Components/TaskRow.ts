@@ -1,16 +1,20 @@
-import Component from './base.js';   
-import Input from './Input.js';  
-import Button from './Button.js'; 
-import LabelContainer from './LabelContainer.js'; 
+import Component from './base.ts';   
+import Input from './Input.ts';  
+import Button from './Button.ts'; 
+import LabelContainer from './LabelContainer.ts'; 
+import Properities from './Properities.ts'; 
 import './TaskRow.css';
 
 export default class TaskRow extends Component {
+    props: Properities;
+    element: HTMLDivElement;    
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             class: 'tasks__row',
             htmltext: props.htmltext,
@@ -29,6 +33,7 @@ export default class TaskRow extends Component {
                 }),
                 new LabelContainer().render({
                     id: props.prefix + 'LabelContainer_' + props.i,
+                    class: 'tasks__labelcontainer',
                     labelState: props.labelState,
                     tagState: props.tagState,
                     prefix: props.prefix,

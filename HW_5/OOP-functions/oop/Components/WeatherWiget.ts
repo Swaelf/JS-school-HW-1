@@ -1,9 +1,14 @@
-import Component from './base.js';  
-import Label from './Label.js';  
-import DivElement from './DivElement.js';   
+import Component from './base.ts';  
+import Label from './Label.ts';  
+import DivElement from './DivElement.ts'; 
+import Properities from './Properities.ts'; 
 import './WeatherWiget.css';
 
 export default class WeatherWiget extends Component {
+    props: Properities;
+    element: HTMLDivElement; 
+    state: {weatherUrl: string, weatherKey: string};     
+
     constructor() {
         super();
         this.element = document.createElement('div');   
@@ -13,7 +18,7 @@ export default class WeatherWiget extends Component {
         };   
     }
 
-    render(props) {
+    render(props: Properities) {
 
         this.WeatherCall();
 
@@ -50,7 +55,7 @@ export default class WeatherWiget extends Component {
 
     WeatherCall = async () => {
         if (localStorage.getItem("weatherForLoad") == 'true') {
-            localStorage.setItem("weatherForLoad", false);
+            localStorage.setItem("weatherForLoad", 'false');
             const response = await fetch(
                 this.state.weatherUrl + '/current.json?key=' + this.state.weatherKey + '&q=' + localStorage.getItem("positionGPS")
                 )

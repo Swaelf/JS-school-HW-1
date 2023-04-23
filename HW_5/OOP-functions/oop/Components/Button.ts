@@ -1,17 +1,20 @@
-import Component from './base.js';   
+import Component from './base.ts';   
+import Properities from './Properities.ts';
 import './Button.css';
 
 export default class Button extends Component {
+    props: Properities;
+    element: HTMLButtonElement;
+
     constructor() {
         super();
         this.element = document.createElement('button');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: props.id,
             onClick: props.onClick,
-            children: [],
             class: props.class,
             htmltext: props.htmltext,
             style: props.style,

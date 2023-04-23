@@ -1,14 +1,18 @@
-import Component from './base.js';  
-import Button from './Button.js'; 
+import Component from './base.ts';  
+import Button from './Button.ts'; 
+import Properities from './Properities.ts'; 
 import './NewItemButtonsContainerElement.css';
 
 export default class NewItemButtonsContainerElement extends Component {
+    props: Properities;
+    element: HTMLDivElement;    
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: 'NewItemButtons',
             class: 'newitembox__buttons',

@@ -1,20 +1,23 @@
-import Component from './base.js';   
+import Component from './base.ts'; 
+import Properities from './Properities.ts'; 
 import './Label.css';
 
 export default class Label extends Component {
+    props: Properities;
+    element: HTMLLabelElement;     
+
     constructor() {
         super();
-        this.element = document.createElement('Label');
+        this.element = document.createElement('Label') as HTMLLabelElement;
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: props.id,
             htmltext: props.text,
             onClick: props.onClick,
             children: [],
-            class: props.class,
-            style: this.state.style
+            class: props.class
         });
     }
 }

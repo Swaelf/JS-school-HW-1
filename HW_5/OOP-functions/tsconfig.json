@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "module": "es6",
+    "target": "es5",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "allowJs": true,
+    "noImplicitAny": true
+  },
+  "include": ["./oop/**/*"],
+  "exclude": ["node_modules"]
+}

@@ -1,19 +1,23 @@
-import Component from './base.js';  
-import Label from './Label.js';  
-import DivElement from './DivElement.js';  
-import Input from './Input.js';  
-import Button from './Button.js'; 
-import NewItemAddition from './NewItemAddition.js'; 
-import NewItemButtonsContainerElement from './NewItemButtonsContainerElement.js'; 
+import Component from './base.ts';  
+import Label from './Label.ts';  
+import DivElement from './DivElement.ts';  
+import Input from './Input.ts';  
+import Button from './Button.ts'; 
+import NewItemAddition from './NewItemAddition.ts'; 
+import NewItemButtonsContainerElement from './NewItemButtonsContainerElement.ts'; 
+import Properities from './Properities.ts'; 
 import './NewItemWindow.css';
 
 export default class NewItemWindow extends Component {
+    props: Properities;
+    element: HTMLDivElement;    
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: 'NewItemBox',
             class: 'newitembox',
@@ -35,9 +39,13 @@ export default class NewItemWindow extends Component {
                     onInput: this.AproveNewItem
                 }),
                 new NewItemAddition().render({
+                    id: 'NewItemAddition',
+                    class: 'newitembox__addition',
                     currentDate: props.currentDate,
                 }),
                 new NewItemButtonsContainerElement().render({
+                    id: 'NewItemButtons',
+                    class: 'newitembox__buttons',
                     buttonOnClick_cancel: props.buttonOnClick_cancel,
                     buttonOnClick_apply: props.buttonOnClick_apply
                 })
@@ -46,8 +54,8 @@ export default class NewItemWindow extends Component {
     }
 
     AproveNewItem = () => {
-        const newItemInput = document.getElementById("NewItemInput");
-        const newItemButtonApply = document.getElementById("NewItemButtonApply");
+        const newItemInput: HTMLInputElement = document.getElementById("NewItemInput") as HTMLInputElement;
+        const newItemButtonApply: HTMLButtonElement = document.getElementById("NewItemButtonApply") as HTMLButtonElement;
         if (newItemInput.value) {
             if (newItemButtonApply.classList.contains("newitembox__button--disabled") == true) {
                 newItemButtonApply.classList.remove("newitembox__button--disabled");
@@ -68,7 +76,7 @@ export default class NewItemWindow extends Component {
     }
 
     NewTaskOnEnter = () => {
-        const newItemBox = document.getElementById('NewItemButtonApply');
-        newItemBox.disabled == false ? newItemBox.onclick.apply() : '';
+        const newItemBox: HTMLButtonElement = document.getElementById('NewItemButtonApply') as HTMLButtonElement;
+        newItemBox.disabled == false ? newItemBox.onclick.call(this) : '';
     }
 }

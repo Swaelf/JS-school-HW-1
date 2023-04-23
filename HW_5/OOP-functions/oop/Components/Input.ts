@@ -1,13 +1,17 @@
-import Component from './base.js';   
+import Component from './base.ts';   
 import './Input.css';
+import Properities from './Properities.ts'; 
 
 export default class Input extends Component {
+    props: Properities;
+    element: any;    
+
     constructor() {
         super();
         this.element = document.createElement('Input');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: props.id,
             children: [],
@@ -15,7 +19,6 @@ export default class Input extends Component {
             placeholder: props.text,
             class: props.class,
             type: props.type,
-            style: this.state.style,
             onInput: props.onInput,
             onChange: props.onChange,
             onSearch: props.onSearch,

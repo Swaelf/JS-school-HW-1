@@ -1,16 +1,21 @@
-import Component from './base.js';   
-import Label from './Label.js';  
-import DivElement from './DivElement.js';  
-import Button from './Button.js';  
+import Component from './base.ts';   
+import Label from './Label.ts';  
+import DivElement from './DivElement.ts';  
+import Button from './Button.ts';  
 import './GreetingWindow.css';
+import Properities from './Properities.ts'; 
+
 
 export default class GreetingWindow extends Component {
+    props: Properities;
+    element: HTMLDivElement;
+    
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: 'NewDayBox',
             class: 'newdaybox',
@@ -38,14 +43,13 @@ export default class GreetingWindow extends Component {
                     id: 'NewDayLabel',
                     htmltext: 'Ok',
                     class: 'newdaybox__button newdaybox__button--apply',
-                    onClick: props.buttonOnClick,
-                    children: []
+                    onClick: props.buttonOnClick
                 })
             ]
         });
     }
 
-    CreateListForMorningGreeting = (items) => {
+    CreateListForMorningGreeting = (items: any) => {
         let rows = [];
         let i;
         for (i in items) {

@@ -1,9 +1,17 @@
-import Component from './base.js';  
-import Input from './Input.js';  
-import Button from './Button.js'; 
+import Component from './base.ts';  
+import Input from './Input.ts';  
+import Button from './Button.ts';
+import Properities from './Properities.ts'; 
 import './TopBarElement.css';
 
 export default class TopBarElement extends Component {
+    props: Properities;
+    element: HTMLDivElement;  
+    state: {
+        taskItems: any,
+        completeItems: any
+        };   
+
     constructor() {
         super();
         this.element = document.createElement('div');
@@ -13,7 +21,7 @@ export default class TopBarElement extends Component {
         };
     }
 
-    render(props) {
+    render(props: Properities) {
         const searchPattern = localStorage.getItem("searchPattern");
 
         this.setState({
@@ -45,20 +53,21 @@ export default class TopBarElement extends Component {
     }
 
     SearchInListsOfTasks = () => {
-        const searchPattern = document.getElementById("SearchString").value
+        const searchInput: HTMLInputElement = document.getElementById("SearchString") as HTMLInputElement;
+        const searchPattern: string = searchInput.value;
 
         localStorage.setItem("searchPattern", searchPattern);
 
         let i;
         for (i in this.state.taskItems) {
-            let element = document.getElementById("Task_" + i);
+            let element: any = document.getElementById("Task_" + i);
             element.style.display = "none";
             if (this.state.taskItems[i].name.match(searchPattern)){
                 element.style.display = "flex";
             }     
         }
         for (i in this.state.completeItems) {
-            let element = document.getElementById("Complete_" + i);
+            let element: any = document.getElementById("Complete_" + i);
             element.style.display = "none";
             if (this.state.completeItems[i].name.match(searchPattern)){
                 element.style.display = "flex";

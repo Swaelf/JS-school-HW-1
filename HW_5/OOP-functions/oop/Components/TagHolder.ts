@@ -1,14 +1,18 @@
-import Component from './base.js';  
-import Label from './Label.js';   
+import Component from './base.ts';  
+import Label from './Label.ts'; 
+import Properities from './Properities.ts'; 
 import './TagHolder.css';
 
 export default class TagHolder extends Component {
+    props: Properities;
+    element: HTMLDivElement;      
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             class: 'tasks__tagholder',
             htmltext: props.htmltext,

@@ -1,10 +1,16 @@
 import './app.css';
-import Component from './Components/base.js';
-import ScreenlockElement from './Components/ScreenlockElement.js';
-import ContainerElement from './Components/ContainerElement.js';
-import TaskRow from './Components/TaskRow.js';
+import Component from './Components/base.ts';
+import ScreenlockElement from './Components/ScreenlockElement.ts';
+import ContainerElement from './Components/ContainerElement.ts';
+import TaskRow from './Components/TaskRow.ts';
+import Properities from './Components/Properities.ts'; 
+import StateIterface from './Components/StateInterface.ts'; 
+
 
 class App extends Component {
+    props: Properities;
+    state: StateIterface;  
+
     constructor() {
         super();
         this.state = {
@@ -23,8 +29,8 @@ class App extends Component {
         };
 
         localStorage.setItem("searchPattern", '');
-        localStorage.setItem("weatherForLoad", false);
-        localStorage.setItem("positionGPS", false);
+        localStorage.setItem("weatherForLoad", 'false');
+        localStorage.setItem("positionGPS", 'false');
         localStorage.setItem('temperature', '??');
         localStorage.setItem('weathericon', 'icons/weather/64x64/day/116.png');
 
@@ -33,7 +39,7 @@ class App extends Component {
         this.LocateMe();
     }
 
-    render(props) {
+    render(props: Properities) {
         console.log('render');
 
         const [actualTasksElement, actualTaskElementId] = this.CreateListOfElements(this.state.taskItems, false);
@@ -58,6 +64,8 @@ class App extends Component {
             GetDataFromServer: this.GetDataFromServer, 
             children: [
                 new ScreenlockElement().render({
+                    id: 'ScreenLock',
+                    class: 'screenLock',
                     style: this.state.style,
                     currentDate: this.state.currentDate,
                     buttonOnClick_cancel: this.CancelAction,
@@ -65,6 +73,8 @@ class App extends Component {
                     tasks: this.state.taskItems
                 }),
                 new ContainerElement().render({
+                    id: 'Container',
+                    class: 'container',
                     RemoveItemFromTaskList: this.RemoveItemFromTaskList,
                     taskItems: this.state.taskItems,
                     completeItems: this.state.completeItems,
@@ -82,31 +92,31 @@ class App extends Component {
 
         if (!navigator.geolocation) {
             console.log("Geolocation is not supported by your browser");
-            localStorage.setItem("weatherForLoad", true);
+            localStorage.setItem("weatherForLoad", 'true');
             this.update();
         } else {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
+                (position: any) => {
                     localStorage.setItem(
                         "positionGPS", 
                         position.coords.latitude + ',' + position.coords.longitude
                         );   
-                    localStorage.setItem("weatherForLoad", true);  
+                    localStorage.setItem("weatherForLoad", 'true');  
                     console.log(position.coords.latitude + ',' + position.coords.longitude);
                     this.update();
                 },  
-                (error) => {
+                (error: any) => {
                     console.log(error);
-                    localStorage.setItem("weatherForLoad", true);
+                    localStorage.setItem("weatherForLoad", 'true');
                     this.update();
                 }
             );
         }
     }
 
-    MorningGreatings = (currentDate) => {
+    MorningGreatings = (currentDate: string) => {
         if (localStorage.getItem("currentDate")) {
-            const previouseData = localStorage.getItem("currentDate");
+            const previouseData: string = localStorage.getItem("currentDate");
 
             if (previouseData != currentDate) {
                 localStorage.setItem("currentDate", currentDate);
@@ -131,18 +141,18 @@ class App extends Component {
     }
 
     SearchOnLoad = () => {
-        let searchPattern = '';
+        let searchPattern: string = '';
         if (localStorage.getItem("searchPattern")) {
             searchPattern = localStorage.getItem("searchPattern");
         }
-        let i;
-        for (i in this.state.listOfTaskElements) {
+        let i: number;
+        for (const i in this.state.listOfTaskElements) {
             this.state.listOfTaskElements[i].style.display = "none";
             if (this.state.taskItems[i].name.match(searchPattern)){
                 this.state.listOfTaskElements[i].style.display = "flex";
             }  
         }
-        for (i in this.state.listOfCompletedTaskElements) {
+        for (const i in this.state.listOfCompletedTaskElements) {
             this.state.listOfCompletedTaskElements[i].style.display = "none";
 
             if (this.state.completeItems[i].name.match(searchPattern)){
@@ -152,7 +162,7 @@ class App extends Component {
     }
 
     ApplyItem = () => {
-        const newItemInput = document.getElementById("NewItemInput");
+        const newItemInput: HTMLInputElement = document.getElementById("NewItemInput") as HTMLInputElement;
 
         this.setState({
             taskItems: [...this.state.taskItems, {name: newItemInput.value, isCompleted: false}],
@@ -167,21 +177,21 @@ class App extends Component {
     }
 
     DummyLog = () => {
-        console.log('call from inside')
+        console.log('call from inside');
     }
 
-    RemoveItemFromTaskList = (element, mkr = true) => {
-        let states = this.state.taskItems;
-        let i;
-        const parent = element.srcElement.parentElement.id;
-        const item = document.getElementById(parent);
-        let pickedElement = -1;
-        for (i in states) {
+    RemoveItemFromTaskList = (element: any, mkr: boolean = true) => {
+        let states: any = this.state.taskItems;
+        let i: any;
+        const parent: string = element.srcElement.parentElement.id;
+        const item: HTMLDivElement = document.getElementById(parent) as HTMLDivElement;
+        let pickedElement: number = -1;
+        for (const i in states) {
             if (item.id == states[i].elementID) {
-                pickedElement = i;
+                pickedElement = parseInt(i);
             }
         }
-        const removed = states.splice(pickedElement, 1);
+        const removed: any = states.splice(pickedElement, 1);
 
         this.setState(
             {taskItems: [...states]},
@@ -190,18 +200,18 @@ class App extends Component {
         return removed[0];
     }
 
-    RemoveItemFromCompletedTaskList = (element, mkr = true) => {
-        let states = this.state.completeItems;
-        let i;
-        const parent = element.srcElement.parentElement.id;
-        const item = document.getElementById(parent);
-        let pickedElement = -1;
-        for (i in states) {
+    RemoveItemFromCompletedTaskList = (element: any, mkr: boolean = true) => {
+        let states: any = this.state.completeItems;
+        let i: any;
+        const parent: string = element.srcElement.parentElement.id;
+        const item: HTMLDivElement = document.getElementById(parent) as HTMLDivElement;
+        let pickedElement: number = -1;
+        for (const i in states) {
             if (item.id == states[i].elementID) {
-                pickedElement = i;
+                pickedElement = parseInt(i);
             }
         }
-        const removed = states.splice(pickedElement, 1);
+        const removed: any = states.splice(pickedElement, 1);
 
         this.setState(
             {completeItems: [...states]}, 
@@ -223,7 +233,7 @@ class App extends Component {
     }
 
     CallNewTaskWindow = () => {
-        const newItemButtonApply = document.getElementById('NewItemButtonApply');
+        const newItemButtonApply: HTMLButtonElement = document.getElementById('NewItemButtonApply') as HTMLButtonElement;
         newItemButtonApply.classList.remove("newitembox__button--enabled");
         newItemButtonApply.classList.add("newitembox__button--disabled");
         newItemButtonApply.disabled = true;
@@ -235,18 +245,20 @@ class App extends Component {
                 newBox: "display: flex;"
             }
         });
-        const newItemInput = document.getElementById('NewItemInput');
+        const newItemInput: HTMLInputElement = document.getElementById('NewItemInput') as HTMLInputElement;
         newItemInput.value = '';
         newItemInput.focus();
     }
 
-    CreateListOfElements = (items, complete) => {
-        let i;
-        let params;
-        let rows = [];
-        let fixedItems = [...items];
+    CreateListOfElements = (items: any, complete: boolean) => {
+        let i: any;
+        let params: Properities;
+        let rows: any = [];
+        let fixedItems: any = [...items];
         if (complete == false) {
             params = {
+                id: '',
+                class: '',
                 pattern: "Task_",
                 prefix: "Tasks",
                 onChange: this.SetItemAsCompleted,
@@ -258,6 +270,8 @@ class App extends Component {
             }
         } else {
             params = {
+                id: '',
+                class: '',
                 pattern: "Complete_",
                 prefix: "Complete",
                 onChange: this.SetItemAsActual,
@@ -268,19 +282,19 @@ class App extends Component {
                 buttonOnClick: ''
             }
         };
-        for (i in items) {
-            params.id = params.pattern + i;
-            params.i = i;
+        for (const i in items) {
+            params.id = params.pattern + parseInt(i);
+            params.i = parseInt(i);
             params.item = items[i];
             rows.push(
                 new TaskRow().render(params)
             );
-            fixedItems[i].elementID = params.pattern + i;
+            fixedItems[i].elementID = params.pattern + parseInt(i);
         }
         return [rows, fixedItems];
     }
 
-    SetItemAsCompleted = (element) => {     
+    SetItemAsCompleted = (element: any) => {     
         let states = this.state.completeItems; 
         const removedItem = this.RemoveItemFromTaskList(element, false);
         removedItem.isCompleted = true;
@@ -292,7 +306,7 @@ class App extends Component {
         );
     }
 
-    SetItemAsActual = (element) => {
+    SetItemAsActual = (element: any) => {
         let states = this.state.taskItems;
         const removedItem = this.RemoveItemFromCompletedTaskList(element, false);
         removedItem.isCompleted = false;
@@ -368,8 +382,8 @@ class App extends Component {
 
             if (Array.isArray(response)) {
                 for (i in response) { 
-                    console.log('deleting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
-                    await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
+                    console.log('deleting ' + this.state.localurl + '\/' + (parseInt(i) + 1).toString());
+                    await fetch(this.state.localurl + '\/' + (parseInt(i) + 1).toString(), { 
                     method: "DELETE", 
                     })
                     .catch((error) => console.log(error));
@@ -377,7 +391,7 @@ class App extends Component {
             }
 
             for (i in data) {
-                console.log('posting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
+                console.log('posting ' + this.state.localurl + '\/' + (parseInt(i) + 1).toString());
                 await fetch(this.state.localurl, { 
                     method: "POST", 
                     headers: {
@@ -398,8 +412,8 @@ class App extends Component {
 
                     if (Array.isArray(response)) {
                         for (i in response) { 
-                            console.log('deleting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
-                            await fetch(this.state.githuburl + '\/' + (Math.floor(i) + 1), { 
+                            console.log('deleting ' + this.state.githuburl + '\/' + (parseInt(i) + 1).toString());
+                            await fetch(this.state.githuburl + '\/' + (parseInt(i) + 1).toString(), { 
                             method: "DELETE", 
                             })
                             .catch((error) => console.log(error));
@@ -407,7 +421,7 @@ class App extends Component {
                     }
 
                     for (i in data) {
-                        console.log('posting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
+                        console.log('posting ' + this.state.githuburl + '\/' + (parseInt(i) + 1).toString());
                         await fetch(this.state.githuburl, { 
                             method: "POST", 
                             headers: {
@@ -432,7 +446,7 @@ class App extends Component {
    
 }
 
-document.body.appendChild(new App().render());
+document.body.appendChild(new App().render({id: '', class: ''}));
 
 
        

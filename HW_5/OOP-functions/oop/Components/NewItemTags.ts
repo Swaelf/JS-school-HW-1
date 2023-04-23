@@ -1,14 +1,19 @@
-import Component from './base.js';  
-import Label from './Label.js';   
+import Component from './base.ts';  
+import Label from './Label.ts'; 
+import Properities from './Properities.ts'; 
+
 import './NewItemTags.css';
 
 export default class NewItemTags extends Component {
+    props: Properities;
+    element: HTMLDivElement;     
+
     constructor() {
         super();
         this.element = document.createElement('div');      
     }
 
-    render(props) {
+    render(props: Properities) {
 
         return super.render({
             id: 'NewItemTags',

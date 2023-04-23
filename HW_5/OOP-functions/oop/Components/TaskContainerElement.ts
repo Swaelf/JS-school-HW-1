@@ -1,14 +1,18 @@
-import Component from './base.js';  
-import DivElement from './DivElement.js';  
+import Component from './base.ts';  
+import DivElement from './DivElement.ts'; 
+import Properities from './Properities.ts'; 
 import './TaskContainerElement.css';
 
 export default class TaskContainerElement extends Component {
+    props: Properities;
+    element: HTMLDivElement;     
+
     constructor() {
         super();
         this.element = document.createElement('div');
     }
 
-    render(props) {
+    render(props: Properities) {
         return super.render({
             id: 'TaskContainer',
             class: 'tasks',
