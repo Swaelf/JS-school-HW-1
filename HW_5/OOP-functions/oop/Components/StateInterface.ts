@@ -1,4 +1,18 @@
+import ItemInterface from './ItemInterface'
+import HTMLCommonElement from './HTMLCommonElement'
 
 export default interface StateInterface {
-  [key: string]: string|boolean|[]|any;
+  taskItems?: ItemInterface[],
+  completeItems?: ItemInterface[],
+  listOfTaskElements?: HTMLCommonElement[],
+  listOfCompletedTaskElements?: HTMLCommonElement[],
+  currentDate?: string,
+  localurl?: string,
+  githuburl?: string,
+  weatherUrl?: string,
+  weatherKey?: string,
+  newdayMkr?: boolean,
+  style?: {
+    [key: string]: string, 
+  }
 }

@@ -1,6 +1,7 @@
 import Component from './base.ts';  
 import Label from './Label.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
 
 import './NewItemTags.css';
 
@@ -10,7 +11,7 @@ export default class NewItemTags extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');      
+        this.element = document.createElement('div') as HTMLDivElement;      
     }
 
     render(props: Properities) {

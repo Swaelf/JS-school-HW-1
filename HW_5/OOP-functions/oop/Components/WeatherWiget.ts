@@ -1,7 +1,9 @@
 import Component from './base.ts';  
 import Label from './Label.ts';  
 import DivElement from './DivElement.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './WeatherWiget.css';
 
 export default class WeatherWiget extends Component {
@@ -11,7 +13,7 @@ export default class WeatherWiget extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');   
+        this.element = document.createElement('div') as HTMLDivElement;   
         this.state = {
             weatherUrl: 'https://api.weatherapi.com/v1',
             weatherKey: 'd9e8739732f24f7f942112753231504'
@@ -36,7 +38,6 @@ export default class WeatherWiget extends Component {
                     id: 'topLabelIcon',
                     class: 'widget__icon',
                     style: 'background-image: url(' + weather.icon + ');',
-                    children: []
                 }),
                 new Label().render({
                     id: 'topLabelTemperature',

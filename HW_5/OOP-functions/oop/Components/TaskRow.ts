@@ -2,7 +2,9 @@ import Component from './base.ts';
 import Input from './Input.ts';  
 import Button from './Button.ts'; 
 import LabelContainer from './LabelContainer.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './TaskRow.css';
 
 export default class TaskRow extends Component {
@@ -11,7 +13,7 @@ export default class TaskRow extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {
@@ -25,7 +27,7 @@ export default class TaskRow extends Component {
                 new Input().render({
                     id: props.prefix +'CheckBox_' + props.i,
                     children: [],
-                    text: props.item,
+                    text: props.item.name,
                     class: 'task__checkbox',
                     type: 'checkbox',
                     onChange: props.onChange,
@@ -42,7 +44,7 @@ export default class TaskRow extends Component {
                 }),
                 new Button().render({
                     id: props.prefix + 'Button_' + props.i,
-                    class: 'button__remove ',
+                    class: 'button__remove',
                     onClick: props.buttonOnClick,
                     htmltext: '',
                     style: props.buttonBacground

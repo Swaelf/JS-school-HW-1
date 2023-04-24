@@ -1,6 +1,8 @@
 import Component from './base.ts';  
 import DivElement from './DivElement.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './TaskContainerElement.css';
 
 export default class TaskContainerElement extends Component {
@@ -9,7 +11,7 @@ export default class TaskContainerElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

@@ -1,20 +1,21 @@
 import Component from './base.ts';  
 import Input from './Input.ts';  
 import Button from './Button.ts';
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+import StateIterface from './StateInterface'; 
+import HTMLCommonElement from './HTMLCommonElement';
+
 import './TopBarElement.css';
 
 export default class TopBarElement extends Component {
     props: Properities;
     element: HTMLDivElement;  
-    state: {
-        taskItems: any,
-        completeItems: any
-        };   
+    state: StateIterface;
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
         this.state = {
             taskItems: [],
             completeItems: []
@@ -27,7 +28,7 @@ export default class TopBarElement extends Component {
         this.setState({
             taskItems: props.taskItems,
             completeItems: props.completeItems
-        }, false, false);
+        }, undefined ,false);
 
         return super.render({
             id: 'TopBar',
@@ -60,14 +61,14 @@ export default class TopBarElement extends Component {
 
         let i;
         for (i in this.state.taskItems) {
-            let element: any = document.getElementById("Task_" + i);
+            let element: HTMLCommonElement = document.getElementById("Task_" + i);
             element.style.display = "none";
             if (this.state.taskItems[i].name.match(searchPattern)){
                 element.style.display = "flex";
             }     
         }
         for (i in this.state.completeItems) {
-            let element: any = document.getElementById("Complete_" + i);
+            let element: HTMLCommonElement = document.getElementById("Complete_" + i);
             element.style.display = "none";
             if (this.state.completeItems[i].name.match(searchPattern)){
                 element.style.display = "flex";

@@ -5,7 +5,9 @@ import Input from './Input.ts';
 import Button from './Button.ts'; 
 import NewItemAddition from './NewItemAddition.ts'; 
 import NewItemButtonsContainerElement from './NewItemButtonsContainerElement.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './NewItemWindow.css';
 
 export default class NewItemWindow extends Component {
@@ -14,7 +16,7 @@ export default class NewItemWindow extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

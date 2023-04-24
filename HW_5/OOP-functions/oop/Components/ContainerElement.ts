@@ -2,7 +2,9 @@ import Component from './base.ts';
 import TopLabelBoxElement from './TopLabelBoxElement.ts';  
 import TopBarElement from './TopBarElement.ts';  
 import TaskContainerElement from './TaskContainerElement.ts';  
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './ContainerElement.css';
 
 export default class ContainerElement extends Component {
@@ -11,7 +13,7 @@ export default class ContainerElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

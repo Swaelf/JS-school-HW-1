@@ -1,5 +1,7 @@
 import Component from './base.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './Label.css';
 
 export default class Label extends Component {

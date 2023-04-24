@@ -1,14 +1,17 @@
-import Component from './base.ts';   
+import Component from './base.ts';
+
+import Properities from './Properities';  
+  
 import './Input.css';
-import Properities from './Properities.ts'; 
+
 
 export default class Input extends Component {
     props: Properities;
-    element: any;    
+    element: HTMLInputElement;    
 
     constructor() {
         super();
-        this.element = document.createElement('Input');
+        this.element = document.createElement('Input') as HTMLInputElement;
     }
 
     render(props: Properities) {

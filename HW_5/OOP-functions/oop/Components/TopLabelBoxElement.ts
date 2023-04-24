@@ -1,7 +1,9 @@
 import Component from './base.ts';  
 import Label from './Label.ts';  
 import WeatherWiget from './WeatherWiget.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './TopLabelBoxElement.css';
 
 export default class TopLabelBoxElement extends Component {
@@ -10,7 +12,7 @@ export default class TopLabelBoxElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

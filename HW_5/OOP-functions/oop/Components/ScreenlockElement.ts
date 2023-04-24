@@ -1,7 +1,9 @@
 import Component from './base.ts';  
 import NewItemWindow from './NewItemWindow.ts';  
-import GreetingWindow from './GreetingWindow.ts';  
-import Properities from './Properities.ts'; 
+import GreetingWindow from './GreetingWindow.ts'; 
+
+import Properities from './Properities'; 
+
 import './ScreenlockElement.css';
 
 export default class ScreenlockElement extends Component {
@@ -10,19 +12,19 @@ export default class ScreenlockElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {
-        const renderProps = {
+        const renderProps: Properities = {
             id: 'ScreenLock',
             class: 'screenlock',
-            style: props.style.screenLock,
+            style: props.styles.screenLock,
             children: [
                 new NewItemWindow().render({
                     id: 'NewItemBox',
                     class: 'newitembox',
-                    style: props.style.newBox,
+                    style: props.styles.newBox,
                     currentDate: props.currentDate,
                     buttonOnClick_cancel: props.buttonOnClick_cancel,
                     buttonOnClick_apply: props.buttonOnClick_apply
@@ -31,7 +33,7 @@ export default class ScreenlockElement extends Component {
                     id: 'NewDayBox',
                     class: 'newdaybox',
                     tasks: props.tasks,
-                    style: props.style.newMorning,
+                    style: props.styles.newMorning,
                     buttonOnClick: props.buttonOnClick_cancel,
                 }),
             ]

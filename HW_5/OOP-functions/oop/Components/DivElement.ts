@@ -1,5 +1,7 @@
 import Component from './base.ts';   
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './DivElement.css';
 
 export default class DivElement extends Component {
@@ -8,14 +10,14 @@ export default class DivElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {
         return super.render({
             class: props.class,
-            children: props.children,
             htmltext: props.htmltext,
+            children: props.children,
             id: props.id,
             style: props.style
         });

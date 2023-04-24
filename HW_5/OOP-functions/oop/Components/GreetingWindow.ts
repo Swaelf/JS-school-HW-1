@@ -2,8 +2,12 @@ import Component from './base.ts';
 import Label from './Label.ts';  
 import DivElement from './DivElement.ts';  
 import Button from './Button.ts';  
+
+import Properities from './Properities'; 
+import ItemInterface from './ItemInterface'
+import HTMLCommonElement from './HTMLCommonElement'
+
 import './GreetingWindow.css';
-import Properities from './Properities.ts'; 
 
 
 export default class GreetingWindow extends Component {
@@ -12,7 +16,7 @@ export default class GreetingWindow extends Component {
     
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {
@@ -49,10 +53,9 @@ export default class GreetingWindow extends Component {
         });
     }
 
-    CreateListForMorningGreeting = (items: any) => {
-        let rows = [];
-        let i;
-        for (i in items) {
+    CreateListForMorningGreeting = (items: ItemInterface[]) => {
+        let rows: HTMLCommonElement[] = [];
+        for (const i in items) {
             rows.push(
                 new Label().render({
                     id: "morningTask_" + i, 

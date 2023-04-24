@@ -1,6 +1,8 @@
 import Component from './base.ts';  
 import Label from './Label.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './TagHolder.css';
 
 export default class TagHolder extends Component {
@@ -9,7 +11,7 @@ export default class TagHolder extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

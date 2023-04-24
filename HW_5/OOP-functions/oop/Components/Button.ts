@@ -1,5 +1,7 @@
 import Component from './base.ts';   
-import Properities from './Properities.ts';
+
+import Properities from './Properities';
+
 import './Button.css';
 
 export default class Button extends Component {
@@ -8,7 +10,7 @@ export default class Button extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('button');
+        this.element = document.createElement('button') as HTMLButtonElement;
     }
 
     render(props: Properities) {

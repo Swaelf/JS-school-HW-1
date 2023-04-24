@@ -1,6 +1,8 @@
 import Component from './base.ts';  
 import Button from './Button.ts'; 
-import Properities from './Properities.ts'; 
+
+import Properities from './Properities'; 
+
 import './NewItemButtonsContainerElement.css';
 
 export default class NewItemButtonsContainerElement extends Component {
@@ -9,7 +11,7 @@ export default class NewItemButtonsContainerElement extends Component {
 
     constructor() {
         super();
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLDivElement;
     }
 
     render(props: Properities) {

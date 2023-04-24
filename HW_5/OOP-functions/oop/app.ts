@@ -1,10 +1,15 @@
-import './app.css';
+
 import Component from './Components/base.ts';
 import ScreenlockElement from './Components/ScreenlockElement.ts';
 import ContainerElement from './Components/ContainerElement.ts';
 import TaskRow from './Components/TaskRow.ts';
-import Properities from './Components/Properities.ts'; 
-import StateIterface from './Components/StateInterface.ts'; 
+
+import Properities from './Components/Properities'; 
+import StateIterface from './Components/StateInterface'; 
+import ItemInterface from './Components/ItemInterface'
+import HTMLCommonElement from './Components/HTMLCommonElement'
+
+import './app.css';
 
 
 class App extends Component {
@@ -16,8 +21,8 @@ class App extends Component {
         this.state = {
             taskItems: [],
             completeItems: [],
-            listOfTaskElements: '',
-            listOfCompletedTaskElements: '',
+            listOfTaskElements: [],
+            listOfCompletedTaskElements: [],
             currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
             localurl: 'http://localhost:3004/tasks',
             githuburl: 'https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks',
@@ -51,7 +56,7 @@ class App extends Component {
             completeItems: completedTaskElementId,
             listOfTaskElements: actualTasksElement,
             listOfCompletedTaskElements: completedTasksElement
-        }, false, false);
+        }, undefined, false);
 
         this.MorningGreatings(this.state.currentDate);
 
@@ -66,7 +71,7 @@ class App extends Component {
                 new ScreenlockElement().render({
                     id: 'ScreenLock',
                     class: 'screenLock',
-                    style: this.state.style,
+                    styles: this.state.style,
                     currentDate: this.state.currentDate,
                     buttonOnClick_cancel: this.CancelAction,
                     buttonOnClick_apply: this.ApplyItem,
@@ -96,7 +101,7 @@ class App extends Component {
             this.update();
         } else {
             navigator.geolocation.getCurrentPosition(
-                (position: any) => {
+                (position: GeolocationPosition) => {
                     localStorage.setItem(
                         "positionGPS", 
                         position.coords.latitude + ',' + position.coords.longitude
@@ -105,7 +110,7 @@ class App extends Component {
                     console.log(position.coords.latitude + ',' + position.coords.longitude);
                     this.update();
                 },  
-                (error: any) => {
+                (error: never) => {
                     console.log(error);
                     localStorage.setItem("weatherForLoad", 'true');
                     this.update();
@@ -180,10 +185,9 @@ class App extends Component {
         console.log('call from inside');
     }
 
-    RemoveItemFromTaskList = (element: any, mkr: boolean = true) => {
-        let states: any = this.state.taskItems;
-        let i: any;
-        const parent: string = element.srcElement.parentElement.id;
+    RemoveItemFromTaskList = (element: MouseEvent, mkr: boolean = true) => {
+        let states: ItemInterface[] = this.state.taskItems;
+        const parent: string = (element.target as HTMLElement).parentElement.id;
         const item: HTMLDivElement = document.getElementById(parent) as HTMLDivElement;
         let pickedElement: number = -1;
         for (const i in states) {
@@ -191,7 +195,7 @@ class App extends Component {
                 pickedElement = parseInt(i);
             }
         }
-        const removed: any = states.splice(pickedElement, 1);
+        const removed: ItemInterface[] = states.splice(pickedElement, 1);
 
         this.setState(
             {taskItems: [...states]},
@@ -200,10 +204,9 @@ class App extends Component {
         return removed[0];
     }
 
-    RemoveItemFromCompletedTaskList = (element: any, mkr: boolean = true) => {
-        let states: any = this.state.completeItems;
-        let i: any;
-        const parent: string = element.srcElement.parentElement.id;
+    RemoveItemFromCompletedTaskList = (element: MouseEvent, mkr: boolean = true) => {
+        let states: ItemInterface[] = this.state.completeItems;
+        const parent: string = (element.target as HTMLElement).parentElement.id;
         const item: HTMLDivElement = document.getElementById(parent) as HTMLDivElement;
         let pickedElement: number = -1;
         for (const i in states) {
@@ -211,7 +214,7 @@ class App extends Component {
                 pickedElement = parseInt(i);
             }
         }
-        const removed: any = states.splice(pickedElement, 1);
+        const removed: ItemInterface[] = states.splice(pickedElement, 1);
 
         this.setState(
             {completeItems: [...states]}, 
@@ -250,11 +253,10 @@ class App extends Component {
         newItemInput.focus();
     }
 
-    CreateListOfElements = (items: any, complete: boolean) => {
-        let i: any;
+    CreateListOfElements = (items: ItemInterface[], complete: boolean) => {
         let params: Properities;
-        let rows: any = [];
-        let fixedItems: any = [...items];
+        let rows: HTMLCommonElement[] = [];
+        let fixedItems: ItemInterface[] = [...items];
         if (complete == false) {
             params = {
                 id: '',
@@ -279,7 +281,6 @@ class App extends Component {
                 labelState: ' task--complete',
                 tagState: ' tags__item--inactive',
                 buttonBacground: "background: none",
-                buttonOnClick: ''
             }
         };
         for (const i in items) {
@@ -291,11 +292,13 @@ class App extends Component {
             );
             fixedItems[i].elementID = params.pattern + parseInt(i);
         }
-        return [rows, fixedItems];
+
+        let result: [HTMLCommonElement[], ItemInterface[]] = [rows, fixedItems];
+        return result;
     }
 
-    SetItemAsCompleted = (element: any) => {     
-        let states = this.state.completeItems; 
+    SetItemAsCompleted = (element: MouseEvent) => {     
+        let states: ItemInterface[] = this.state.completeItems; 
         const removedItem = this.RemoveItemFromTaskList(element, false);
         removedItem.isCompleted = true;
         console.log(removedItem);
@@ -306,8 +309,8 @@ class App extends Component {
         );
     }
 
-    SetItemAsActual = (element: any) => {
-        let states = this.state.taskItems;
+    SetItemAsActual = (element: MouseEvent) => {
+        let states: ItemInterface[]  = this.state.taskItems;
         const removedItem = this.RemoveItemFromCompletedTaskList(element, false);
         removedItem.isCompleted = false;
         console.log(removedItem);
@@ -446,7 +449,7 @@ class App extends Component {
    
 }
 
-document.body.appendChild(new App().render({id: '', class: ''}));
+document.body.appendChild(new App().render({}));
 
 
        

@@ -1,29 +1,32 @@
-import Properities from './Properities.ts';
+import Properities from './Properities';
+import StateIterface from './StateInterface'; 
+import HTMLCommonElement from './HTMLCommonElement'
 
 export default class Component {
 
-    state: object;
+    state: StateIterface;
     props: Properities;
-    element: any;
+    element: HTMLCommonElement;
 
     constructor() {
         this.state = {};
         this.props = {id: '', class: ''};
-        this.element = document.createElement('div');
+        this.element = document.createElement('div') as HTMLCommonElement;
     }
 
-    setState(state: any, funct: any = false, reload = true) {
+    setState(state: StateIterface, funct: (() => void)|null = null, reload = true) {
         this.state = {...this.state, ...state};
         if (reload == true) {this.update()};
-        if (funct != false) {funct();};
+        if (funct != null) {funct();};
     }
 
     render(props: Properities) {
         this.props = {...props};
-        let div = this.element;
+        let div: HTMLCommonElement = this.element;
         div.id = props.id;
-        //div.classList.add(props.class);
-        div.classList = props.class;
+        for (const i of props.class.split(' ')) {
+            div.classList.add(i);
+        };
         div.onclick = props.onClick;
         div.placeholder = props.placeholder;
         div.oninput = props.onInput;
@@ -35,11 +38,11 @@ export default class Component {
         div.disabled = props.isDisabled||false
 
         if (props.style) {
-            div.style = props.style;
+            div.style.cssText = props.style;
         }
 
         div.value = props.value||'';
-        div.onsearch = props.onSearch||'';
+        div.onsearch = props.onSearch;
         div.innerHTML = props.htmltext||'';
         if (Array.isArray(props.children)) {
             div.append(...props.children);
