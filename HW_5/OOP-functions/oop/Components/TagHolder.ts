@@ -1,9 +1,9 @@
 import Component from './base.ts';  
 import Label from './Label.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './TagHolder.css';
+import './css/TagHolder.css';
 
 export default class TagHolder extends Component {
     props: Properities;

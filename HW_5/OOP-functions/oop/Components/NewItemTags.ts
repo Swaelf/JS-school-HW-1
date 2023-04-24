@@ -1,9 +1,9 @@
 import Component from './base.ts';  
 import Label from './Label.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './NewItemTags.css';
+import './css/NewItemTags.css';
 
 export default class NewItemTags extends Component {
     props: Properities;

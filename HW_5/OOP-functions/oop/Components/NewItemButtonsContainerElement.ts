@@ -1,9 +1,9 @@
 import Component from './base.ts';  
 import Button from './Button.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './NewItemButtonsContainerElement.css';
+import './css/NewItemButtonsContainerElement.css';
 
 export default class NewItemButtonsContainerElement extends Component {
     props: Properities;

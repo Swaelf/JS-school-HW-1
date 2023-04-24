@@ -3,9 +3,9 @@ import Input from './Input.ts';
 import Button from './Button.ts'; 
 import LabelContainer from './LabelContainer.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './TaskRow.css';
+import './css/TaskRow.css';
 
 export default class TaskRow extends Component {
     props: Properities;

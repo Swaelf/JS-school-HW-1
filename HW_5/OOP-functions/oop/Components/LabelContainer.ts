@@ -2,9 +2,9 @@ import Component from './base.ts';
 import Label from './Label.ts';  
 import TagHolder from './TagHolder.ts';
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './LabelContainer.css';
+import './css/LabelContainer.css';
 
 export default class LabelContainer extends Component {
     props: Properities;

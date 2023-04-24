@@ -3,9 +3,9 @@ import TopLabelBoxElement from './TopLabelBoxElement.ts';
 import TopBarElement from './TopBarElement.ts';  
 import TaskContainerElement from './TaskContainerElement.ts';  
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './ContainerElement.css';
+import './css/ContainerElement.css';
 
 export default class ContainerElement extends Component {
     props: Properities;

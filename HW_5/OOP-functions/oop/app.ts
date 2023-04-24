@@ -4,10 +4,10 @@ import ScreenlockElement from './Components/ScreenlockElement.ts';
 import ContainerElement from './Components/ContainerElement.ts';
 import TaskRow from './Components/TaskRow.ts';
 
-import Properities from './Components/Properities'; 
-import StateIterface from './Components/StateInterface'; 
-import ItemInterface from './Components/ItemInterface'
-import HTMLCommonElement from './Components/HTMLCommonElement'
+import Properities from './Interfaces/Properities'; 
+import StateIterface from './Interfaces/StateInterface'; 
+import ItemInterface from './Interfaces/ItemInterface'
+import HTMLCommonElement from './Interfaces/HTMLCommonElement'
 
 import './app.css';
 

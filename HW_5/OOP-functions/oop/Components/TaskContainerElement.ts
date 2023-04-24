@@ -1,9 +1,9 @@
 import Component from './base.ts';  
 import DivElement from './DivElement.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './TaskContainerElement.css';
+import './css/TaskContainerElement.css';
 
 export default class TaskContainerElement extends Component {
     props: Properities;

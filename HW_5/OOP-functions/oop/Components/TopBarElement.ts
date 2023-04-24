@@ -2,11 +2,11 @@ import Component from './base.ts';
 import Input from './Input.ts';  
 import Button from './Button.ts';
 
-import Properities from './Properities'; 
-import StateIterface from './StateInterface'; 
-import HTMLCommonElement from './HTMLCommonElement';
+import Properities from '../Interfaces/Properities'; 
+import StateIterface from '../Interfaces/StateInterface'; 
+import HTMLCommonElement from '../Interfaces/HTMLCommonElement';
 
-import './TopBarElement.css';
+import './css/TopBarElement.css';
 
 export default class TopBarElement extends Component {
     props: Properities;

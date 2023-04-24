@@ -2,9 +2,9 @@ import Component from './base.ts';
 import Label from './Label.ts';  
 import DivElement from './DivElement.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './WeatherWiget.css';
+import './css/WeatherWiget.css';
 
 export default class WeatherWiget extends Component {
     props: Properities;

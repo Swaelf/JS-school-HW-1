@@ -3,11 +3,11 @@ import Label from './Label.ts';
 import DivElement from './DivElement.ts';  
 import Button from './Button.ts';  
 
-import Properities from './Properities'; 
-import ItemInterface from './ItemInterface'
-import HTMLCommonElement from './HTMLCommonElement'
+import Properities from '../Interfaces/Properities'; 
+import ItemInterface from '../Interfaces/ItemInterface'
+import HTMLCommonElement from '../Interfaces/HTMLCommonElement'
 
-import './GreetingWindow.css';
+import './css/GreetingWindow.css';
 
 
 export default class GreetingWindow extends Component {

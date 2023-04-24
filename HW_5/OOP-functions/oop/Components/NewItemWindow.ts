@@ -6,9 +6,9 @@ import Button from './Button.ts';
 import NewItemAddition from './NewItemAddition.ts'; 
 import NewItemButtonsContainerElement from './NewItemButtonsContainerElement.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './NewItemWindow.css';
+import './css/NewItemWindow.css';
 
 export default class NewItemWindow extends Component {
     props: Properities;

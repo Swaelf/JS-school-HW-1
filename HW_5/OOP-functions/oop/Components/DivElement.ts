@@ -1,8 +1,8 @@
 import Component from './base.ts';   
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './DivElement.css';
+import './css/DivElement.css';
 
 export default class DivElement extends Component {
     props: Properities;

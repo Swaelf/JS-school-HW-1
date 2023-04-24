@@ -1,8 +1,8 @@
 import Component from './base.ts';
 
-import Properities from './Properities';  
+import Properities from '../Interfaces/Properities';  
   
-import './Input.css';
+import './css/Input.css';
 
 
 export default class Input extends Component {

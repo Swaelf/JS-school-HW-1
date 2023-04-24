@@ -12,7 +12,7 @@
 }
 
 .button__remove {
-    background-image: url(icons/Delete.svg);
+    background-image: url(../icons/Delete.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
     width: 16px;
@@ -21,7 +21,7 @@
 }
 
 .button__remove:hover {
-    background-image: url(icons/Delete_hover.svg);
+    background-image: url(../icons/Delete_hover.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
 }

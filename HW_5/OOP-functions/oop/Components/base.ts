@@ -1,6 +1,6 @@
-import Properities from './Properities';
-import StateIterface from './StateInterface'; 
-import HTMLCommonElement from './HTMLCommonElement'
+import Properities from '../Interfaces/Properities';
+import StateIterface from '../Interfaces/StateInterface'; 
+import HTMLCommonElement from '../Interfaces/HTMLCommonElement'
 
 export default class Component {
 

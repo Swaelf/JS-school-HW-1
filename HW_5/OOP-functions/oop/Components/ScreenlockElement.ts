@@ -2,9 +2,9 @@ import Component from './base.ts';
 import NewItemWindow from './NewItemWindow.ts';  
 import GreetingWindow from './GreetingWindow.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './ScreenlockElement.css';
+import './css/ScreenlockElement.css';
 
 export default class ScreenlockElement extends Component {
     props: Properities;

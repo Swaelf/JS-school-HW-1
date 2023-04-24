@@ -1,8 +1,8 @@
 import Component from './base.ts';   
 
-import Properities from './Properities';
+import Properities from '../Interfaces/Properities';
 
-import './Button.css';
+import './css/Button.css';
 
 export default class Button extends Component {
     props: Properities;

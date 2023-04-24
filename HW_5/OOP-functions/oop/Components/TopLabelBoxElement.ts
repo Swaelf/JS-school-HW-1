@@ -2,9 +2,9 @@ import Component from './base.ts';
 import Label from './Label.ts';  
 import WeatherWiget from './WeatherWiget.ts'; 
 
-import Properities from './Properities'; 
+import Properities from '../Interfaces/Properities'; 
 
-import './TopLabelBoxElement.css';
+import './css/TopLabelBoxElement.css';
 
 export default class TopLabelBoxElement extends Component {
     props: Properities;
