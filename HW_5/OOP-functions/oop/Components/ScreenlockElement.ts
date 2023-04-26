@@ -53,5 +53,4 @@ export default class ScreenlockElement extends Component {
         return super.render(renderProps);
     }
 
-
 }

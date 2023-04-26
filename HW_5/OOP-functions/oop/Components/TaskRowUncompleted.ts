@@ -29,7 +29,7 @@ export default class TaskRowUncompleted extends Component {
                 new LabelContainer().render({
                     class: 'tasks__labelcontainer',
                     labelState: '',
-                    tagState: ' tags__item--' + props.item.tag,
+                    tagState: ' tags__item--' + (props.item.tag||'other'),
                     prefix: 'Tasks_',
                     item: props.item
                 }),

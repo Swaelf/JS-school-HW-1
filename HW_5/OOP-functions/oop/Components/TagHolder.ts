@@ -19,11 +19,11 @@ export default class TagHolder extends Component {
             htmltext: props.htmltext,
             children: [
                 new Label().render({
-                    text: props.item.tag,
+                    text: props.item.tag||'other',
                     class: 'tags__item' + props.tagState
                 }),
                 new Label().render({
-                    text: props.item.plannedDate,
+                    text: props.item.plannedDate||'time',
                     class: 'tags__item tags__item--time'
                 })
             ]   

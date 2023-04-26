@@ -52,7 +52,11 @@ export default class GreetingWindow extends Component {
     CreateListForMorningGreeting = (taskList: ItemInterface[], currentDate: string) => {
         let rows: HTMLCommonElement[] = [];
         for (let i in taskList) {
-            if (!taskList[i].isCompleted && taskList[i].plannedDate == currentDate) {
+            if (
+                (!taskList[i].isCompleted) && 
+                    ((taskList[i].plannedDate == currentDate)||
+                    (!taskList[i].plannedDate))
+                ) {
                 rows.push(
                     new Label().render({
                         text: taskList[i].name, 
