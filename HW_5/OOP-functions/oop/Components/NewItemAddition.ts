@@ -20,7 +20,6 @@ export default class NewItemAddition extends Component {
         return super.render({
             id: 'NewItemAddition',
             class: 'newitembox__addition',
-            style: props.style,
             children: [
                 new NewItemTags().render({
                     id: 'NewItemTagNewItemTags',

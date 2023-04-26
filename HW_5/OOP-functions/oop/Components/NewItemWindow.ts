@@ -55,12 +55,10 @@ export default class NewItemWindow extends Component {
         const newItemInput: HTMLInputElement = document.getElementById("NewItemInput") as HTMLInputElement;
         const newItemButtonApply: HTMLButtonElement = document.getElementById("NewItemButtonApply") as HTMLButtonElement;
         if (newItemInput.value) {
-            newItemButtonApply.classList.remove("newitembox__button--disabled");
-            newItemButtonApply.classList.add("newitembox__button--enabled");                      
+            newItemButtonApply.className = "newitembox__button newitembox__button--apply newitembox__button--enabled";                  
             newItemButtonApply.disabled = false;
         } else {
-            newItemButtonApply.classList.add("newitembox__button--disabled");
-            newItemButtonApply.classList.remove("newitembox__button--enabled");                      
+            newItemButtonApply.className = "newitembox__button newitembox__button--apply newitembox__button--disabled";                  
             newItemButtonApply.disabled = true;
         }
     }

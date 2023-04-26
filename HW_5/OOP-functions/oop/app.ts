@@ -32,11 +32,8 @@ class App extends Component {
             .finally(() => {
                 this.GetDataFromServer();
             })
-            
+
         this.setState({
-            taskList: [],
-            listOfUncompletedTaskElements: [],
-            listOfCompletedTaskElements: [],
             weather: {
                 position: config.defaultCity,
                 temperature: '??',
@@ -165,9 +162,9 @@ class App extends Component {
         };
 
         for (let i in this.state.taskList) {
-            this.state.taskList[i].htmlElement.classList.add("tasks__row", "tasks__row--disabled");
-            if (this.state.taskList[i].name.match(searchPattern)){
-                this.state.taskList[i].htmlElement.classList.remove("tasks__row--disabled");
+            this.state.taskList[i].htmlElement.className = ("tasks__row");
+            if (!this.state.taskList[i].name.match(searchPattern)){
+                this.state.taskList[i].htmlElement.className = ("tasks__row tasks__row--disabled");
             }  
         }
     }

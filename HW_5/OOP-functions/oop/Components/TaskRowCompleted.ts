@@ -35,10 +35,7 @@ export default class TaskRowCompeted extends Component {
                     item: props.item
                 }),
                 new Button().render({
-                    class: 'button__remove',
-                    onClick: props.buttonOnClick,
-                    htmltext: '',
-                    style: "background: none"
+                    class: 'button__remove button--disabled',
                 })
             ]
         });

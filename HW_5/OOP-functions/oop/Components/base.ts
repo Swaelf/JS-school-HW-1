@@ -22,9 +22,7 @@ export default class Component {
         this.props = {...props};
         let div: HTMLCommonElement = this.element;
         div.id = props.id||'';
-        for (let i of props.class.split(' ')) {
-            div.classList.add(i);
-        };
+        div.className = props.class;
         div.onclick = props.onClick;
         div.placeholder = props.placeholder;
         div.oninput = props.onInput;
