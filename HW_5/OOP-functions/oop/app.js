@@ -2,425 +2,473 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            items: ['Task 1 Title', 'Task 2 Title', 'Task 3 Title'],
-            completeItems: ['Completed Task 1 Title', 'Completed Task 2 Title']
-        };
+            taskItems: [],
+            completeItems: [],
+            listOfTaskElements: '',
+            listOfCompletedTaskElements: '',
+            currentDate: new Date().toJSON().slice(0, 10).split("-").reverse().join("."),
+            localurl: 'http://localhost:3004/tasks',
+            githuburl: 'https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks',
+            weatherUrl: 'https://api.weatherapi.com/v1',
+            weatherKey: 'd9e8739732f24f7f942112753231504',
+            style: {
+                screenLock: 'display: none;', 
+                newMorning: 'display: none;', 
+                newBox: 'display: none;'
+            },
+            weather: {
+                position: 'Tbilisi',
+                temperature: '??',
+                icon: 'icons/weather/64x64/day/116.png',
+                forLoad: false
+            }
+            };
 
-        if (localStorage.getItem("initTasks")) {
-            this.state.items = localStorage.getItem("initTasks").split(";");
-        };
+        localStorage.setItem("searchPattern", '');
 
-        if (localStorage.getItem("initComplete")) {
-            this.state.completeItems = localStorage.getItem("initComplete").split(";");
-        };
+        this.GetDataFromServer();
 
-        this.currentDate = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
-        this.defaultsearch = undefined;
+        this.LocateMe();
     }
 
     render(props) {
-        let tasks = this.AddRows(this.state.items);
-        let completetasks = this.AddCompleteRows(this.state.completeItems);
 
-        localStorage.setItem("initTasks", this.state.items.join(";"));
-        localStorage.setItem("initComplete", this.state.completeItems.join(";"));
+        console.log('render');
+
+        const [actualTasksElement, actualTaskElementId] = this.CreateListOfElements(this.state.taskItems, false);
+        const [completedTasksElement, completedTaskElementId] = this.CreateListOfElements(this.state.completeItems, true);
+        console.log('id =' + actualTasksElement);
+
+        this.setState({
+            taskItems: actualTaskElementId,
+            completeItems: completedTaskElementId,
+            listOfTaskElements: actualTasksElement,
+            listOfCompletedTaskElements: completedTasksElement
+        }, false, false);
+
+        this.MorningGreatings(this.state.currentDate);
+
+        this.WeatherCall();
+
+        this.SearchOnLoad();
         
         return super.render({
             id: 'oop_container',
             class: 'oop_container',
+            PutDataIntoServer: this.PutDataIntoServer,
+            GetDataFromServer: this.GetDataFromServer, 
             children: [
-                new DivElement().render({
+                new ScreenlockElement().render({
                     id: 'ScreenLock',
                     class: 'screenlock',
-                    children: [
-                        new DivElement().render({
-                            id: 'NewItemBox',
-                            class: 'newitembox',
-                            children: [
-                                new Label().render({
-                                    id: 'NewItemLabel',
-                                    text: 'Add New Item',
-                                    class: 'newitembox__label',
-                                    children: []
-                                }),
-                                new Input().render({
-                                    id: 'NewItemInput',
-                                    children: [],
-                                    class: 'newitembox__input',
-                                    text: 'New Task',
-                                    type: 'search',
-                                    onSearch: this.NewTaskSearch,
-                                    onInput: this.AproveNewItem
-                                }),
-                                new DivElement().render({
-                                    id: 'NewItemAddition',
-                                    class: 'newitembox__addition',
-                                    children: [
-                                        new DivElement().render({
-                                            id: 'NewItemTags',
-                                            class: 'newitembox__tags',
-                                            children: [
-                                                new Label().render({
-                                                    id: 'NewItemTag0',
-                                                    class: 'tags__item tags__item--health',
-                                                    text: 'health',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag1',
-                                                    class: 'tags__item tags__item--work',
-                                                    text: 'work',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag2',
-                                                    class: 'tags__item tags__item--home',
-                                                    text: 'home',
-                                                    children: []
-                                                }),
-                                                new Label().render({
-                                                    id: 'NewItemTag3',
-                                                    class: 'tags__item tags__item--other',
-                                                    text: 'other',
-                                                    children: []
-                                                })
-                                            ]
-                                        }),
-                                        new Label().render({
-                                            id: 'NewItemDate',
-                                            class: 'newitembox__date',
-                                            text: this.currentDate,
-                                            children: []
-                                        })
-                                    ]
-                                }),
-                                new DivElement().render({
-                                    id: 'NewItemButtons',
-                                    class: 'newitembox__buttons',
-                                    children: [
-                                        new Button().render({
-                                            id: 'NewItemButtonCancel',
-                                            class: 'newitembox__button newitembox__button--cancel',
-                                            htmltext: 'Cancel',
-                                            onClick: this.CancelAction
-                                        }),
-                                        new Button().render({
-                                            id: 'NewItemButtonApply',
-                                            class: 'newitembox__button newitembox__button--apply newitembox__button--enabled',
-                                            htmltext: 'Add Task',
-                                            onClick: this.ApplyItem
-                                        }),
-                                    ]
-                                })
-                            ]
-                        })
-                    ]
+                    style: this.state.style,
+                    currentDate: this.state.currentDate,
+                    buttonOnClick_cancel: this.CancelAction,
+                    buttonOnClick_apply: this.ApplyItem,
+                    tasks: this.state.taskItems
                 }),
-                new DivElement().render({
+                new ContainerElement().render({
                     id: 'Container',                
                     class: 'container',
-                    removeItem: this.removeItem,
-                    children: [
-                        new Label().render({
-                            id: 'ToDoLabel',
-                            text: 'To Do List',
-                            class: 'topLabel'
-                        }),
-                        new DivElement().render({
-                            id: 'TopBar',
-                            class: 'topbar',
-                            children: [
-                                new Input().render({
-                                    id: 'SearchString',
-                                    children: [],
-                                    value: this.defaultsearch,
-                                    class: 'topbar__search',
-                                    text: 'Search Task',
-                                    type: 'search',
-                                    onInput: this.SearchPattern
-                                }),
-                                new Button().render({
-                                    id: 'AddButton',
-                                    class: 'button__add',
-                                    htmltext: '+ New Task',
-                                    onClick: this.NewTask
-                                })
-                            ]
-                        }),
-                        new DivElement().render({
-                            id: 'TaskContainer',
-                            class: 'tasks',
-                            children: [
-                                new DivElement().render({
-                                    id: 'AllTasks',
-                                    class: 'tasks__label',
-                                    htmltext: 'All Tasks',
-                                    children: tasks 
-                                }),
-                                new DivElement().render({
-                                    id: 'CompletedTasks',
-                                    class: 'tasks__label',
-                                    htmltext: 'Completed Tasks',
-                                    children: completetasks 
-                                })
-                            ]
-                        }),
-                    ]              
+                    RemoveItemFromTaskList: this.RemoveItemFromTaskList,
+                    weather: this.state.weather,
+                    taskItems: this.state.taskItems,
+                    completeItems: this.state.completeItems,
+                    onButtonClick: this.CallNewTaskWindow,
+                    actualTasksChildren: this.state.listOfTaskElements ,
+                    completedTasksChildren: this.state.listOfCompletedTaskElements          
                 })
             ]
         });
         
     }
 
-    SearchPattern = () => {
-        let items = this.state.items;
-        let itemsComplete = this.state.completeItems;
-        let i;
-        const pattern = document.getElementById("SearchString").value;
-        this.defaultsearch = pattern;
-        console.log(items);
-        for (i in items) {
-            console.log(i);
-            let element = document.getElementById("Task_" + i);
-            element.style.display = "none";
-            if (items[i].match(pattern)){
-                element.style.display = "flex";
-            }     
-        }
-        for (i in itemsComplete) {
-            let element = document.getElementById("Complete_" + i);
-            element.style.display = "none";
-            if (itemsComplete[i].match(pattern)){
-                element.style.display = "flex";
-            }     
+    LocateMe = () => {
+        if (!navigator.geolocation) {
+            console.log("Geolocation is not supported by your browser");
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.setState({
+                        weather: {
+                            position: position.coords.latitude + ',' + position.coords.longitude,
+                            temperature: this.state.weather.temperature,
+                            icon: this.state.weather.icon,
+                            forLoad: true
+                        }
+                    });
+                   console.log(position.coords.latitude + ',' + position.coords.longitude);
+                },  
+                (error) => {
+                    this.setState({
+                        weather: {
+                            position: this.state.weather.position,
+                            temperature: this.state.weather.temperature,
+                            icon: this.state.weather.icon,
+                            forLoad: true
+                        }
+                    });
+                    console.log(error);
+                }
+            );
         }
     }
 
-    addItem = () => {
-        const newItemInput = document.getElementById('NewItemInput');
+    WeatherCall = async () => {
+        if (this.state.weather.forLoad) {
+            const response = await fetch(
+                this.state.weatherUrl + '/current.json?key=' + this.state.weatherKey + '&q=' + this.state.weather.position
+                )
+                .then(response => response.json())
+                .then(response => {
+                    this.setState({
+                        weather: {
+                            position: response.location.name,
+                            temperature: response.current.temp_c,
+                            icon: response.current.condition.icon.replace('//cdn.weatherapi.com', 'icons'),
+                            forLoad: false
+                        } 
+                    });
+                    console.log('weatherLoad = ok');              
+                });
+        } else {
+            console.log('weatherLoad = skip')
+        }
+    }
 
-        this.setState({
-            items: [...this.state.items, 'item' + (this.state.items.length + 1)]
-        });
-        const screenlock = document.getElementById("screenlock");
-        screenlock.style.display = "none";        
+    MorningGreatings = (currentDate) => {
+        if (localStorage.getItem("currentDate")) {
+            const previouseData = localStorage.getItem("currentDate");
+
+            if (previouseData != currentDate) {
+                localStorage.setItem("currentDate", currentDate);
+                this.setState({
+                     style: {
+                        screenLock: 'display: flex;', 
+                        newMorning: 'display: flex;', 
+                        newBox: "display: none;"
+                        }
+                });
+            }
+        } else {
+            localStorage.setItem("currentDate", currentDate);
+            this.setState({
+                style: {
+                    screenLock: 'display: flex;', 
+                    newMorning: 'display: flex;', 
+                    newBox: "display: none;"
+                    },
+            });
+        }
+    }
+
+    SearchOnLoad = () => {
+        let searchPattern = '';
+        if (localStorage.getItem("searchPattern")) {
+            searchPattern = localStorage.getItem("searchPattern");
+        }
+        let i;
+        for (i in this.state.listOfTaskElements) {
+            this.state.listOfTaskElements[i].style.display = "none";
+            console.log(this.state.taskItems[i]);
+            console.log(searchPattern);
+            if (this.state.taskItems[i].name.match(searchPattern)){
+                this.state.listOfTaskElements[i].style.display = "flex";
+            }  
+        }
+        for (i in this.state.listOfCompletedTaskElements) {
+            this.state.listOfCompletedTaskElements[i].style.display = "none";
+
+            if (this.state.completeItems[i].name.match(searchPattern)){
+                this.state.listOfCompletedTaskElements[i].style.display = "flex";
+            }
+        } 
     }
 
     ApplyItem = () => {
         const newItemInput = document.getElementById("NewItemInput");
-        this.setState({
-            items: [...this.state.items, newItemInput.value]
-        });
 
-        const screenlock = document.getElementById("ScreenLock");
-        screenlock.style.display = "none"
+        this.setState({
+            taskItems: [...this.state.taskItems, {name: newItemInput.value, isCompleted: false}],
+            style: {
+                    screenLock: 'display: none;', 
+                    newMorning: 'display: none;', 
+                    newBox: "display: none;"
+            },
+        },
+        this.PutDataIntoServer
+        );
     }
 
-    removeItem = (element) => {
-        let states = this.state.items;
-        const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("Task_", "TasksLabel_");
-        const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf(item.innerHTML), 1);
+    DummyLog = () => {
+        console.log('call from inside')
+    }
 
-        this.setState({
-            items: [...states]
-        });
+    RemoveItemFromTaskList = (element, mkr = true) => {
+        let states = this.state.taskItems;
+        let i;
+        const parent = element.srcElement.parentElement.id;
+        const item = document.getElementById(parent);
+        let pickedElement = -1;
+        for (i in states) {
+            if (item.id == states[i].elementID) {
+                pickedElement = i;
+            }
+        }
+        const removed = states.splice(pickedElement, 1);
+
+        this.setState(
+            {taskItems: [...states]},
+            mkr ? this.PutDataIntoServer : this.DummyLog
+            );
         return removed[0];
     }
 
-    removeCompletedItem = (element) => {
+    RemoveItemFromCompletedTaskList = (element, mkr = true) => {
         let states = this.state.completeItems;
+        let i;
         const parent = element.srcElement.parentElement.id;
-        const label = parent.replace("Complete_", "CompleteLabel_");
-        const item = document.getElementById(label);
-        const removed = states.splice(states.indexOf(item.innerHTML), 1);
+        const item = document.getElementById(parent);
+        let pickedElement = -1;
+        for (i in states) {
+            if (item.id == states[i].elementID) {
+                pickedElement = i;
+            }
+        }
+        const removed = states.splice(pickedElement, 1);
 
-        this.setState({
-            completeItems: [...states]
-        });
+        this.setState(
+            {completeItems: [...states]}, 
+            mkr ? this.PutDataIntoServer : this.DummyLog
+        );
         return removed[0];
     }
 
     CancelAction = () => {
-        const screenlock = document.getElementById("ScreenLock");
-        screenlock.style.display = "none"; 
+        console.log('cancel');
+        this.setState(
+            { style: {
+                screenLock: 'display: none;', 
+                newMorning: 'display: none;', 
+                newBox: "display: none;"
+            }, 
+            newdayMkr: false
+        });
     }
 
-
-    NewTask = () => {
+    CallNewTaskWindow = () => {
         const newItemButtonApply = document.getElementById('NewItemButtonApply');
         newItemButtonApply.classList.remove("newitembox__button--enabled");
         newItemButtonApply.classList.add("newitembox__button--disabled");
         newItemButtonApply.disabled = true;
 
-        const screenlock = document.getElementById("ScreenLock");
-        screenlock.style.display = "flex"
-        const newItemBox = document.getElementById('NewItemInput');
-        newItemBox.value = '';
-        newItemBox.focus();
+        this.setState(
+            { style: {
+                screenLock: 'display: flex;', 
+                newMorning: 'display: none;', 
+                newBox: "display: flex;"
+            }
+        });
+        const newItemInput = document.getElementById('NewItemInput');
+        newItemInput.value = '';
+        newItemInput.focus();
     }
 
-    NewTaskSearch = () => {
-        console.log('test');
-        const newItemBox = document.getElementById('NewItemButtonApply');
-        newItemBox.disabled == false ? newItemBox.onclick.apply() : '';
-    }
-
-    AddRows = (items) => {
+    CreateListOfElements = (items, complete) => {
         let i;
+        let params;
         let rows = [];
-        for (i in items) {
-            rows.push(
-                new DivElement().render({
-                    class: 'tasks__row',
-                    id: "Task_" + i,
-                    children: [
-                        new Input().render({
-                            id: 'TaskCheckBox_' + i,
-                            children: [],
-                            text: items[i],
-                            class: 'task__checkbox',
-                            type: 'checkbox',
-                            onChange: this.ItemComplete
-                        }),
-                        new DivElement().render({
-                            id: 'LabelContainerTask' + i,
-                            class: 'tasks__labelcontainer',
-                            children: [
-                                new Label().render({
-                                    id: 'TasksLabel_' + i,
-                                    text: items[i],
-                                    class: 'task__text'
-                                }),
-                                new DivElement().render({
-                                    id: 'TaskTagHolder_' + i,
-                                    class: 'tasks__tagholder',
-                                    children: [
-                                        new Label().render({
-                                            id: 'TaskTag_' + i,
-                                            text: 'tag',
-                                            class: 'tags__item tags__item--other'
-                                        }),
-                                        new Label().render({
-                                            id: 'TaskTime_' + i,
-                                            text: 'time',
-                                            class: 'tags__item tags__item--time'
-                                        })
-                                    ]
-                                })
-                            ]
-                        }),     
-                        new Button().render({
-                            id: 'TasksButton_' + i,
-                            class: 'button__remove',
-                            htmltext: '',
-                            onClick: this.removeItem
-                        })
-                    ]
-                })
-            );
-        }
-        return rows;
-    }
-
-    AddCompleteRows = (items) => {
-        let i;
-        let rows = [];
-        for (i in items) {
-            rows.push(new DivElement().render({
+        let fixedItems = [...items];
+        if (complete == false) {
+            params = {
                 class: 'tasks__row',
-                id: "Complete_" + i,
-                children: [
-                    new Input().render({
-                        id: 'CompleteCheckBox_' + i,
-                        children: [],
-                        text: items[i],
-                        class: 'task__checkbox',
-                        type: 'checkbox',
-                        onChange: this.ItemUnComplete,
-                        checked: "checked"
-                    }),
-                    new DivElement().render({
-                        id: 'LabelContainerComplete_' + i,
-                        class: 'tasks__labelcontainer',
-                        children: [
-                            new Label().render({
-                                id: 'CompleteLabel_' + i,
-                                text: items[i],
-                                class: 'task__text task--complete'
-                            }),
-                            new DivElement().render({
-                                id: 'CompleteTagHolder_' + i,
-                                class: 'tasks__tagholder',
-                                children: [
-                                    new Label().render({
-                                        id: 'CompleteTag_' + i,
-                                        text: 'tag',
-                                        class: 'tags__item tags__item--inactive'
-                                    }),
-                                    new Label().render({
-                                        id: 'CopleteTime_' + i,
-                                        text: 'time',
-                                        class: 'tags__item tags__item--time'
-                                    })
-                                ]
-                            })
-                        ]
-                    }),
-                    new Button().render({
-                        id: 'CompleteButton_' + i,
-                        class: 'button__remove ',
-                        htmltext: '',
-                        style: "background: none"
-                    })
-                    ]
-            }));
-        }
-        return rows;
-    }
-
-    AproveNewItem = () => {
-        const newItemInput = document.getElementById("NewItemInput");
-        const newItemButtonApply = document.getElementById("NewItemButtonApply");
-        if (newItemInput.value) {
-            if (newItemButtonApply.classList.contains("newitembox__button--disabled") == true) {
-                newItemButtonApply.classList.remove("newitembox__button--disabled");
+                pattern: "Task_",
+                prefix: "Tasks",
+                onChange: this.SetItemAsCompleted,
+                checked: false,
+                labelState: '',
+                tagState: ' tags__item--other',
+                buttonBacground: "background: flex",
+                buttonOnClick: this.RemoveItemFromTaskList
             }
-            if (newItemButtonApply.classList.contains("newitembox__button--enabled") == false) {
-             newItemButtonApply.classList.add("newitembox__button--enabled");                      
-            }
-            newItemButtonApply.disabled = false;
         } else {
-            if (newItemButtonApply.classList.contains("newitembox__button--disabled") == false) {
-                newItemButtonApply.classList.add("newitembox__button--disabled");
+            params = {
+                class: 'tasks__row',
+                pattern: "Complete_",
+                prefix: "Complete",
+                onChange: this.SetItemAsActual,
+                checked: true,
+                labelState: ' task--complete',
+                tagState: ' tags__item--inactive',
+                buttonBacground: "background: none",
+                buttonOnClick: ''
             }
-            if (newItemButtonApply.classList.contains("newitembox__button--enabled") == true) {
-             newItemButtonApply.classList.remove("newitembox__button--enabled");                      
-            }
-            newItemButtonApply.disabled = true;
+        };
+        for (i in items) {
+            params.id = params.pattern + i;
+            params.i = i;
+            params.item = items[i];
+            rows.push(
+                new TaskRow().render(params)
+            );
+            fixedItems[i].elementID = params.pattern + i;
         }
+        return [rows, fixedItems];
     }
 
-    ItemComplete = (element) => {     
+    SetItemAsCompleted = (element) => {     
         let states = this.state.completeItems; 
-        const newitem = this.removeItem(element);
-        console.log(newitem);
-        this.state.completeItems = [...states, newitem],
+        const removedItem = this.RemoveItemFromTaskList(element, false);
+        removedItem.isCompleted = true;
+        console.log(removedItem);
         this.setState({
-            completeItems: [...states, newitem]
+            completeItems: [...states, removedItem]
+        },
+        this.PutDataIntoServer
+        );
+    }
+
+    SetItemAsActual = (element) => {
+        let states = this.state.taskItems;
+        const removedItem = this.RemoveItemFromCompletedTaskList(element, false);
+        removedItem.isCompleted = false;
+        console.log(removedItem);
+        this.setState(
+            {taskItems: [...states, removedItem]},
+            this.PutDataIntoServer
+        );
+    }
+
+    GetDataFromServer = async () => {
+        let itasks = this.state.taskItems;
+        let icomplete = this.state.completeItems;
+        let response = undefined;
+        console.log('get from server:')
+
+        try {
+            response = await fetch(this.state.localurl, { method: "GET" })
+                .then((response) => response.json())
+        } catch (err) {
+            console.log(err);
+            if (err = TypeError()) {
+                console.log(err);
+                try {
+                    response = await fetch(this.state.githuburl, { method: "GET" })
+                    .then((response) => response.json())
+                } catch (err1) {
+                   console.log(err1); 
+                   response = undefined;
+                }
+            } else {
+                console.log('failed to connect to server')
+                response = undefined;
+            }
+        }
+
+        if (Array.isArray(response)) {
+            let i;
+            for (i of response) {
+                console.log('get: ' + i.title);
+                if (i.isCompleted) {
+                    icomplete.push({name: i.title, id: i.id, isCompleted: i.isCompleted});
+                } else {
+                    itasks.push({name: i.title, id: i.id, isCompleted: i.isCompleted});
+                }
+            }
+        }
+
+        this.setState({
+            taskItems: itasks,
+            completeItems: icomplete
         });
     }
 
-    ItemUnComplete = (element) => {
-        let states = this.state.items;
-        const newitem = this.removeCompletedItem(element);
-        console.log(newitem);
-        this.setState({
-            items: [...states, newitem]
-        });
+    PutDataIntoServer = async () => {
+        let response = undefined;
+        console.log('put into server:')
+        let i;
+        let counter = 0;
+        let data = [];
+        for (i of this.state.taskItems) {
+            ++counter;
+            data.push({ id: counter, title: i.name, isCompleted: false});
+        };
+        for (i of this.state.completeItems) {
+            ++counter;
+            data.push({ id: counter, title: i.name, isCompleted: true});
+        };
+
+        try {
+            response = await fetch(this.state.localurl, { method: "GET" })
+                .then((response) => response.json())
+
+            if (Array.isArray(response)) {
+                for (i in response) { 
+                    console.log('deleting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
+                    await fetch(this.state.localurl + '\/' + (Math.floor(i) + 1), { 
+                    method: "DELETE", 
+                    })
+                    .catch((error) => console.log(error));
+                }
+            }
+
+            for (i in data) {
+                console.log('posting ' + this.state.localurl + '\/' + (Math.floor(i) + 1));
+                await fetch(this.state.localurl, { 
+                    method: "POST", 
+                    headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    },
+                    body: JSON.stringify(data[i])
+                    })
+                    .catch((error) => console.log(error));
+            }
+
+        } catch (err) {
+            console.log(err);
+            if (err = TypeError()) {
+                console.log(err);
+                try {
+                    response = await fetch(this.state.githuburl, { method: "GET" })
+                    .then((response) => response.json())
+
+                    if (Array.isArray(response)) {
+                        for (i in response) { 
+                            console.log('deleting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
+                            await fetch(this.state.githuburl + '\/' + (Math.floor(i) + 1), { 
+                            method: "DELETE", 
+                            })
+                            .catch((error) => console.log(error));
+                        }
+                    }
+
+                    for (i in data) {
+                        console.log('posting ' + this.state.githuburl + '\/' + (Math.floor(i) + 1));
+                        await fetch(this.state.githuburl, { 
+                            method: "POST", 
+                            headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            },
+                            body: JSON.stringify(data[i])
+                            })
+                            .catch((error) => console.log(error));
+                    }
+
+                } catch (err1) {
+                   console.log(err1); 
+                   response = undefined;
+                }
+            } else {
+                console.log('failed to connect to server')
+                response = undefined;
+            }
+        }
+
     }
    
 }
 
 document.body.appendChild(new App().render());
+
+
+       

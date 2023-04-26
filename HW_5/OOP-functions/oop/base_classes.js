@@ -5,9 +5,10 @@ class Component {
         this.element = document.createElement('div');
     }
 
-    setState(state) {
+    setState(state, funct = false, reload = true) {
         this.state = {...this.state, ...state};
-        this.update();
+        reload ? this.update(): '';
+        funct ? funct(): '';
     }
 
     render(props = {}) {
@@ -21,19 +22,21 @@ class Component {
         div.oninput = props.onInput;
         div.onchange = props.onChange;
         div.checked = props.checked;
+        div.onload = props.onLoad;
+        props.isDisabled ? div.disabled = props.isDisabled: div.disabled = false;
         if (props.style) {
             div.style = props.style;
         }
         props.value ? div.value = props.value : '';
         props.onSearch ? div.onsearch = props.onSearch: '';
         props.htmltext ? div.innerHTML = props.htmltext : div.innerHTML = '';
-        div.append(...props.children)
+        div.append(...props.children);
 
         return div;
     }
 
     update() {
         this.render(this.props);
-        document.getElementById("SearchString") ? document.getElementById("SearchString").oninput.apply(): '';
     }
+
 }
