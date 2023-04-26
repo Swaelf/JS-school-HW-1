@@ -6,7 +6,6 @@ import Properities from '../Interfaces/Properities';
 import './css/TagHolder.css';
 
 export default class TagHolder extends Component {
-    props: Properities;
     element: HTMLDivElement;      
 
     constructor() {
@@ -18,17 +17,13 @@ export default class TagHolder extends Component {
         return super.render({
             class: 'tasks__tagholder',
             htmltext: props.htmltext,
-            id: props.id,
-            style: props.style,
             children: [
                 new Label().render({
-                    id: props.prefix + 'Tag_' + props.i,
-                    text: 'tag',
+                    text: props.item.tag,
                     class: 'tags__item' + props.tagState
                 }),
                 new Label().render({
-                    id: props.prefix + 'Time_' + props.i,
-                    text: 'time',
+                    text: props.item.plannedDate,
                     class: 'tags__item tags__item--time'
                 })
             ]   

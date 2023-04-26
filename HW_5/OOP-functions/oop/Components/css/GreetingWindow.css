@@ -1,4 +1,4 @@
-.newdaybox {
+.newdaywindow {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -13,4 +13,8 @@
     padding: 32px;
     box-sizing: border-box;
     gap: 24px;
+}
+
+.newdaywindow--enabled {
+    display: flex;
 }

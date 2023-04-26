@@ -11,7 +11,6 @@ import './css/GreetingWindow.css';
 
 
 export default class GreetingWindow extends Component {
-    props: Properities;
     element: HTMLDivElement;
     
     constructor() {
@@ -22,26 +21,23 @@ export default class GreetingWindow extends Component {
     render(props: Properities) {
         return super.render({
             id: 'NewDayBox',
-            class: 'newdaybox',
-            style: props.style,
+            class: props.class,
             children: [
                 new Label().render({
                     id: 'NewDayLabel',
                     text: 'Good morning',
                     class: 'newdaybox__label',
-                    children: []
                 }),
                 new Label().render({
                     id: 'NewDayTasksLabel',
                     text: 'You have the next planned tasks for today: ',
                     class: 'newdaybox__taskslabel',
-                    children: []
                 }),
                 new DivElement().render({
                     id: 'NewDayTasks',
                     text: '',
                     class: 'newdaybox__tasks',
-                    children: this.CreateListForMorningGreeting(props.tasks)
+                    children: this.CreateListForMorningGreeting(props.taskList, props.currentDate)
                 }),
                 new Button().render({
                     id: 'NewDayLabel',
@@ -53,16 +49,17 @@ export default class GreetingWindow extends Component {
         });
     }
 
-    CreateListForMorningGreeting = (items: ItemInterface[]) => {
+    CreateListForMorningGreeting = (taskList: ItemInterface[], currentDate: string) => {
         let rows: HTMLCommonElement[] = [];
-        for (const i in items) {
-            rows.push(
-                new Label().render({
-                    id: "morningTask_" + i, 
-                    text: items[i].name, 
-                    class: "newdaybox__text"
-                })
-            )
+        for (let i in taskList) {
+            if (!taskList[i].isCompleted && taskList[i].plannedDate == currentDate) {
+                rows.push(
+                    new Label().render({
+                        text: taskList[i].name, 
+                        class: "newdaybox__text"
+                    })
+                )
+            }
         }
         return rows;
     }

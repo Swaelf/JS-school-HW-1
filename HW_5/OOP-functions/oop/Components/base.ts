@@ -3,7 +3,6 @@ import StateIterface from '../Interfaces/StateInterface';
 import HTMLCommonElement from '../Interfaces/HTMLCommonElement'
 
 export default class Component {
-
     state: StateIterface;
     props: Properities;
     element: HTMLCommonElement;
@@ -14,17 +13,16 @@ export default class Component {
         this.element = document.createElement('div') as HTMLCommonElement;
     }
 
-    setState(state: StateIterface, funct: (() => void)|null = null, reload = true) {
+    setState(state: StateIterface, reload = true) {
         this.state = {...this.state, ...state};
         if (reload == true) {this.update()};
-        if (funct != null) {funct();};
     }
 
     render(props: Properities) {
         this.props = {...props};
         let div: HTMLCommonElement = this.element;
-        div.id = props.id;
-        for (const i of props.class.split(' ')) {
+        div.id = props.id||'';
+        for (let i of props.class.split(' ')) {
             div.classList.add(i);
         };
         div.onclick = props.onClick;

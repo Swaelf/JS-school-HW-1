@@ -8,3 +8,7 @@
     height: calc(max(100%, 100vh));
     width: calc(max(100%, 100vw));
 }
+
+.screenlock--enabled {
+    display: flex;
+}

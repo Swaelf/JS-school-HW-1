@@ -11,7 +11,6 @@ import Properities from '../Interfaces/Properities';
 import './css/NewItemWindow.css';
 
 export default class NewItemWindow extends Component {
-    props: Properities;
     element: HTMLDivElement;    
 
     constructor() {
@@ -22,18 +21,15 @@ export default class NewItemWindow extends Component {
     render(props: Properities) {
         return super.render({
             id: 'NewItemBox',
-            class: 'newitembox',
-            style: props.style,
+            class: props.class,
             children: [
                 new Label().render({
                     id: 'NewItemLabel',
                     text: 'Add New Item',
-                    class: 'newitembox__label',
-                    children: []
+                    class: 'newitembox__label'
                 }),
                 new Input().render({
                     id: 'NewItemInput',
-                    children: [],
                     class: 'newitembox__input',
                     text: 'New Task',
                     type: 'search',
@@ -59,20 +55,12 @@ export default class NewItemWindow extends Component {
         const newItemInput: HTMLInputElement = document.getElementById("NewItemInput") as HTMLInputElement;
         const newItemButtonApply: HTMLButtonElement = document.getElementById("NewItemButtonApply") as HTMLButtonElement;
         if (newItemInput.value) {
-            if (newItemButtonApply.classList.contains("newitembox__button--disabled") == true) {
-                newItemButtonApply.classList.remove("newitembox__button--disabled");
-            }
-            if (newItemButtonApply.classList.contains("newitembox__button--enabled") == false) {
-             newItemButtonApply.classList.add("newitembox__button--enabled");                      
-            }
+            newItemButtonApply.classList.remove("newitembox__button--disabled");
+            newItemButtonApply.classList.add("newitembox__button--enabled");                      
             newItemButtonApply.disabled = false;
         } else {
-            if (newItemButtonApply.classList.contains("newitembox__button--disabled") == false) {
-                newItemButtonApply.classList.add("newitembox__button--disabled");
-            }
-            if (newItemButtonApply.classList.contains("newitembox__button--enabled") == true) {
-             newItemButtonApply.classList.remove("newitembox__button--enabled");                      
-            }
+            newItemButtonApply.classList.add("newitembox__button--disabled");
+            newItemButtonApply.classList.remove("newitembox__button--enabled");                      
             newItemButtonApply.disabled = true;
         }
     }

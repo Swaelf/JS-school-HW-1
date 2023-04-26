@@ -6,7 +6,6 @@ import './css/Input.css';
 
 
 export default class Input extends Component {
-    props: Properities;
     element: HTMLInputElement;    
 
     constructor() {
@@ -17,10 +16,10 @@ export default class Input extends Component {
     render(props: Properities) {
         return super.render({
             id: props.id,
-            children: [],
             value: props.value,
             placeholder: props.text,
             class: props.class,
+            htmltext: props.htmltext,
             type: props.type,
             onInput: props.onInput,
             onChange: props.onChange,

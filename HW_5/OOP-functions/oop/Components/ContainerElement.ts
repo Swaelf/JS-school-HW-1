@@ -8,7 +8,6 @@ import Properities from '../Interfaces/Properities';
 import './css/ContainerElement.css';
 
 export default class ContainerElement extends Component {
-    props: Properities;
     element: HTMLDivElement;
 
     constructor() {
@@ -23,15 +22,15 @@ export default class ContainerElement extends Component {
             children: [
                 new TopLabelBoxElement().render({
                     id: 'topLabelBox',
-                    class: 'toplabelbox__container'
+                    class: 'toplabelbox__container',
+                    weather: props.weather
                 }),
                 new TopBarElement().render({
                     id: 'TopBar',
                     class: 'topbar',
-                    taskItems: props.taskItems,
-                    completeItems: props.completeItems,
+                    taskList: props.taskList,
                     onSearchInput: props.onSearchInput,
-                    onButtonClick: props.onButtonClick,
+                    onButtonClick: props.onButtonClick
                 }),
                 new TaskContainerElement().render({
                     id: 'TaskContainer',

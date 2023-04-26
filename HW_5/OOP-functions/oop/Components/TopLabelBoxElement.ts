@@ -7,7 +7,6 @@ import Properities from '../Interfaces/Properities';
 import './css/TopLabelBoxElement.css';
 
 export default class TopLabelBoxElement extends Component {
-    props: Properities;
     element: HTMLDivElement;     
 
     constructor() {
@@ -16,6 +15,7 @@ export default class TopLabelBoxElement extends Component {
     }
 
     render(props: Properities) {
+
         return super.render({
             id: 'topLabelBox',
             class: 'toplabelbox__container',
@@ -27,7 +27,8 @@ export default class TopLabelBoxElement extends Component {
                 }),
                 new WeatherWiget().render({
                     id: 'topLabelWidget',
-                    class: 'toplabelbox__widget'
+                    class: 'toplabelbox__widget',
+                    weather: props.weather
                 })
             ]
         });

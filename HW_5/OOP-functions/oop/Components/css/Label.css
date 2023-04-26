@@ -79,20 +79,6 @@
     box-sizing: border-box;
 }
 
-.newitembox__date {
-    display: flex;
-    height: 40px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 10px 16px 10px 16px;
-    border: 1px solid red;
-    box-sizing: border-box;
-    border: 2px solid #3C86F499;
-    border-radius: 12px;
-    align-items: center;
-}
-
 .tags__item {
     display: flex;
     padding: 2px 8px 2px 8px;
@@ -135,4 +121,8 @@
 .tags__item--inactive {
     background-color: #F5F5F5;
     color: #838383;
+}
+
+.tags__item--selected {
+    outline: 2px solid red;
 }

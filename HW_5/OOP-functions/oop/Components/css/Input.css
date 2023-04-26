@@ -54,3 +54,24 @@
 .newitembox__input:focus {
     outline: none;
 }
+
+.newitembox__date {
+    display: flex;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 10px 16px 10px 16px;
+    box-sizing: border-box;
+    border: 2px solid #3C86F499;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.newitembox__inputdate {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

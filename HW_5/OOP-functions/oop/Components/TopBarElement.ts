@@ -9,26 +9,20 @@ import HTMLCommonElement from '../Interfaces/HTMLCommonElement';
 import './css/TopBarElement.css';
 
 export default class TopBarElement extends Component {
-    props: Properities;
     element: HTMLDivElement;  
     state: StateIterface;
 
     constructor() {
         super();
         this.element = document.createElement('div') as HTMLDivElement;
-        this.state = {
-            taskItems: [],
-            completeItems: []
-        };
     }
 
     render(props: Properities) {
         const searchPattern = localStorage.getItem("searchPattern");
 
         this.setState({
-            taskItems: props.taskItems,
-            completeItems: props.completeItems
-        }, undefined ,false);
+            taskList: props.taskList,
+        }, false);
 
         return super.render({
             id: 'TopBar',
@@ -36,7 +30,6 @@ export default class TopBarElement extends Component {
             children: [
                 new Input().render({
                     id: 'SearchString',
-                    children: [],
                     value: searchPattern,
                     class: 'topbar__search',
                     text: 'Search Task',
@@ -59,20 +52,11 @@ export default class TopBarElement extends Component {
 
         localStorage.setItem("searchPattern", searchPattern);
 
-        let i;
-        for (i in this.state.taskItems) {
-            let element: HTMLCommonElement = document.getElementById("Task_" + i);
-            element.style.display = "none";
-            if (this.state.taskItems[i].name.match(searchPattern)){
-                element.style.display = "flex";
-            }     
-        }
-        for (i in this.state.completeItems) {
-            let element: HTMLCommonElement = document.getElementById("Complete_" + i);
-            element.style.display = "none";
-            if (this.state.completeItems[i].name.match(searchPattern)){
-                element.style.display = "flex";
-            }     
+        for (let i in this.state.taskList) {
+            this.state.taskList[i].htmlElement.classList.add("tasks__row", "tasks__row--disabled");
+            if (this.state.taskList[i].name.match(searchPattern)){
+                this.state.taskList[i].htmlElement.classList.remove("tasks__row--disabled");
+            }  
         }
     }
 }

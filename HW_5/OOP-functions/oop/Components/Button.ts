@@ -5,7 +5,6 @@ import Properities from '../Interfaces/Properities';
 import './css/Button.css';
 
 export default class Button extends Component {
-    props: Properities;
     element: HTMLButtonElement;
 
     constructor() {

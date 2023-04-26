@@ -5,7 +5,6 @@ import Properities from '../Interfaces/Properities';
 import './css/Label.css';
 
 export default class Label extends Component {
-    props: Properities;
     element: HTMLLabelElement;     
 
     constructor() {

@@ -6,7 +6,6 @@ import Properities from '../Interfaces/Properities';
 import './css/NewItemButtonsContainerElement.css';
 
 export default class NewItemButtonsContainerElement extends Component {
-    props: Properities;
     element: HTMLDivElement;    
 
     constructor() {
@@ -15,6 +14,7 @@ export default class NewItemButtonsContainerElement extends Component {
     }
 
     render(props: Properities) {
+
         return super.render({
             id: 'NewItemButtons',
             class: 'newitembox__buttons',

@@ -6,7 +6,6 @@ import Properities from '../Interfaces/Properities';
 import './css/TaskContainerElement.css';
 
 export default class TaskContainerElement extends Component {
-    props: Properities;
     element: HTMLDivElement;     
 
     constructor() {

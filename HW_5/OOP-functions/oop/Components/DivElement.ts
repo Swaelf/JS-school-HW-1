@@ -5,7 +5,6 @@ import Properities from '../Interfaces/Properities';
 import './css/DivElement.css';
 
 export default class DivElement extends Component {
-    props: Properities;
     element: HTMLDivElement;
 
     constructor() {

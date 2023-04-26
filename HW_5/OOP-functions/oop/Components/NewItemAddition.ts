@@ -1,5 +1,6 @@
 import Component from './base.ts';  
-import Label from './Label.ts';  
+import Label from './Label.ts'; 
+import Input from './Input.ts';  
 import NewItemTags from './NewItemTags.ts';
 
 import Properities from '../Interfaces/Properities'; 
@@ -7,7 +8,6 @@ import Properities from '../Interfaces/Properities';
 import './css/NewItemAddition.css';
 
 export default class NewItemAddition extends Component {
-    props: Properities;
     element: HTMLDivElement;     
 
     constructor() {
@@ -30,9 +30,30 @@ export default class NewItemAddition extends Component {
                     id: 'NewItemDate',
                     class: 'newitembox__date',
                     text: props.currentDate,
-                    children: []
+                    onClick: this.DateTimeFormat
+                }),
+                new Input().render({
+                    id: 'NewItemInputDate',
+                    class: 'newitembox__inputdate',
+                    type: 'date',
+                    onChange: this.SetDate   
                 })
             ]
         });
     }
+
+    SetDate = () => {
+        const newItemInputDate: HTMLInputElement = document.getElementById('NewItemInputDate') as HTMLInputElement;
+        const newItemDate: HTMLLabelElement = document.getElementById('NewItemDate') as HTMLLabelElement;
+        const formattedDate: string = new Date(newItemInputDate.value).toJSON().slice(0, 10).split("-").reverse().join(".");      
+        newItemDate.innerHTML = formattedDate;   
+    }
+
+
+    DateTimeFormat = () => {
+        const newItemInputDate: HTMLInputElement = document.getElementById('NewItemInputDate') as HTMLInputElement;
+        newItemInputDate.showPicker();
+    }
+  
+    
 }

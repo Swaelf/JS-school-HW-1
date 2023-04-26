@@ -2,9 +2,10 @@ import ItemInterface from './ItemInterface'
 import HTMLCommonElement from './HTMLCommonElement'
 
 export default interface StateInterface {
+  taskList?: ItemInterface[] ,
   taskItems?: ItemInterface[],
   completeItems?: ItemInterface[],
-  listOfTaskElements?: HTMLCommonElement[],
+  listOfUncompletedTaskElements?: HTMLCommonElement[],
   listOfCompletedTaskElements?: HTMLCommonElement[],
   currentDate?: string,
   localurl?: string,
@@ -12,7 +13,6 @@ export default interface StateInterface {
   weatherUrl?: string,
   weatherKey?: string,
   newdayMkr?: boolean,
-  style?: {
-    [key: string]: string, 
-  }
+  weather?: {[key: string]: string}
+  style?: {[key: string]: string}
 }

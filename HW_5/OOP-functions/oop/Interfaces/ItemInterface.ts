@@ -1,7 +1,11 @@
+import HTMLCommonElement from './HTMLCommonElement'
 
 export default interface ItemInterface {
-  id?: string,
+  id?: number,
   name?: string,
   elementID?: string,
-  isCompleted?: boolean
+  isCompleted?: boolean,
+  htmlElement?: HTMLCommonElement,
+  plannedDate?: string,
+  tag?: string
 }

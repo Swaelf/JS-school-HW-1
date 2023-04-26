@@ -12,14 +12,12 @@ export default interface Properities {
   value?: string;
   onsearch?: string;
   style?: string;
-  styles?: {[key: string]: string};
   text?: string;
+  name?: string;
   children?: HTMLCommonElement[];
   htmltext?: string;
-  completeItems?: ItemInterface[];
-  taskItems?: ItemInterface[];
+  taskList?: ItemInterface[];
   buttonBacground?: string;
-  i?: number;
   prefix?: string;
   item?: ItemInterface;
   tagState?: string;
@@ -27,7 +25,7 @@ export default interface Properities {
   actualTasksChildren?: HTMLCommonElement[];
   completedTasksChildren?: HTMLCommonElement[];
   currentDate?: string;
-  tasks?: ItemInterface[];
+  weather?: {[key: string]: string};
   isDisabled?: boolean;
   pattern?: string;
   onClick?: (() => void)|(element: MouseEvent, mkr?: boolean);
@@ -36,11 +34,8 @@ export default interface Properities {
   onSearch?: (() => void);
   onChange?: (() => void)|((element: MouseEvent) => void);
   onLoad?: (() => void);
-  buttonOnClick?: (() => void)|((element: MouseEvent, mkr?: boolean) => ItemInterface);
+  buttonOnClick?: (() => void)|((element: MouseEvent, mkr?: boolean) => void);
   buttonOnClick_cancel?: (() => void);
   buttonOnClick_apply?: (() => void);
   onSearchInput?: (() => void);
-  RemoveItemFromTaskList?: (() => void)|((element: MouseEvent, mkr?: boolean) => ItemInterface);
-  GetDataFromServer?: (() => void);
-  PutDataIntoServer?: (() => void);
 }
