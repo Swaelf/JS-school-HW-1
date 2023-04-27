@@ -1,5 +1,6 @@
 import HTMLCommonElement from './HTMLCommonElement';
 import ItemInterface from './ItemInterface';
+import StateInterface from './StateInterface';
 
 
 export default interface Properities {
@@ -27,8 +28,7 @@ export default interface Properities {
   currentDate?: string;
   weather?: {[key: string]: string};
   isDisabled?: boolean;
-  pattern?: string;
-  onClick?: (() => void)|(element: MouseEvent, mkr?: boolean);
+  onClick?: (() => void)|((element: MouseEvent, mkr?: boolean) => void);
   onButtonClick?: (() => void);
   onInput?: (() => void);
   onSearch?: (() => void);

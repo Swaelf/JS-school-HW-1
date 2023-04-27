@@ -38,6 +38,7 @@ export default class ScreenlockElement extends Component {
                     id: 'NewItemWindow',
                     class: newItemWindowClass,
                     currentDate: props.currentDate,
+                    taskList: props.taskList,
                     buttonOnClick_cancel: props.buttonOnClick_cancel,
                     buttonOnClick_apply: props.buttonOnClick_apply
                 }),

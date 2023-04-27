@@ -8,6 +8,9 @@ import NewItemButtonsContainerElement from './NewItemButtonsContainerElement.ts'
 
 import Properities from '../Interfaces/Properities'; 
 
+import {AproveNewItem} from '../Functions/AproveNewItem';
+import {NewTaskOnEnter} from '../Functions/NewTaskOnEnter';
+
 import './css/NewItemWindow.css';
 
 export default class NewItemWindow extends Component {
@@ -33,8 +36,8 @@ export default class NewItemWindow extends Component {
                     class: 'newitembox__input',
                     text: 'New Task',
                     type: 'search',
-                    onSearch: this.NewTaskOnEnter,
-                    onInput: this.AproveNewItem
+                    onSearch: NewTaskOnEnter,
+                    onInput: AproveNewItem
                 }),
                 new NewItemAddition().render({
                     id: 'NewItemAddition',
@@ -44,27 +47,11 @@ export default class NewItemWindow extends Component {
                 new NewItemButtonsContainerElement().render({
                     id: 'NewItemButtons',
                     class: 'newitembox__buttons',
+                    taskList: props.taskList,
                     buttonOnClick_cancel: props.buttonOnClick_cancel,
                     buttonOnClick_apply: props.buttonOnClick_apply
                 })
             ]
         });
-    }
-
-    AproveNewItem = () => {
-        const newItemInput: HTMLInputElement = document.getElementById("NewItemInput") as HTMLInputElement;
-        const newItemButtonApply: HTMLButtonElement = document.getElementById("NewItemButtonApply") as HTMLButtonElement;
-        if (newItemInput.value) {
-            newItemButtonApply.className = "newitembox__button newitembox__button--apply newitembox__button--enabled";                  
-            newItemButtonApply.disabled = false;
-        } else {
-            newItemButtonApply.className = "newitembox__button newitembox__button--apply newitembox__button--disabled";                  
-            newItemButtonApply.disabled = true;
-        }
-    }
-
-    NewTaskOnEnter = () => {
-        const newItemBox: HTMLButtonElement = document.getElementById('NewItemButtonApply') as HTMLButtonElement;
-        newItemBox.disabled == false ? newItemBox.onclick.call(this) : '';
     }
 }

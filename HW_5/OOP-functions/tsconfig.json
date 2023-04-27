@@ -3,6 +3,7 @@
     "outDir": "./dist/",
     "module": "es6",
     "target": "es5",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": false,
     "noEmit": true,
@@ -10,5 +11,9 @@
     "noImplicitAny": true
   },
   "include": ["./oop/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "paths": {
+      "@app/*": ["oop/**/*"]
+    }
 }
+    

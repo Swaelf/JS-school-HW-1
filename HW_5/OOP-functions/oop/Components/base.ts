@@ -1,9 +1,9 @@
 import Properities from '../Interfaces/Properities';
-import StateIterface from '../Interfaces/StateInterface'; 
+import StateInterface from '../Interfaces/StateInterface'; 
 import HTMLCommonElement from '../Interfaces/HTMLCommonElement'
 
 export default class Component {
-    state: StateIterface;
+    state: StateInterface;
     props: Properities;
     element: HTMLCommonElement;
 
@@ -13,7 +13,7 @@ export default class Component {
         this.element = document.createElement('div') as HTMLCommonElement;
     }
 
-    setState(state: StateIterface, reload = true) {
+    setState(state: StateInterface, reload = true) {
         this.state = {...this.state, ...state};
         if (reload == true) {this.update()};
     }

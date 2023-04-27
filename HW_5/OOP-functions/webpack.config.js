@@ -31,6 +31,13 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     port: 9000
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+    modules: [
+    'node_modules',
+    'oop',
+    'Functions'
+    ],
   }
-
 };

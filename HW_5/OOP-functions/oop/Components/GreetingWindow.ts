@@ -7,6 +7,8 @@ import Properities from '../Interfaces/Properities';
 import ItemInterface from '../Interfaces/ItemInterface'
 import HTMLCommonElement from '../Interfaces/HTMLCommonElement'
 
+import {CreateListForMorningGreeting} from '../Functions/CreateListForMorningGreeting.ts';
+
 import './css/GreetingWindow.css';
 
 
@@ -37,7 +39,7 @@ export default class GreetingWindow extends Component {
                     id: 'NewDayTasks',
                     text: '',
                     class: 'newdaybox__tasks',
-                    children: this.CreateListForMorningGreeting(props.taskList, props.currentDate)
+                    children: CreateListForMorningGreeting(props.taskList, props.currentDate)
                 }),
                 new Button().render({
                     id: 'NewDayLabel',
@@ -47,24 +49,5 @@ export default class GreetingWindow extends Component {
                 })
             ]
         });
-    }
-
-    CreateListForMorningGreeting = (taskList: ItemInterface[], currentDate: string) => {
-        let rows: HTMLCommonElement[] = [];
-        for (let i in taskList) {
-            if (
-                (!taskList[i].isCompleted) && 
-                    ((taskList[i].plannedDate == currentDate)||
-                    (!taskList[i].plannedDate))
-                ) {
-                rows.push(
-                    new Label().render({
-                        text: taskList[i].name, 
-                        class: "newdaybox__text"
-                    })
-                )
-            }
-        }
-        return rows;
     }
 }

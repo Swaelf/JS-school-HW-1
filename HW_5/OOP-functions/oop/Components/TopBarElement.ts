@@ -3,14 +3,16 @@ import Input from './Input.ts';
 import Button from './Button.ts';
 
 import Properities from '../Interfaces/Properities'; 
-import StateIterface from '../Interfaces/StateInterface'; 
+import StateInterface from '../Interfaces/StateInterface'; 
 import HTMLCommonElement from '../Interfaces/HTMLCommonElement';
+
+import {SearchByPattern} from '../Functions/SearchByPattern.ts';
 
 import './css/TopBarElement.css';
 
 export default class TopBarElement extends Component {
     element: HTMLDivElement;  
-    state: StateIterface;
+    state: StateInterface;
 
     constructor() {
         super();
@@ -52,12 +54,6 @@ export default class TopBarElement extends Component {
 
         localStorage.setItem("searchPattern", searchPattern);
 
-        for (let i in this.state.taskList) {
-            this.state.taskList[i].htmlElement.className = "tasks__row";
-            if (!this.state.taskList[i].name.match(searchPattern)){
-                //this.state.taskList[i].htmlElement.className = "tasks__row";
-                this.state.taskList[i].htmlElement.className = "tasks__row tasks__row--disabled";
-            }  
-        }
+        SearchByPattern(this.state.taskList, searchPattern);
     }
 }
