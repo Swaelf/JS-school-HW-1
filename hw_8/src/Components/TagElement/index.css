@@ -1,0 +1,47 @@
+.tag {
+    display: flex;
+    padding: 2px 8px 2px 8px;
+    height: 19px;
+    width: 52px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    justify-content: center;
+}
+
+.tag--health {
+    background-color: #3C86F44F;
+    color: #0053CF;
+}
+
+.tag--work {
+    background-color: #E8D7FF;
+    color: #9747FF;
+}
+
+.tag--home {
+    background-color: #E2F6E2;
+    color: #639462;
+}
+
+.tag--other {
+    background-color: #FFECC7;
+    color: #EA8C00;
+}
+
+.tag--time {
+    background-color: transparent;
+    color: #838383;
+    width: auto;
+}
+
+.tag--inactive {
+    background-color: #F5F5F5;
+    color: #838383;
+}
+
+.tag--selected {
+    outline: 1px solid;
+}

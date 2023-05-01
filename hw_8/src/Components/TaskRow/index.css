@@ -1,0 +1,69 @@
+.taskrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 482px;
+    padding: 8px 12px 8px 12px;
+    box-sizing: border-box;
+}
+
+.taskrow--hidden {
+    display: none;
+}
+
+.checkbox {
+    width: 21px;
+    height: 21px;
+    border: 2px solid #D3D3D3;
+    border-radius: 4px;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+
+}
+
+.checkbox:checked {
+    background-color: #D3D3D3;
+    background-image: url(Checked.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.taskcontent {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0px 15px 0px 15px;
+}
+
+.taskname {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+}
+
+.taskname--inactive {
+    color: #838383;
+}
+
+.button__delete {
+    background-image: url(Delete.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+.button__delete--disabled {
+    display: none;
+}
+
+.button__delete:hover {
+    background-image: url(Delete_hover.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+}

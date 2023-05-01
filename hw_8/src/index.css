@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+
+body {
+  margin: 0;
+  font-family: Nunito;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 44px;
+  padding-left: 164px;
+  box-sizing: border-box;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
