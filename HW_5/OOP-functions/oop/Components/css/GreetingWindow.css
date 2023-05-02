@@ -1,0 +1,20 @@
+.newdaywindow {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    width: 524px;
+    min-height: 350px;
+    max-height: 500px;
+    border-radius: 24px;
+    background-color: #FFFFFF;
+    transform: translate(-50%, -50%);
+    padding: 32px;
+    box-sizing: border-box;
+    gap: 24px;
+}
+
+.newdaywindow--enabled {
+    display: flex;
+}

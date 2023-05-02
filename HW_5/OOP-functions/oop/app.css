@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+body, html {
+    margin: 0;
+    font-family: Nunito;
+}
+
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 44px;
+    padding-left: 164px;
+    box-sizing: border-box;
+}

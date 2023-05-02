@@ -1,0 +1,77 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "tasks": [
+    {
+      "id": 3,
+      "title": "task 3",
+      "isCompleted": false,
+      "plannedDate": "30.04.2023",
+      "tag": "other"
+    },
+    {
+      "id": 4,
+      "title": "tast 4",
+      "isCompleted": false,
+      "plannedDate": "01.05.2023",
+      "tag": "work"
+    },
+    {
+      "id": 5,
+      "title": "task 5",
+      "isCompleted": false,
+      "plannedDate": "02.05.2023",
+      "tag": "work"
+    },
+    {
+      "id": 1,
+      "title": "task 1",
+      "isCompleted": true,
+      "plannedDate": "28.04.2023",
+      "tag": "home"
+    },
+    {
+      "id": 2,
+      "title": "task 2",
+      "isCompleted": true,
+      "plannedDate": "29.04.2023",
+      "tag": "health"
+    },
+    {
+      "id": 6,
+      "title": "task 6",
+      "isCompleted": false,
+      "plannedDate": "03.05.2023",
+      "tag": "other"
+    },
+    {
+      "id": 8,
+      "title": "task 8",
+      "isCompleted": false,
+      "plannedDate": "05.05.2023",
+      "tag": "other"
+    },
+    {
+      "id": 7,
+      "title": "task 7",
+      "isCompleted": false,
+      "plannedDate": "04.05.2023",
+      "tag": "health"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -1,0 +1,6 @@
+.tasks__tagholder{
+    display: flex;
+    height: 15px;
+    flex-direction: row;
+    box-sizing: border-box;
+}

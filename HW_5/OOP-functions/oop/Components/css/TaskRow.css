@@ -1,0 +1,12 @@
+.tasks__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 482px;
+    padding: 8px 12px 8px 12px;
+    box-sizing: border-box;
+}
+
+.tasks__row--disabled {
+    display: none;
+}

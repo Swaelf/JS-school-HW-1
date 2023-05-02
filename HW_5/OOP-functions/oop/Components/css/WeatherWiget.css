@@ -1,0 +1,11 @@
+.toplabelbox__widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 332px;
+    height: 65px;
+    padding: 22px;
+    box-sizing: border-box;
+    gap: 23px;
+
+}
