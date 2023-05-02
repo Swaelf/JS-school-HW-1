@@ -1,6 +1,6 @@
 import { TagElement } from '../TagElement';
 import ItemInterface from '../../Interfaces/ItemInterface'
-import { useState, useCallback, LegacyRef, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import DeleteDataFromServer from '../../Functions/DeleteDataFromServer'
 import UpdateDataOnServer from '../../Functions/UpdateDataOnServer'
@@ -22,32 +22,26 @@ export const TaskRow = (
 		setTask: (() => {}),
 	}) => {
 
-	//console.log('taskrow!')
-
 	const index: number = taskList.indexOf(task);
+	const buttonClass = taskList[index].isCompleted ? 'button__delete button__delete--disabled': 'button__delete';
 
-	const buttonClass = taskList[index].isCompleted ? 'button__delete button__delete--disabled': 'button__delete'
 	
 	const changeCompleteState = useCallback(() => {
-    	console.log('Change state of ', taskList[index].name );
     	taskList[index].isCompleted = !taskList[index].isCompleted;
     	UpdateDataOnServer(taskList[index]);
     	setTask([...taskList]);
-  	}, [taskList]);
+  	}, [taskList, setTask, index]);
 
 	const deleteTask = useCallback(() => {
-    	console.log('Delete ', taskList[index] );
     	DeleteDataFromServer(taskList[index]);
      	taskList.splice(index, 1);
     	setTask([...taskList]);
-  	}, [taskList]);
+  	}, [taskList, setTask, index]);
+
 
   	let rowClassName: string = task.filter ? 'taskrow' : 'taskrow taskrow--hidden';
-
   	let actualTag: string = task.isCompleted ? 'inactive' : taskList[index].tag as string;
-
   	let labelClassName: string = task.isCompleted ? 'taskname taskname--inactive' : 'taskname';
-  
 
 	const result = 	
 	<div className={ rowClassName }> 

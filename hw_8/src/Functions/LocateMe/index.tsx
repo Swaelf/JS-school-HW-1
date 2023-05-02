@@ -1,5 +1,8 @@
+const weatherUrl: string = "https://api.weatherapi.com/v1";
+const weatherKey: string = "d9e8739732f24f7f942112753231504";
+ 
 
- export default async function LocateMe(): Promise<string> {
+export default async function LocateMe(): Promise<string> {
 
     if (!navigator.geolocation) {
 
@@ -17,7 +20,7 @@
                 },
                 (error) => {
 
-                    console.error(error.message);
+                    window.alert(error.message + '\nWill be shown weather for location Tbilisi');
                     resolve('Tbilisi');
                 }
             );
@@ -26,8 +29,6 @@
         return WeatherCall(currentPos);
    }
 }
-const weatherUrl: string = "https://api.weatherapi.com/v1";
-const weatherKey: string = "d9e8739732f24f7f942112753231504";
 
 const WeatherCall = async (coords: string) => {
         
@@ -37,7 +38,6 @@ const WeatherCall = async (coords: string) => {
         .then(response => response.json())
         .then(response => {
             return response;
-            console.log('weatherLoad = ok'); 
         });        
         
     }

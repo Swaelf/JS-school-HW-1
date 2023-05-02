@@ -1,37 +1,36 @@
 import { NewDayWindow } from '../NewDayWindow';
 import { NewTaskWindow } from '../NewTaskWindow';
-import { useRef, RefObject } from 'react';
+import React from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
 
 import './index.css';
 
 export const ScreenLock = (
 	{ 
-		flag,
-		setFlag, 
+		modalWindowState,
+		setModalWindowState, 
 		currentDate,
 		taskList, 
 		setTask
 	}: { 
-		flag: number,
-		setFlag: React.Dispatch<React.SetStateAction<number>>, 
+		modalWindowState: number,
+		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		currentDate: string,
 		taskList: ItemInterface[], 
 		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
 	} = {
-		flag: 0, 
-		setFlag: (() => {}), 
+		modalWindowState: 0, 
+		setModalWindowState: (() => {}), 
 		currentDate: '',
 		taskList: [],
 		setTask: (() => {})
 	}) => {
-
-	//console.log('screenlock rendered!', 'flag = ', flag);
 	
 	let screenLockClass: string;
 	let newDayWindowClass: string;
 	let newTaskWindowClass: string;
-	switch (flag) {
+
+	switch (modalWindowState) {
 		case 0: 
 			screenLockClass = 'screenlock screenlock--hidden';
 			newDayWindowClass = 'new_day_window new_day_window--hidden';
@@ -41,7 +40,6 @@ export const ScreenLock = (
 			screenLockClass = 'screenlock';
 			newDayWindowClass = 'new_day_window';
 			newTaskWindowClass = 'new_task_window new_task_window--hidden';
-
 			break;
 		case 2: 
 			screenLockClass = 'screenlock';
@@ -57,12 +55,12 @@ export const ScreenLock = (
 	const result = 	
 	<div className={ screenLockClass }> 
 		<NewDayWindow 
-			setFlag={ setFlag } 
+			setModalWindowState={ setModalWindowState } 
 			className={ newDayWindowClass} 
 			taskList={ taskList } 
 			currentDate={ currentDate }/> 
 		<NewTaskWindow 
-			setFlag={ setFlag } 
+			setModalWindowState={ setModalWindowState } 
 			className={ newTaskWindowClass } 
 			taskList={ taskList } 
 			setTask={ setTask } 

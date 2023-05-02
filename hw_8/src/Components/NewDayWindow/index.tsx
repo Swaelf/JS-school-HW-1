@@ -1,36 +1,31 @@
-import { useCallback, useRef, RefObject } from 'react';
+import { useCallback } from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface'
 
 import './index.css';
 
 export const NewDayWindow = (
 	{ 
-		setFlag,
+		setModalWindowState,
 		currentDate, 
 		className,
 		taskList
 	}: { 
-		setFlag: React.Dispatch<React.SetStateAction<number>>, 
+		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		currentDate: string,
 		className: string,
 		taskList: ItemInterface[]
 	} = {
-		setFlag: (() => {}),
+		setModalWindowState: (() => {}),
 		currentDate: '',
 		className: '',
 		taskList: []
 	}) => {
 
-	//console.log('NewDayWindow rendered!');
-
   	const handleClick = useCallback(() => {
-    	setFlag(0);
+    	setModalWindowState(0);
     	localStorage.setItem('currentDate', currentDate);
-  	}, []);
-
-  	
-
-
+  	}, [setModalWindowState, currentDate]);
+	
 	const result = 
 	<div className={ className }> 
 		<label 
@@ -43,7 +38,7 @@ export const NewDayWindow = (
 		</label>
 		<div className="tasklist__core">
 			{ taskList.map((task) => {
-			    if (task.plannedDate == currentDate) {
+			    if (task.plannedDate === currentDate) {
 			      	return <label key={task.id} >{ task.name }</label>;
 			    } else {
 			      	return null;

@@ -1,9 +1,7 @@
 import ItemInterface from '../../Interfaces/ItemInterface';
-import React, { useRef, useState, useEffect } from 'react';
 
 export default async function getDataFromServer() {
   let taskList: ItemInterface[] = [];
-
   let serverUrl: string = "http://localhost:3004/tasks";
   const localStorageUrl = localStorage.getItem("server_url");
 
@@ -11,7 +9,6 @@ export default async function getDataFromServer() {
       serverUrl = localStorageUrl;
   }
 
-  
 
   if (serverUrl) {
       await fetch(serverUrl, { method: "GET" })
@@ -22,15 +19,15 @@ export default async function getDataFromServer() {
                       taskList.push({
                           name: item.title, 
                           id: item.id, 
-                          isCompleted: item.isCompleted,
-                          plannedDate: item.plannedDate,
-                          tag: item.tag,
+                          isCompleted: item.isCompleted||false,
+                          plannedDate: item.plannedDate||'time',
+                          tag: item.tag||'other',
                           filter: true
                       });
                   }
               }
           })
-          .catch((error) => {window.alert(error)})  
+          .catch((error) => {window.alert('Error while getting data from Server:\n' + error.message)})  
   }
 
   return taskList;

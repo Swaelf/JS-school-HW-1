@@ -1,13 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import { ScreenLock } from './Components/ScreenLock';
 import { Container } from './Components/Container';
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import ItemInterface from './Interfaces/ItemInterface';
 
 import GetDataFromServer from './Functions/GetDataFromServer';
-import LocateMe from './Functions/LocateMe';
 
 import './App.css';
 
@@ -15,28 +13,33 @@ function App() {
 
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
 
-  let flagstate: number;
+  let initialModalWindowState: number;
 
-  if (localStorage.getItem('currentDate') != currentDate) {
-    console.log('good morning')
-    flagstate = 1;
+  if (localStorage.getItem('currentDate') !== currentDate) {
+    initialModalWindowState = 1;
   } else {
-    console.log('continued')
-    flagstate = 0;
+    initialModalWindowState = 0;
   }
 
-  const [flag, setFlag] = useState(flagstate);
+  const [modalWindowState, setModalWindowState] = useState(initialModalWindowState);
   const [taskList, setTask] = useState<ItemInterface[]|null>(null);
   
   useEffect(() => {
-    console.log('get Data!');
+    let isMounted = true;
+
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
-        setTask(data);
+        if (isMounted) {
+          setTask(data);
+        }
       });
+
+    return () => {
+        isMounted = false;
+    }
+
   }, []);
   
-  console.log('App rendered!');
 
   if (!taskList) {
     return <div>Loading...</div>;
@@ -45,13 +48,13 @@ function App() {
   return (
     <div className="App">
       <Container 
-        flag={ flag } 
-        setFlag={ setFlag } 
+        modalWindowState={ modalWindowState } 
+        setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
         setTask={ setTask }/>
       <ScreenLock 
-        flag={ flag } 
-        setFlag={ setFlag } 
+        modalWindowState={ modalWindowState } 
+        setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
         setTask={ setTask } 
         currentDate={ currentDate }/>

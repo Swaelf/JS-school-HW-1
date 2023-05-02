@@ -1,7 +1,7 @@
 import { TopBar } from '../TopBar';
 import { SearchBar } from '../SearchBar';
 import { TaskBar } from '../TaskBar';
-import { useRef, RefObject } from 'react';
+import React from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
 
 
@@ -9,30 +9,27 @@ import './index.css';
 
 export const Container = (
 	{ 
-		flag,
-		setFlag, 
+		modalWindowState,
+		setModalWindowState, 
 		taskList, 
 		setTask
 	}: { 
-		flag: number,
-		setFlag: React.Dispatch<React.SetStateAction<number>>, 
+		modalWindowState: number,
+		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		taskList: ItemInterface[], 
 		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
 	} = {
-		flag: 0, 
-		setFlag: (() => {}), 
+		modalWindowState: 0, 
+		setModalWindowState: (() => {}), 
 		taskList: [],
 		setTask: (() => {})
 	}) => {
-
-	//console.log('Container rendered!');
-	//console.log('task image container = ', JSON.stringify(taskList));
 
 	const result = 
 	<div className='container'> 
 		<TopBar/>
 		<SearchBar 
-			setFlag={ setFlag } 
+			setModalWindowState={ setModalWindowState } 
 			taskList={ taskList } 
 			setTask={ setTask }/>
 		<TaskBar 

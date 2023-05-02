@@ -1,43 +1,45 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import LocateMe from '../../Functions/LocateMe';
+import WetherResponseInterface from '../../Interfaces/WetherResponseInterface'
+
 
 import './index.css';
 
 export const WeatherWidget = () => {
 
-	const [weather, setWeather] = useState(
-		{
-			temperature: '??',
-			location: 'Tbilisi',
-			icon: "icons/weather/64x64/day/113.png"
-		});
+	const [temperature, setTemperature] = useState('??');
+	const [location, setLocation] = useState('Tbilisi')
+	const [icon, setIcon] = useState('icons/weather/64x64/day/113.png')
 
    useEffect(() => {
-    	console.error('weather load!');
-		LocateMe().then((pos: any) => {
-	      if (pos) {
-	        setWeather({ 
-	        		temperature: pos.current.temp_c,
-	        		location: pos.location.name,
-	        		icon: pos.current.condition.icon
-	        	}
-	        );
+    	let isMounted = true;
+
+		LocateMe().then((pos: unknown) => {
+	      if (isMounted && pos) {
+	      	let weather = pos as WetherResponseInterface;
+	      	setTemperature(weather.current.temp_c);
+	      	setLocation(weather.location.name);
+	      	setIcon(weather.current.condition.icon);
 	      }
 	    });
+
+	    return () => {
+      		isMounted = false;
+    	}
+
   	}, []);
 
-  	//console.log("WeatherWidget!");
 	
 	const result = 
 	<div className='widget'> 
 		<div 
 			className='widget__icon' 
-			style={{ backgroundImage: `url(${weather.icon})` }}/>
+			style={{ backgroundImage: `url(${icon})` }}/>
 		<label className='text text--temperature'>
-			{ weather.temperature}
+			{ temperature}
 		</label>
 		<label className='text text--city'>
-			{ weather.location }
+			{ location }
 		</label>
 	</div>
 	

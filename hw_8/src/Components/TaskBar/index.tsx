@@ -1,6 +1,6 @@
 import { TaskRow } from '../TaskRow';
 import ItemInterface from '../../Interfaces/ItemInterface'
-import React, { useState, useCallback, useRef } from 'react';
+import React from 'react';
 
 import './index.css';
 
@@ -16,10 +16,6 @@ export const TaskBar = (
 	 	setTask: (() => {})
 	 }) => {
 
-	//console.log('task image = ', JSON.stringify(taskList));
-
-
-	//setTask([...taskList]);
 
 	const result = 	
 	<div className='taskbar'> 
@@ -45,7 +41,7 @@ export const TaskBar = (
 			Completed tasks
 
 			{ taskList.map((task) => {
-				
+
 			    if (task.isCompleted) {
 			    	
 			      	return <TaskRow 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, RefObject } from 'react';
+import { useCallback } from 'react';
 
 import './index.css';
 
@@ -25,17 +25,15 @@ export const TagElement = (
 	
 	let tagClass: string = 'tag tag--' + tag;
 
-	if (tag == selectedTag) {
+	if (tag === selectedTag) {
 		tagClass = tagClass + ' tag--selected';
 	}
 	
-	//console.log(tagClass)
-
- 
+	
 	const handleClick = useCallback(() => {
     	if (setTag && tag) {setTag(tag)};
     	if (setSelectedTag && tag) {setSelectedTag(tag)};
-  	}, []);
+  	}, [setTag, setSelectedTag, tag]);
 	
 	const result = 
 	<label 

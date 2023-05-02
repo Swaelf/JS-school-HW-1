@@ -1,6 +1,6 @@
 import React from 'react';
 import { NewTaskAddition } from '../NewTaskAddition';
-import { useState, useCallback, useRef, RefObject, useMemo } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
 import { NewItemInput } from '../NewItemInput'
 
@@ -10,83 +10,75 @@ import './index.css';
 
 export const NewTaskWindow = (
 	{ 
-		setFlag, 
+		setModalWindowState, 
 		className,
 		currentDate,
 		taskList,
 		setTask
 	}: { 
-		setFlag: React.Dispatch<React.SetStateAction<number>>, 
+		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		className: string,
 		currentDate: string,
 		taskList: ItemInterface[],
 		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
 	} = {
-		setFlag: (() => {}),
+		setModalWindowState: (() => {}),
 		className: '',
 		currentDate: '',
 		taskList: [],
 		setTask: (() => {})
 	}) => {
 
-	//console.log('NewTaskWindow rendered!');
-
 	const [currentTag, setCurrentTag] = useState('other');
 	const [selectedTag, setSelectedTag] = useState('');
-
-	let newTask: ItemInterface;
-
-	let currentName: string = '';
-
-	let newId: number = taskList.length + 1;
-        
-    for (let index: number = 0; index <= taskList.length - 1; index++) {
-        if ((taskList.find(task => task.id == index + 1)) == undefined) {
-            newId = index + 1; 
-            break;
-        }
-    }
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dateInputRef = useRef<HTMLInputElement>(null);
 	const dateLabelRef = useRef<HTMLLabelElement>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
+    const restoreButtonState = () => {
+		buttonRef.current!.className = 'button button--apply button--disabled';
+		buttonRef.current!.disabled = true;
+	}
+
+    if (inputRef.current) {
+
+		inputRef.current.value = localStorage.getItem('currentName')||'';
+		if (inputRef.current.value === '') {
+			restoreButtonState();
+		}
+	}
+
+
 	const showDatePicker = useCallback(() => {
+
 		if (dateInputRef.current) {
       		dateInputRef.current.showPicker();
     	}
   	}, []);
 
   	const selectDate = useCallback(() => {
+
 		if (dateLabelRef.current && dateInputRef.current) {
       		dateLabelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
     	}
   	}, []);
 
-	const restoreButtonState = () => {
-  		    buttonRef.current!.className = 'button button--apply button--disabled';
-    		buttonRef.current!.disabled = true;
-  	}
-
-	if (inputRef.current) {
-		inputRef.current.value = localStorage.getItem('currentName')||'';
-		if (inputRef.current.value == '') {
-			restoreButtonState();
-		}
-	}
-
   	const cancelClick = useCallback(() => {
+
   		localStorage.setItem('currentName', '');
+
   		restoreButtonState();
   		setSelectedTag('');
-    	setFlag(0);
-  	}, []);
+    	setModalWindowState(0);
+  	}, [setSelectedTag, setModalWindowState]);
 
   	const aprooveNewTask = useCallback(() => {
-    	console.log('aproove');
-		currentName = inputRef.current!.value;
+
+  		let currentName: string = inputRef.current!.value;
 		localStorage.setItem('currentName', currentName);
+
     	if (currentName) {
     		buttonRef.current!.className = 'button button--apply button--enabled';
     		buttonRef.current!.disabled = false;
@@ -96,12 +88,21 @@ export const NewTaskWindow = (
   	}, []);
 
   	const applyClick = useCallback(() => {
-  		setFlag(0);
-  		let searchPattern: string = localStorage.getItem('searchPattern')||'';
+
+  		const searchPattern: string = localStorage.getItem('searchPattern')||'';
   		const newItemData: string = dateLabelRef.current!.innerHTML||'';
+  		let newId: number = taskList.length + 1;
+        
+	    for (let index: number = 0; index <= taskList.length - 1; index++) {
+	        if ((taskList.find(task => task.id === index + 1)) === undefined) {
+	            newId = index + 1; 
+	            break;
+	        }
+	    }
 
     	if (inputRef.current) {
-    		newTask = {
+
+    		let newTask: ItemInterface = {
     			id: newId, 
     			name: inputRef.current.value,
     			isCompleted: false,
@@ -113,14 +114,18 @@ export const NewTaskWindow = (
     		if (newTask.name?.match(searchPattern)) {
             	newTask.filter = true;
         	}
+
         	localStorage.setItem('currentName', '');
+
         	setSelectedTag('');
 			restoreButtonState();
-      		console.log(newTask);
       		PostNewDataIntoServer(newTask);
       		setTask([...taskList, newTask]);
     	}
-  	}, [taskList, currentTag]);
+
+    	setModalWindowState(0);
+
+  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTask]);
 
 	const result = 
 	<div className={ className }> 

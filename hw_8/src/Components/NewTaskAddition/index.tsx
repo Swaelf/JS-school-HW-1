@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, RefObject } from 'react';
+import React from 'react';
 import { TagElement } from '../TagElement';
 
 import './index.css';
@@ -10,13 +10,14 @@ export const NewTaskAddition = (
 		setSelectedTag
 	}: { 
 		setTag?: React.Dispatch<React.SetStateAction<string>>,
-		selectedTag?: any,
-		setSelectedTag?: any
+		selectedTag?: string,
+		setSelectedTag?: React.Dispatch<React.SetStateAction<string>>
 	} = {
 		setTag: (() => {}),
 		selectedTag: '',
 		setSelectedTag: (() => {})
 	}) => {
+
 	const tagNames: string[] = ['home', 'work', 'health', 'other']; 
 
 	const result = 

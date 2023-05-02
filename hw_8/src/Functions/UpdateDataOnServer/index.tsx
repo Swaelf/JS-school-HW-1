@@ -1,14 +1,14 @@
 import ItemInterface from '../../Interfaces/ItemInterface'
 
 export default async function UpdateDataOnServer(data: ItemInterface) {
-    let serverUrl: string = "http://localhost:3004/tasks";
+    let serverUrl: string = "http://localhost:3004/tasks/" + data.id;
     const localStorageUrl = localStorage.getItem("server_url");
 
     if (localStorageUrl !== null) {
-        serverUrl = localStorageUrl;
+        serverUrl = localStorageUrl + '/' + data.id;
     }
 
-    await fetch(serverUrl + '\/' + data.id, { 
+    await fetch(serverUrl, { 
         method: "PUT", 
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
