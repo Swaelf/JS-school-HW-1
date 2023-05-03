@@ -24,14 +24,16 @@ export const DateSelect = (
 		if (dateInputRef.current) {
       		dateInputRef.current.showPicker();
     	}
-  	}, []);
+    	// eslint-disable-next-line
+  	}, []); //dateInputRef is static and shall not change
 
   	const selectDate = useCallback(() => {
 
 		if (labelRef && labelRef.current && dateInputRef.current) {
       		labelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
     	}
-  	}, [labelRef]);
+    	// eslint-disable-next-line
+  	}, []); //labelRef and dateInputRef are static and shall not change
 
 	return (
 	<div className='input__container'> 

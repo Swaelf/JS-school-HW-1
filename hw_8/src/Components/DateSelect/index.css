@@ -21,7 +21,13 @@
 
 .date_input {
     display: flex;
-    background-color: white;
+    background: white;
     border: none;
     height: 0px;
+}
+
+.date_input:focus {
+    outline: none;
+    border: none;
+    color: white;
 }

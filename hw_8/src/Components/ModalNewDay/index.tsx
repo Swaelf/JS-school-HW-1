@@ -32,7 +32,8 @@ export const ModalNewDay = (
   	const handleClick = useCallback(() => {
     	setModalWindowState(0);
     	localStorage.setItem('currentDate', currentDate);
-  	}, [setModalWindowState, currentDate]);
+    	// eslint-disable-next-line
+  	}, [ currentDate ]); //setModalWindowState is a function and shall not change
 	
 	return (
 	<div className={ newDayWindowClass }> 

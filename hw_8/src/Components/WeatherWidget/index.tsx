@@ -28,7 +28,7 @@ export const WeatherWidget = () => {
       		isMounted = false;
     	}
 
-  	}, []);
+  	}, []); //we call it only once
 
 	
 	return (

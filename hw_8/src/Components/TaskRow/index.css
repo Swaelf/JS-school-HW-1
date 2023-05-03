@@ -24,7 +24,7 @@
 
 .checkbox:checked {
     background-color: #D3D3D3;
-    background-image: url(Checked.svg);
+    background-image: url(icons/Checked.svg);
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -50,7 +50,7 @@
 }
 
 .button__delete {
-    background-image: url(Delete.svg);
+    background-image: url(icons/Delete.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
     width: 16px;
@@ -63,7 +63,7 @@
 }
 
 .button__delete:hover {
-    background-image: url(Delete_hover.svg);
+    background-image: url(icons/Delete_hover.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
 }

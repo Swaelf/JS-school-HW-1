@@ -33,13 +33,15 @@ export const TaskRow = (
     	taskList[index].isCompleted = !taskList[index].isCompleted;
     	UpdateDataOnServer(taskList[index]);
     	setTaskList([...taskList]);
-  	}, [taskList, setTaskList, index]);
+    	// eslint-disable-next-line
+  	}, [taskList]); //setTaskList is a function and shall not change
 
 	const deleteTask = useCallback(() => {
     	DeleteDataFromServer(taskList[index]);
      	taskList.splice(index, 1);
     	setTaskList([...taskList]);
-  	}, [taskList, setTaskList, index]);
+    	// eslint-disable-next-line
+  	}, [taskList]); //setTaskList is a function and shall not change
 
   	
 	return (

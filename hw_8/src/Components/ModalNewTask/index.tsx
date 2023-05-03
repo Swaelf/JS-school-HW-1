@@ -67,9 +67,11 @@ export const ModalNewTask = (
   	const cancelClick = useCallback(() => {
   		setCurrentName('');
   		buttonDisable();
+  		setCurrentTag('other');
   		setSelectedTag('');
     	setModalWindowState(0);
-  	}, [setSelectedTag, setModalWindowState, setCurrentName]);
+    	// eslint-disable-next-line
+  	}, []); //setModalWindowState, setCurrentTag and setCurrentName are functions and shall not change
 
 
   	const aprooveName = useCallback(() => {
@@ -82,7 +84,8 @@ export const ModalNewTask = (
     	} else {
     		buttonDisable();
     	}
-  	}, [setCurrentName]);
+    	// eslint-disable-next-line
+  	}, []); //setCurrentName is a function and shall not change
 
 
   	const addTask = useCallback(() => {
@@ -107,16 +110,17 @@ export const ModalNewTask = (
     			filter: false
     		}
 
-        	setCurrentName('')
+        	setCurrentName('');
         	setSelectedTag('');
+        	setCurrentTag('other');
 			buttonDisable();
       		PostNewDataIntoServer(newTask);
       		setTaskList([...taskList, newTask]);
     	}
 
     	setModalWindowState(0);
-
-  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTaskList, setCurrentName]);
+		// eslint-disable-next-line
+  	}, [ taskList, currentTag ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
 
 
 	return ( 

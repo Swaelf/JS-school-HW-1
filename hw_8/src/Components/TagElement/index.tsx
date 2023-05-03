@@ -33,7 +33,8 @@ export const TagElement = (
 	const handleClick = useCallback(() => {
     	if (setTag && tag) {setTag(tag)};
     	if (setSelectedTag && tag) {setSelectedTag(tag)};
-  	}, [setTag, setSelectedTag, tag]);
+    	// eslint-disable-next-line
+  	}, []); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
 	
 	return (
 	<label 

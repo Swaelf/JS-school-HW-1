@@ -44,7 +44,7 @@ function App() {
         isMounted = false;
     }
 
-  }, []);
+  }, []); //we call it only once
 
 
   if (!taskList) {

@@ -25,7 +25,8 @@ export const SearchBar = (
 
 	const handleClick = useCallback(() => {
     	setModalWindowState(2);
-  	}, [setModalWindowState]);
+    	// eslint-disable-next-line
+  	}, []); //setModalWindowState is a function and shall not change
 
   	const handleSearch = useCallback(() => {
 
