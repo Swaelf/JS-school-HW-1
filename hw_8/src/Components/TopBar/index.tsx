@@ -4,11 +4,9 @@ import './index.css';
 
 export const TopBar = () => {
 	
-	const result = 
+	return (
 	<div className='topbar'> 
 		To Do List
 		<WeatherWidget/>
-	</div>
-	
-	return result;
+	</div>)
 }

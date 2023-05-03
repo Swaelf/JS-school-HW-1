@@ -7,19 +7,16 @@ export const SearchBar = (
 	{ 
 		setModalWindowState, 
 		taskList,
-		setTask,
 		searchPattern,
 		setSearchPattern
 	}: { 
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		taskList: ItemInterface[],
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
 		searchPattern: string,
 		setSearchPattern: React.Dispatch<React.SetStateAction<string>>
 	} = {
 		setModalWindowState: (() => {}),
 		taskList: [],
-		setTask: (() => {}),
 		searchPattern: '',
 		setSearchPattern: (() => {})
 	}) => {
@@ -38,7 +35,7 @@ export const SearchBar = (
 
   	}, [ setSearchPattern]);
 
-	const result = 
+	return (
 	<div className='searchbar'> 
 		<input 
 			className='search__string' 
@@ -50,7 +47,5 @@ export const SearchBar = (
 			onClick={handleClick}>
 			+ New Task
 		</button>
-	</div>
-	
-	return result;
+	</div>)
 }

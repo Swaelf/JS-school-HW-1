@@ -11,15 +11,15 @@ export const TaskRow = (
 	{ 
 		task,
 		taskList,
-		setTask
+		setTaskList
 	}: { 
 		task: ItemInterface,
 		taskList: ItemInterface[], 
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>
+		setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>
 	} = {
 		task: {},
 		taskList: [],
-		setTask: (() => {})
+		setTaskList: (() => {})
 	}) => {
 
 	const index: number = taskList.indexOf(task);
@@ -32,17 +32,17 @@ export const TaskRow = (
 	const changeCompleteState = useCallback(() => {
     	taskList[index].isCompleted = !taskList[index].isCompleted;
     	UpdateDataOnServer(taskList[index]);
-    	setTask([...taskList]);
-  	}, [taskList, setTask, index]);
+    	setTaskList([...taskList]);
+  	}, [taskList, setTaskList, index]);
 
 	const deleteTask = useCallback(() => {
     	DeleteDataFromServer(taskList[index]);
      	taskList.splice(index, 1);
-    	setTask([...taskList]);
-  	}, [taskList, setTask, index]);
+    	setTaskList([...taskList]);
+  	}, [taskList, setTaskList, index]);
 
   	
-	const result = 	
+	return (
 	<div className={ rowClassName }> 
 		<input 
 			className='checkbox' 
@@ -63,11 +63,5 @@ export const TaskRow = (
 		<button 
 			className={ buttonClass } 
 			onClick={ deleteTask }/>
-	</div>
-
-	return result;
+	</div>)
 }
-
-/*
-
-*/

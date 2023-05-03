@@ -1,14 +1,9 @@
 import ItemInterface from '../../Interfaces/ItemInterface';
+const config = require ('../../config.json');
 
 export default async function getDataFromServer() {
   let taskList: ItemInterface[] = [];
-  let serverUrl: string = "http://localhost:3004/tasks";
-  const localStorageUrl = localStorage.getItem("server_url");
-
-  if (localStorageUrl !== null) {
-      serverUrl = localStorageUrl;
-  }
-
+  const serverUrl: string = config.localurl;
 
   if (serverUrl) {
       await fetch(serverUrl, { method: "GET" })

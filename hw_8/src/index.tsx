@@ -8,8 +8,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-localStorage.setItem("server_url", "http://localhost:3004/tasks");
-
 root.render(
   <React.StrictMode>
     <App />

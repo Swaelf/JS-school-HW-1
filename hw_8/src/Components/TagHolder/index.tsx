@@ -20,7 +20,7 @@ export const TagHolder = (
 
 	const tagNames: string[] = ['home', 'work', 'health', 'other']; 
 
-	const result = 
+	return (
 	<div className='additions'> 
 		{tagNames.map((tag, index) => {
         	return <TagElement 
@@ -33,7 +33,5 @@ export const TagHolder = (
 			}
       	)}
 		
-	</div>
-	
-	return result;
+	</div>)
 }

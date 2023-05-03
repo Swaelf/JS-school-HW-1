@@ -2,7 +2,8 @@ import React from 'react';
 import { TagHolder } from '../TagHolder';
 import { useState, useCallback, useRef } from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
-import { NewTaskInput } from '../NewTaskInput'
+import { NewTaskInput } from '../NewTaskInput';
+import { DateSelect } from '../DateSelect';
 
 import PostNewDataIntoServer from '../../Functions/PostNewDataIntoServer';
 
@@ -14,19 +15,19 @@ export const ModalNewTask = (
 		setModalWindowState, 
 		currentDate,
 		taskList,
-		setTask
+		setTaskList
 	}: { 
 		modalWindowState: number,
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		currentDate: string,
 		taskList: ItemInterface[],
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>
+		setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>
 	} = {
 		modalWindowState: 0,
 		setModalWindowState: (() => {}),
 		currentDate: '',
 		taskList: [],
-		setTask: (() => {})
+		setTaskList: (() => {})
 	}) => {
 
 	const [currentTag, setCurrentTag] = useState('other');
@@ -34,8 +35,7 @@ export const ModalNewTask = (
 	const [currentName, setCurrentName] = useState('');
 
 	const inputRef = useRef<HTMLInputElement>(null);
-	const dateInputRef = useRef<HTMLInputElement>(null);
-	const dateLabelRef = useRef<HTMLLabelElement>(null);
+	const labelRef = useRef<HTMLLabelElement>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	let newTaskWindowClass: string;
@@ -46,63 +46,52 @@ export const ModalNewTask = (
 		newTaskWindowClass = 'new_task_window new_task_window--hidden';
 	}
 
-    const restoreButtonState = () => {
+    const buttonDisable = () => {
 		buttonRef.current!.className = 'button button--apply button--disabled';
 		buttonRef.current!.disabled = true;
+	}
+
+	const buttonEnable = () => {
+		buttonRef.current!.className = 'button button--apply button--enabled';
+		buttonRef.current!.disabled = false;
 	}
 
     if (inputRef.current) {
 
 		inputRef.current.value = currentName;
 		if (inputRef.current.value === '') {
-			restoreButtonState();
+			buttonDisable();
 		}
 	}
 
-
-	const showDatePicker = useCallback(() => {
-
-		if (dateInputRef.current) {
-      		dateInputRef.current.showPicker();
-    	}
-  	}, []);
-
-  	const selectDate = useCallback(() => {
-
-		if (dateLabelRef.current && dateInputRef.current) {
-      		dateLabelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
-    	}
-  	}, []);
-
   	const cancelClick = useCallback(() => {
   		setCurrentName('');
-  		restoreButtonState();
+  		buttonDisable();
   		setSelectedTag('');
     	setModalWindowState(0);
   	}, [setSelectedTag, setModalWindowState, setCurrentName]);
 
-  	const aprooveNewTask = useCallback(() => {
+
+  	const aprooveName = useCallback(() => {
 
   		let name: string = inputRef.current!.value;
 		setCurrentName(name);
 
     	if (name) {
-    		buttonRef.current!.className = 'button button--apply button--enabled';
-    		buttonRef.current!.disabled = false;
+    		buttonEnable();
     	} else {
-    		restoreButtonState();
+    		buttonDisable();
     	}
   	}, [setCurrentName]);
 
-  	const applyClick = useCallback(() => {
 
-  		const searchPattern: string = localStorage.getItem('searchPattern')||'';
-  		const newItemData: string = dateLabelRef.current!.innerHTML||'';
-  		let newId: number = taskList.length + 1;
-        
+  	const addTask = useCallback(() => {
+
+  		let id: number = taskList.length + 1;
+
 	    for (let index: number = 0; index <= taskList.length - 1; index++) {
 	        if ((taskList.find(task => task.id === index + 1)) === undefined) {
-	            newId = index + 1; 
+	            id = index + 1; 
 	            break;
 	        }
 	    }
@@ -110,55 +99,44 @@ export const ModalNewTask = (
     	if (inputRef.current) {
 
     		let newTask: ItemInterface = {
-    			id: newId, 
+    			id: id, 
     			name: inputRef.current.value,
     			isCompleted: false,
     			tag: currentTag,
-    			plannedDate: newItemData,
+    			plannedDate: labelRef.current!.innerHTML||'',
     			filter: false
     		}
 
-    		if (newTask.name?.match(searchPattern)) {
-            	newTask.filter = true;
-        	}
-
         	setCurrentName('')
         	setSelectedTag('');
-			restoreButtonState();
+			buttonDisable();
       		PostNewDataIntoServer(newTask);
-      		setTask([...taskList, newTask]);
+      		setTaskList([...taskList, newTask]);
     	}
 
     	setModalWindowState(0);
 
-  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTask, setCurrentName]);
+  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTaskList, setCurrentName]);
 
-	const result = 
+
+	return ( 
 	<div className={ newTaskWindowClass }> 
 		<label 
 			className='head__label'>
 			Add New Item
 		</label>
 		<NewTaskInput 
-			aprooveNewTask={ aprooveNewTask } 
+			aprooveName={ aprooveName } 
 			inputRef={ inputRef }/>
 		<TagHolder 
 			setTag={ setCurrentTag } 
 			selectedTag={ selectedTag } 
 			setSelectedTag={ setSelectedTag }/>
-		<label 
-			htmlFor="date-input"
-			className='date'
-			ref={ dateLabelRef }
-			onClick={ showDatePicker }>
-			{ currentDate }
-		</label>
-		<input 
-			id='date-input'
-			className='date_input'
-			type='date'
-			onChange={ selectDate }
-			ref={ dateInputRef }/>
+		<DateSelect
+			currentDate={ currentDate }
+			inputRef={ inputRef }
+			labelRef={ labelRef }
+			/>
 		<button 
 			className='button button--cancel' 
 			onClick={ cancelClick }>
@@ -166,12 +144,10 @@ export const ModalNewTask = (
 		</button>
 		<button 
 			className='button button--apply button--disabled'
-			onClick={ applyClick }
+			onClick={ addTask }
 			disabled={ false }
 			ref={ buttonRef }>
 			Add Task
 		</button>
-	</div>
-	
-	return result;
+	</div>)
 }

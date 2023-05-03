@@ -59,23 +59,3 @@
     font-size: 16px;
     font-weight: 800;
 }
-
-.date {
-    display: flex;
-    width: 130px;
-    height: 40px;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 10px 16px 10px 16px;
-    border: 1px solid red;
-    box-sizing: border-box;
-    border: 2px solid #3C86F499;
-    border-radius: 12px;
-    align-items: center;
-}
-
-.date_input {
-    display: none;
-}

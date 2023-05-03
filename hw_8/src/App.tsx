@@ -14,11 +14,7 @@ import GetDataFromServer from './Functions/GetDataFromServer';
 
 import './App.css';
 
-const config = require ('./config.json');
-
 function App() {
-
-  localStorage.setItem('server_url', config.localurl);
 
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
 
@@ -31,7 +27,7 @@ function App() {
   }
 
   const [modalWindowState, setModalWindowState] = useState(initialModalWindowState);
-  const [taskList, setTask] = useState<ItemInterface[]>([]);
+  const [taskList, setTaskList] = useState<ItemInterface[]>([]);
   const [searchPattern, setSearchPattern] = useState('');
   
   useEffect(() => {
@@ -40,7 +36,7 @@ function App() {
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
-          setTask(data);
+          setTaskList(data);
         }
       });
 
@@ -61,13 +57,12 @@ function App() {
       <SearchBar 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
-        setTask={ setTask }
         searchPattern={ searchPattern } 
         setSearchPattern={ setSearchPattern }
         />
       <TaskBar 
         taskList={ taskList } 
-        setTask={ setTask }
+        setTaskList={ setTaskList }
         searchPattern={ searchPattern }/>
       <ScreenLock 
         modalWindowState={ modalWindowState }/>
@@ -80,7 +75,7 @@ function App() {
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
-        setTask={ setTask } 
+        setTaskList={ setTaskList } 
         currentDate={ currentDate }/> 
       </div>
   );

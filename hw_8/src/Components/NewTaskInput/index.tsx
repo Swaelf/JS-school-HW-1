@@ -4,20 +4,20 @@ import './index.css';
 
 export const NewTaskInput = (
   {
-    aprooveNewTask, 
+    aprooveName, 
     inputRef 
   }: { 
-    aprooveNewTask?: (() => void),
+    aprooveName?: (() => void),
     inputRef?: React.RefObject<HTMLInputElement>|null,
   } = {
-    aprooveNewTask: (() => {}),
+    aprooveName: (() => {}),
     inputRef: null,
   }) => {
 
   return (
     <input
       className="new_item_input"
-      onChange={ aprooveNewTask }
+      onChange={ aprooveName }
       placeholder='New Task'
       ref={ inputRef }/>
   );

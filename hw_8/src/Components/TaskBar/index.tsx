@@ -9,15 +9,15 @@ import './index.css';
 export const TaskBar = (
 	{ 
 		taskList,
-		setTask,
+		setTaskList,
 		searchPattern
 	 }: { 
 	 	taskList: ItemInterface[],
-	 	setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
+	 	setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
 	 	searchPattern: string
 	 } = {
 	 	taskList: [],
-	 	setTask: (() => {}),
+	 	setTaskList: (() => {}),
 	 	searchPattern: ''
 	 }) => {
 
@@ -37,7 +37,7 @@ export const TaskBar = (
 	            key={task.id} 
 	            task={ task } 
 	            taskList={ taskList } 
-	            setTask={ setTask }/>;
+	            setTaskList={ setTaskList }/>;
 	        } else {
 
 	          return null;
@@ -55,7 +55,7 @@ export const TaskBar = (
 	            key={task.id} 
 	            task={ task } 
 	            taskList={ taskList } 
-	            setTask={ setTask }/>;
+	            setTaskList={ setTaskList }/>;
 	        } else {
 
 	          return null;

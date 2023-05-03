@@ -34,7 +34,7 @@ export const ModalNewDay = (
     	localStorage.setItem('currentDate', currentDate);
   	}, [setModalWindowState, currentDate]);
 	
-	const result = 
+	return (
 	<div className={ newDayWindowClass }> 
 		<label 
 			className="head__label">
@@ -58,7 +58,5 @@ export const ModalNewDay = (
 			onClick={handleClick}>
 			OK
 		</button>
-	</div>
-	
-	return result;
+	</div>)
 }

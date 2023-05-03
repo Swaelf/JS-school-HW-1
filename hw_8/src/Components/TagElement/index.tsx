@@ -35,12 +35,10 @@ export const TagElement = (
     	if (setSelectedTag && tag) {setSelectedTag(tag)};
   	}, [setTag, setSelectedTag, tag]);
 	
-	const result = 
+	return (
 	<label 
 		className={ tagClass } 
 		onClick={ handleClick }>
 		{text}
-	</label> 
-	
-	return result;
+	</label> )
 }

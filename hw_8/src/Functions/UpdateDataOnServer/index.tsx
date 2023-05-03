@@ -1,12 +1,8 @@
-import ItemInterface from '../../Interfaces/ItemInterface'
+import ItemInterface from '../../Interfaces/ItemInterface';
+const config = require ('../../config.json');
 
 export default async function UpdateDataOnServer(data: ItemInterface) {
-    let serverUrl: string = "http://localhost:3004/tasks/" + data.id;
-    const localStorageUrl = localStorage.getItem("server_url");
-
-    if (localStorageUrl !== null) {
-        serverUrl = localStorageUrl + '/' + data.id;
-    }
+    const serverUrl: string = config.localurl + '/' + data.id;
 
     await fetch(serverUrl, { 
         method: "PUT", 

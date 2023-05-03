@@ -31,7 +31,7 @@ export const WeatherWidget = () => {
   	}, []);
 
 	
-	const result = 
+	return (
 	<div className='widget'> 
 		<div 
 			className='widget__icon' 
@@ -42,7 +42,5 @@ export const WeatherWidget = () => {
 		<label className='text text--city'>
 			{ location }
 		</label>
-	</div>
-	
-	return result;
+	</div>)
 }

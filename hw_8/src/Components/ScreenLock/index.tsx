@@ -17,8 +17,5 @@ export const ScreenLock = (
 		screenLockClass = 'screenlock';
 	}
 
-	const result = 	
-	<div className={ screenLockClass }/> 
-
-	return result
+	return (<div className={ screenLockClass }/> )
 }
