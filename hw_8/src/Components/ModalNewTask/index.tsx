@@ -20,7 +20,7 @@ export const ModalNewTask = (
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		currentDate: string,
 		taskList: ItemInterface[],
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
+		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>
 	} = {
 		modalWindowState: 0,
 		setModalWindowState: (() => {}),

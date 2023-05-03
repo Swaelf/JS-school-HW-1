@@ -10,56 +10,58 @@ export const TaskBar = (
 	{ 
 		taskList,
 		setTask,
-		searchRef
+		searchPattern
 	 }: { 
 	 	taskList: ItemInterface[],
-	 	setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>,
-	 	searchRef: React.RefObject<HTMLInputElement>|null
+	 	setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
+	 	searchPattern: string
 	 } = {
 	 	taskList: [],
 	 	setTask: (() => {}),
-	 	searchRef: null
+	 	searchPattern: ''
 	 }) => {
 
-	const result = 	
-	<div className='taskbar'> 
-		<div className='tasklist'>
-			All Tasks
+	
+	let filteredTaskList: ItemInterface[] = SearchByPattern(taskList, searchPattern);
 
-			{ taskList.map((task) => {
+	return (
+	  <div className='taskbar'> 
+	    <div className='tasklist'>
+	      All Tasks
 
-			    if (!task.isCompleted) {
+	      { filteredTaskList.map((task) => {
 
-			      	return <TaskRow 
-			      		key={task.id} 
-			      		task={ task } 
-			      		taskList={ taskList } 
-			      		setTask={ setTask }/>;
-			    } else {
+	        if (!task.isCompleted) {
 
-			      	return null;
-			    }
-			 })}
-		</div>
-		<div className='tasklist'>
-			Completed tasks
+	          return <TaskRow 
+	            key={task.id} 
+	            task={ task } 
+	            taskList={ taskList } 
+	            setTask={ setTask }/>;
+	        } else {
 
-			{ taskList.map((task) => {
+	          return null;
+	        }
+	      }) }
+	    </div>
+	    <div className='tasklist'>
+	      Completed tasks
 
-			    if (task.isCompleted) {
-			    	
-			      	return <TaskRow 
-			      		key={task.id} 
-			      		task={ task } 
-			      		taskList={ taskList } 
-			      		setTask={ setTask }/>;
-			    } else {
+	      { filteredTaskList.map((task) => {
 
-			      return null;
-			    }
-			 }) }
-		</div>
-	</div>
+	        if (task.isCompleted) {
+	          
+	          return <TaskRow 
+	            key={task.id} 
+	            task={ task } 
+	            taskList={ taskList } 
+	            setTask={ setTask }/>;
+	        } else {
 
-	return result
+	          return null;
+	        }
+	      }) }
+	    </div>
+	  </div>
+	);
 }

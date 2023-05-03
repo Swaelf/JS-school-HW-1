@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ScreenLock } from './Components/ScreenLock';
 import { ModalNewDay } from './Components/ModalNewDay';
@@ -21,7 +21,6 @@ function App() {
   localStorage.setItem('server_url', config.localurl);
 
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
-  const searchRef = useRef<HTMLInputElement>(null);
 
   let initialModalWindowState: number;
 
@@ -32,7 +31,8 @@ function App() {
   }
 
   const [modalWindowState, setModalWindowState] = useState(initialModalWindowState);
-  const [taskList, setTask] = useState<ItemInterface[]|null>(null);
+  const [taskList, setTask] = useState<ItemInterface[]>([]);
+  const [searchPattern, setSearchPattern] = useState('');
   
   useEffect(() => {
     let isMounted = true;
@@ -49,7 +49,7 @@ function App() {
     }
 
   }, []);
-  
+
 
   if (!taskList) {
     return <div>Loading...</div>;
@@ -62,11 +62,13 @@ function App() {
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
         setTask={ setTask }
-        searchRef={ searchRef }/>
+        searchPattern={ searchPattern } 
+        setSearchPattern={ setSearchPattern }
+        />
       <TaskBar 
         taskList={ taskList } 
         setTask={ setTask }
-        searchRef={ searchRef }/>
+        searchPattern={ searchPattern }/>
       <ScreenLock 
         modalWindowState={ modalWindowState }/>
       <ModalNewDay 

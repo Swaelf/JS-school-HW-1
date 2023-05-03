@@ -11,19 +11,22 @@ export const TaskRow = (
 	{ 
 		task,
 		taskList,
-		setTask,
+		setTask
 	}: { 
 		task: ItemInterface,
 		taskList: ItemInterface[], 
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>,
+		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]>>
 	} = {
 		task: {},
 		taskList: [],
-		setTask: (() => {}),
+		setTask: (() => {})
 	}) => {
 
 	const index: number = taskList.indexOf(task);
 	const buttonClass = taskList[index].isCompleted ? 'button__delete button__delete--disabled': 'button__delete';
+	const rowClassName: string = task.filter ? 'taskrow' : 'taskrow taskrow--hidden';
+  	const actualTag: string = task.isCompleted ? 'inactive' : taskList[index].tag as string;
+  	const labelClassName: string = task.isCompleted ? 'taskname taskname--inactive' : 'taskname';
 
 	
 	const changeCompleteState = useCallback(() => {
@@ -38,11 +41,7 @@ export const TaskRow = (
     	setTask([...taskList]);
   	}, [taskList, setTask, index]);
 
-
-  	let rowClassName: string = task.filter ? 'taskrow' : 'taskrow taskrow--hidden';
-  	let actualTag: string = task.isCompleted ? 'inactive' : taskList[index].tag as string;
-  	let labelClassName: string = task.isCompleted ? 'taskname taskname--inactive' : 'taskname';
-
+  	
 	const result = 	
 	<div className={ rowClassName }> 
 		<input 
