@@ -1,13 +1,12 @@
-const weatherUrl: string = "https://api.weatherapi.com/v1";
-const weatherKey: string = "d9e8739732f24f7f942112753231504";
+const config = require ('../../config.json');
+const keys = require ('../../keys.json');
  
-
 export default async function LocateMe(): Promise<string> {
 
     if (!navigator.geolocation) {
 
         window.alert("Geolocation is not supported by your browser");
-        return 'Tbilisi';  
+        return config.defaultCity;  
 
     } else {
         const currentPos: string = await new Promise((resolve, reject) => {
@@ -21,7 +20,7 @@ export default async function LocateMe(): Promise<string> {
                 (error) => {
 
                     window.alert(error.message + '\nWill be shown weather for location Tbilisi');
-                    resolve('Tbilisi');
+                    resolve(config.defaultCity);
                 }
             );
         });
@@ -33,7 +32,7 @@ export default async function LocateMe(): Promise<string> {
 const WeatherCall = async (coords: string) => {
         
     return await fetch(
-        weatherUrl + '/current.json?key=' + weatherKey + '&q=' + coords
+        config.weatherUrl + '/current.json?key=' + keys.weatherKey + '&q=' + coords
         )
         .then(response => response.json())
         .then(response => {

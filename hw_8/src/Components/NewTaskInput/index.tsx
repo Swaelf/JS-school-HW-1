@@ -2,7 +2,7 @@ import React from 'react';
 
 import './index.css';
 
-export const NewItemInput = (
+export const NewTaskInput = (
   {
     aprooveNewTask, 
     inputRef 

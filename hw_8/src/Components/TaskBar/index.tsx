@@ -1,21 +1,25 @@
+import React from 'react';
+
 import { TaskRow } from '../TaskRow';
 import ItemInterface from '../../Interfaces/ItemInterface'
-import React from 'react';
+import SearchByPattern from '../../Functions/SearchByPattern';
 
 import './index.css';
 
 export const TaskBar = (
 	{ 
 		taskList,
-		setTask
+		setTask,
+		searchRef
 	 }: { 
 	 	taskList: ItemInterface[],
-	 	setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
+	 	setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>,
+	 	searchRef: React.RefObject<HTMLInputElement>|null
 	 } = {
 	 	taskList: [],
-	 	setTask: (() => {})
+	 	setTask: (() => {}),
+	 	searchRef: null
 	 }) => {
-
 
 	const result = 	
 	<div className='taskbar'> 

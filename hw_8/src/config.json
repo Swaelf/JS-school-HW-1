@@ -1,0 +1,6 @@
+{
+  	"localurl": "http://localhost:3004/tasks",
+	"weatherUrl": "https://api.weatherapi.com/v1",
+	"defaultCity": "Tbilisi",
+	"weathericon": "icons/weather/64x64/day/113.png"
+}

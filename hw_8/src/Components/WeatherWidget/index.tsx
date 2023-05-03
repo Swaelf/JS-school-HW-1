@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import LocateMe from '../../Functions/LocateMe';
-import WetherResponseInterface from '../../Interfaces/WetherResponseInterface'
-
+import WetherResponseInterface from '../../Interfaces/WetherResponseInterface';
 
 import './index.css';
+
+const config = require ('../../config.json');
 
 export const WeatherWidget = () => {
 
 	const [temperature, setTemperature] = useState('??');
-	const [location, setLocation] = useState('Tbilisi')
-	const [icon, setIcon] = useState('icons/weather/64x64/day/113.png')
+	const [location, setLocation] = useState(config.defaultCity)
+	const [icon, setIcon] = useState(config.weathericon)
 
    useEffect(() => {
     	let isMounted = true;

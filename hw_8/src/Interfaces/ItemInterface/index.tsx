@@ -5,7 +5,6 @@ export default interface ItemInterface {
   name?: string,
   elementID?: string,
   isCompleted?: boolean,
-  htmlElement?: LegacyRef<HTMLDivElement>,
   plannedDate?: string,
   tag?: string,
   filter?: boolean

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
 import SearchByPattern from '../../Functions/SearchByPattern';
 
@@ -8,34 +8,35 @@ export const SearchBar = (
 	{ 
 		setModalWindowState, 
 		taskList,
-		setTask
+		setTask,
+		searchRef
 	}: { 
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		taskList: ItemInterface[],
-		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
+		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>,
+		searchRef: React.RefObject<HTMLInputElement>|null
 	} = {
 		setModalWindowState: (() => {}),
 		taskList: [],
-		setTask: (() => {})
+		setTask: (() => {}),
+		searchRef: null
 	}) => {
-
-	const searchRef = useRef<HTMLInputElement>(null);
-
 
 	const handleClick = useCallback(() => {
     	setModalWindowState(2);
   	}, [setModalWindowState]);
 
   	const handleSearch = useCallback(() => {
+  		let searchPattern: string = '';
 
-  		if (searchRef.current != null) {
-  			localStorage.setItem('searchPattern', searchRef.current.value);
-		} else {
-			localStorage.setItem('searchPattern', '');
-		}
-  		let newTaskList: ItemInterface[] = SearchByPattern(taskList);
+  		if (searchRef && searchRef.current) {
+  			searchPattern = searchRef.current.value
+			localStorage.setItem('searchPattern', searchPattern);
+		} 
+
+  		let newTaskList: ItemInterface[] = SearchByPattern(taskList, searchPattern);
   		setTask([...newTaskList]);
-  	}, [taskList, setTask]);
+  	}, [taskList, setTask, searchRef]);
 
 	const result = 
 	<div className='searchbar'> 

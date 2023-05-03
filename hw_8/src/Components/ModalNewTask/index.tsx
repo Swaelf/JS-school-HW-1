@@ -1,29 +1,29 @@
 import React from 'react';
-import { NewTaskAddition } from '../NewTaskAddition';
+import { TagHolder } from '../TagHolder';
 import { useState, useCallback, useRef } from 'react';
 import ItemInterface from '../../Interfaces/ItemInterface';
-import { NewItemInput } from '../NewItemInput'
+import { NewTaskInput } from '../NewTaskInput'
 
 import PostNewDataIntoServer from '../../Functions/PostNewDataIntoServer';
 
 import './index.css';
 
-export const NewTaskWindow = (
+export const ModalNewTask = (
 	{ 
+		modalWindowState,
 		setModalWindowState, 
-		className,
 		currentDate,
 		taskList,
 		setTask
 	}: { 
+		modalWindowState: number,
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
-		className: string,
 		currentDate: string,
 		taskList: ItemInterface[],
 		setTask: React.Dispatch<React.SetStateAction<ItemInterface[]|null>>
 	} = {
+		modalWindowState: 0,
 		setModalWindowState: (() => {}),
-		className: '',
 		currentDate: '',
 		taskList: [],
 		setTask: (() => {})
@@ -31,11 +31,20 @@ export const NewTaskWindow = (
 
 	const [currentTag, setCurrentTag] = useState('other');
 	const [selectedTag, setSelectedTag] = useState('');
+	const [currentName, setCurrentName] = useState('');
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	const dateInputRef = useRef<HTMLInputElement>(null);
 	const dateLabelRef = useRef<HTMLLabelElement>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
+
+	let newTaskWindowClass: string;
+
+	if (modalWindowState === 2) {
+		newTaskWindowClass = 'new_task_window';
+	} else {
+		newTaskWindowClass = 'new_task_window new_task_window--hidden';
+	}
 
     const restoreButtonState = () => {
 		buttonRef.current!.className = 'button button--apply button--disabled';
@@ -44,7 +53,7 @@ export const NewTaskWindow = (
 
     if (inputRef.current) {
 
-		inputRef.current.value = localStorage.getItem('currentName')||'';
+		inputRef.current.value = currentName;
 		if (inputRef.current.value === '') {
 			restoreButtonState();
 		}
@@ -66,26 +75,24 @@ export const NewTaskWindow = (
   	}, []);
 
   	const cancelClick = useCallback(() => {
-
-  		localStorage.setItem('currentName', '');
-
+  		setCurrentName('');
   		restoreButtonState();
   		setSelectedTag('');
     	setModalWindowState(0);
-  	}, [setSelectedTag, setModalWindowState]);
+  	}, [setSelectedTag, setModalWindowState, setCurrentName]);
 
   	const aprooveNewTask = useCallback(() => {
 
-  		let currentName: string = inputRef.current!.value;
-		localStorage.setItem('currentName', currentName);
+  		let name: string = inputRef.current!.value;
+		setCurrentName(name);
 
-    	if (currentName) {
+    	if (name) {
     		buttonRef.current!.className = 'button button--apply button--enabled';
     		buttonRef.current!.disabled = false;
     	} else {
     		restoreButtonState();
     	}
-  	}, []);
+  	}, [setCurrentName]);
 
   	const applyClick = useCallback(() => {
 
@@ -115,8 +122,7 @@ export const NewTaskWindow = (
             	newTask.filter = true;
         	}
 
-        	localStorage.setItem('currentName', '');
-
+        	setCurrentName('')
         	setSelectedTag('');
 			restoreButtonState();
       		PostNewDataIntoServer(newTask);
@@ -125,18 +131,18 @@ export const NewTaskWindow = (
 
     	setModalWindowState(0);
 
-  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTask]);
+  	}, [taskList, currentTag, setSelectedTag, setModalWindowState, setTask, setCurrentName]);
 
 	const result = 
-	<div className={ className }> 
+	<div className={ newTaskWindowClass }> 
 		<label 
 			className='head__label'>
 			Add New Item
 		</label>
-		<NewItemInput 
+		<NewTaskInput 
 			aprooveNewTask={ aprooveNewTask } 
 			inputRef={ inputRef }/>
-		<NewTaskAddition 
+		<TagHolder 
 			setTag={ setCurrentTag } 
 			selectedTag={ selectedTag } 
 			setSelectedTag={ setSelectedTag }/>

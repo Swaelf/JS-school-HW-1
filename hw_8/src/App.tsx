@@ -1,7 +1,12 @@
 import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import { ScreenLock } from './Components/ScreenLock';
-import { Container } from './Components/Container';
-import { useState, useEffect } from 'react';
+import { ModalNewDay } from './Components/ModalNewDay';
+import { ModalNewTask } from './Components/ModalNewTask';
+import { TopBar } from './Components/TopBar';
+import { SearchBar } from './Components/SearchBar';
+import { TaskBar } from './Components/TaskBar';
 
 import ItemInterface from './Interfaces/ItemInterface';
 
@@ -9,9 +14,14 @@ import GetDataFromServer from './Functions/GetDataFromServer';
 
 import './App.css';
 
+const config = require ('./config.json');
+
 function App() {
 
+  localStorage.setItem('server_url', config.localurl);
+
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
+  const searchRef = useRef<HTMLInputElement>(null);
 
   let initialModalWindowState: number;
 
@@ -47,18 +57,30 @@ function App() {
  
   return (
     <div className="App">
-      <Container 
+      <TopBar/>
+      <SearchBar 
+        setModalWindowState={ setModalWindowState } 
+        taskList={ taskList } 
+        setTask={ setTask }
+        searchRef={ searchRef }/>
+      <TaskBar 
+        taskList={ taskList } 
+        setTask={ setTask }
+        searchRef={ searchRef }/>
+      <ScreenLock 
+        modalWindowState={ modalWindowState }/>
+      <ModalNewDay 
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
-        setTask={ setTask }/>
-      <ScreenLock 
+        currentDate={ currentDate }/> 
+      <ModalNewTask 
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
         setTask={ setTask } 
-        currentDate={ currentDate }/>
-    </div>
+        currentDate={ currentDate }/> 
+      </div>
   );
 }
 

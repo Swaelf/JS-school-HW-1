@@ -3,23 +3,31 @@ import ItemInterface from '../../Interfaces/ItemInterface'
 
 import './index.css';
 
-export const NewDayWindow = (
+export const ModalNewDay = (
 	{ 
+		modalWindowState,
 		setModalWindowState,
 		currentDate, 
-		className,
 		taskList
 	}: { 
+		modalWindowState: number,
 		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
 		currentDate: string,
-		className: string,
 		taskList: ItemInterface[]
 	} = {
+		modalWindowState: 0,
 		setModalWindowState: (() => {}),
 		currentDate: '',
-		className: '',
 		taskList: []
 	}) => {
+
+	let newDayWindowClass: string;
+
+	if (modalWindowState === 1) {
+		newDayWindowClass = 'new_day_window';
+	} else {
+		newDayWindowClass = 'new_day_window new_day_window--hidden';
+	}
 
   	const handleClick = useCallback(() => {
     	setModalWindowState(0);
@@ -27,7 +35,7 @@ export const NewDayWindow = (
   	}, [setModalWindowState, currentDate]);
 	
 	const result = 
-	<div className={ className }> 
+	<div className={ newDayWindowClass }> 
 		<label 
 			className="head__label">
 			Good Morning

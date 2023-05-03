@@ -3,7 +3,7 @@ import { TagElement } from '../TagElement';
 
 import './index.css';
 
-export const NewTaskAddition = (
+export const TagHolder = (
 	{ 
 		setTag,
 		selectedTag,
