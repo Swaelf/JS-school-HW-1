@@ -24,7 +24,7 @@ function App() {
   
   useEffect(() => {
     let isMounted = true;
-
+    
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {

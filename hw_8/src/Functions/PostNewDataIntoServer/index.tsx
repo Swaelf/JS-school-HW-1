@@ -17,5 +17,5 @@ export default async function PostNewDataIntoServer(data: ItemInterface) {
             tag: data.tag
         })
         })
-        .catch((error) => window.alert(error));
+        .catch((error) => window.alert('Error while posting data from Server:\n' + error.message));
 };

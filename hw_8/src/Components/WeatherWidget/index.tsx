@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import LocateMe from '../../Functions/LocateMe';
 import { Label } from '../Label';
+import { Icon } from '../Icon'
 import Interface from './Interface';
 
 import './index.css';
@@ -34,9 +35,9 @@ export const WeatherWidget = () => {
 	
 	return (
 	<div className='widget'> 
-		<div 
+		<Icon 
 			className='widget__icon' 
-			style={{ backgroundImage: `url(${icon})` }}/>
+			icon={ `url(${icon})` }/>
 		<Label 
 			className='text text--temperature'
 			text={ temperature}/>

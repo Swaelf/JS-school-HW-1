@@ -1,4 +1,5 @@
 import ItemInterface from '../../Interfaces/ItemInterface';
+
 const config = require ('../../config.json');
 
 export default async function getDataFromServer() {
@@ -22,8 +23,8 @@ export default async function getDataFromServer() {
                   }
               }
           })
-          .catch((error) => {window.alert('Error while getting data from Server:\n' + error.message)})  
+          .catch((error) => {window.alert('Error while getting data from Server:\n' + error.message)}) 
   }
 
   return taskList;
-};
+};  

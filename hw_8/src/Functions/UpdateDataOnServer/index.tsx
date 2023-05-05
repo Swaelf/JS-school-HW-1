@@ -17,5 +17,5 @@ export default async function UpdateDataOnServer(data: ItemInterface) {
             tag: data.tag
         })
         })
-        .catch((error) => window.alert(error));
+        .catch((error) => window.alert('Error while udate data from Server:\n' + error.message));
 };
