@@ -1,21 +1,19 @@
 import './index.css';
+import Interface from './Interface'
 
-export const ScreenLock = (
-	{ 
-		modalWindowState,
-	}: { 
-		modalWindowState: number,
-	} = {
-		modalWindowState: 0, 
-	}) => {
+export const ScreenLock = (props: Interface) => {
 	
 	let screenLockClass: string;
 
-	if (modalWindowState === 0) {
+	if (props.modalWindowState === 0) {
 		screenLockClass = 'screenlock screenlock--hidden';
 	} else {
 		screenLockClass = 'screenlock';
 	}
 
 	return (<div className={ screenLockClass }/> )
-}
+};
+
+ScreenLock.defaultProps = {
+  	modalWindowState: 0
+};

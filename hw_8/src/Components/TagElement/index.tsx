@@ -1,45 +1,35 @@
 import { useCallback } from 'react';
+import Interface from './Interface';
+import { Label } from '../Label'
 
 import './index.css';
 
-export const TagElement = (
-	{ 
-		tag, 
-		text,
-		setTag,
-		selectedTag,
-		setSelectedTag
-	}: { 
-		tag?: string, 
-		text?: string,
-		setTag?: React.Dispatch<React.SetStateAction<string>>,
-		selectedTag?: string,
-		setSelectedTag?: any
-	} = {
-		tag: 'other', 
-		text: 'other',
-		setTag: (() => {}),
-		selectedTag: '',
-		setSelectedTag: (() => {})
-	}) => {
+export const TagElement = (props: Interface) => {
 	
-	let tagClass: string = 'tag tag--' + tag;
+	let tagClass: string = 'tag tag--' + props.tag;
 
-	if (tag === selectedTag) {
+	if (props.tag === props.selectedTag) {
 		tagClass = tagClass + ' tag--selected';
 	}
 	
-	
 	const handleClick = useCallback(() => {
-    	if (setTag && tag) {setTag(tag)};
-    	if (setSelectedTag && tag) {setSelectedTag(tag)};
+    	if (props.setTag && props.tag) {props.setTag(props.tag)};
+    	if (props.setSelectedTag && props.tag) {props.setSelectedTag(props.tag)};
     	// eslint-disable-next-line
   	}, []); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
 	
 	return (
-	<label 
+	<Label 
 		className={ tagClass } 
-		onClick={ handleClick }>
-		{text}
-	</label> )
-}
+		onClick={ handleClick }
+		text={ props.text }/>
+	);
+};
+
+TagElement.defaultProps = {
+  	setTag: (() => {}),
+  	selectedTag: '',
+  	setSelectedTag: (() => {}),
+  	tag: 'other', 
+  	text: 'other'	
+};

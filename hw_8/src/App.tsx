@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 import { ScreenLock } from './Components/ScreenLock';
 import { ModalNewDay } from './Components/ModalNewDay';
-import { ModalNewTask } from './Components/ModalNewTask';
 import { TopBar } from './Components/TopBar';
 import { SearchBar } from './Components/SearchBar';
 import { TaskBar } from './Components/TaskBar';
@@ -16,18 +15,11 @@ import './App.css';
 
 function App() {
 
-  const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
+  const [modalWindowState, setModalWindowState] = useState(
+    (localStorage.getItem('currentDate') !== new Date().toJSON().slice(0, 10).split("-").reverse().join(".")) ? 1: 0
+    );
 
-  let initialModalWindowState: number;
-
-  if (localStorage.getItem('currentDate') !== currentDate) {
-    initialModalWindowState = 1;
-  } else {
-    initialModalWindowState = 0;
-  }
-
-  const [modalWindowState, setModalWindowState] = useState(initialModalWindowState);
-  const [taskList, setTaskList] = useState<ItemInterface[]>([]);
+  const [taskList, setTaskList] = useState<ItemInterface[]|null>(null);
   const [searchPattern, setSearchPattern] = useState('');
   
   useEffect(() => {
@@ -46,7 +38,6 @@ function App() {
 
   }, []); //we call it only once
 
-
   if (!taskList) {
     return <div>Loading...</div>;
   }
@@ -55,8 +46,10 @@ function App() {
     <div className="App">
       <TopBar/>
       <SearchBar 
+        modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
+        setTaskList={ setTaskList }
         searchPattern={ searchPattern } 
         setSearchPattern={ setSearchPattern }
         />
@@ -69,14 +62,7 @@ function App() {
       <ModalNewDay 
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
-        taskList={ taskList } 
-        currentDate={ currentDate }/> 
-      <ModalNewTask 
-        modalWindowState={ modalWindowState } 
-        setModalWindowState={ setModalWindowState } 
-        taskList={ taskList } 
-        setTaskList={ setTaskList } 
-        currentDate={ currentDate }/> 
+        taskList={ taskList }/> 
       </div>
   );
 }

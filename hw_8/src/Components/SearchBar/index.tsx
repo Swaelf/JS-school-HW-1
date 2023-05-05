@@ -1,52 +1,55 @@
 import { useCallback, useRef } from 'react';
-import ItemInterface from '../../Interfaces/ItemInterface';
+
+import { Button } from '../Button';
+import { Search } from '../Search';
+
+import { ModalNewTask } from '../ModalNewTask';
+
+import Interface from './Interface';
 
 import './index.css';
 
-export const SearchBar = (
-	{ 
-		setModalWindowState, 
-		taskList,
-		searchPattern,
-		setSearchPattern
-	}: { 
-		setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
-		taskList: ItemInterface[],
-		searchPattern: string,
-		setSearchPattern: React.Dispatch<React.SetStateAction<string>>
-	} = {
-		setModalWindowState: (() => {}),
-		taskList: [],
-		searchPattern: '',
-		setSearchPattern: (() => {})
-	}) => {
+export const SearchBar = (props: Interface) => {
 
 	const searchRef = useRef<HTMLInputElement>(null);
 
 	const handleClick = useCallback(() => {
-    	setModalWindowState(2);
+    	props.setModalWindowState(2);
     	// eslint-disable-next-line
   	}, []); //setModalWindowState is a function and shall not change
 
   	const handleSearch = useCallback(() => {
 
   		if (searchRef && searchRef.current) {
-  			setSearchPattern(searchRef.current.value);
+  			props.setSearchPattern(searchRef.current.value);
 		} 
-
-  	}, [ setSearchPattern]);
+		// eslint-disable-next-line
+  	}, []); //setSearchPattern is a function and shall not change
 
 	return (
 	<div className='searchbar'> 
-		<input 
+		<Search 
 			className='search__string' 
 			onChange={ handleSearch } 
 			placeholder='Search Task'
-			ref={ searchRef }/>
-		<button 
+			inputRef={ searchRef }/>
+		<Button 
 			className='button__add' 
-			onClick={handleClick}>
-			+ New Task
-		</button>
+			onClick={ handleClick }
+			text='+ New Task'/>
+		<ModalNewTask 
+        	modalWindowState={ props.modalWindowState } 
+        	setModalWindowState={ props.setModalWindowState } 
+        	taskList={ props.taskList } 
+        	setTaskList={ props.setTaskList }/> 
 	</div>)
-}
+};
+
+SearchBar.defaultProps = {
+  	modalWindowState: 0,
+  	setModalWindowState: (() => {}), 
+  	taskList: [],
+  	setTaskList: (() => {}),
+  	searchPattern: '',
+  	setSearchPattern: (() => {})
+};

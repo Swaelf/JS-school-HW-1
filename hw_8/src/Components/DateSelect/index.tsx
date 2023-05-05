@@ -1,23 +1,12 @@
 import React, { useCallback, useRef } from 'react';
+import Interface from './Interface'
 
 import './index.css';
 
-export const DateSelect = (
-	{ 
-		currentDate,
-		inputRef,
-		labelRef
-	}: { 
-		currentDate: string,
-		inputRef?: React.RefObject<HTMLInputElement>|null,
-		labelRef?: React.RefObject<HTMLLabelElement>|null
-	} = {
-		currentDate: '',
-		inputRef: null,
-		labelRef: null
-	}) => {
+export const DateSelect = ( props: Interface ) => {
 
 	const dateInputRef = useRef<HTMLInputElement>(null);
+	const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
 
 	const showDatePicker = useCallback(() => {
 
@@ -29,8 +18,8 @@ export const DateSelect = (
 
   	const selectDate = useCallback(() => {
 
-		if (labelRef && labelRef.current && dateInputRef.current) {
-      		labelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
+		if (props.labelRef && props.labelRef.current && dateInputRef.current) {
+      		props.labelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
     	}
     	// eslint-disable-next-line
   	}, []); //labelRef and dateInputRef are static and shall not change
@@ -40,7 +29,7 @@ export const DateSelect = (
 		<label 
 			htmlFor="date-input"
 			className='date'
-			ref={ labelRef }
+			ref={ props.labelRef }
 			onClick={ showDatePicker }>
 			{ currentDate }
 		</label>
@@ -51,4 +40,9 @@ export const DateSelect = (
 			onChange={ selectDate }
 			ref={ dateInputRef }/>
 	</div>)
-}
+};
+
+DateSelect.defaultProps = {
+    inputRef: null,
+  	labelRef: null
+};

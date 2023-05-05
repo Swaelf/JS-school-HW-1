@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import LocateMe from '../../Functions/LocateMe';
-import WetherResponseInterface from '../../Interfaces/WetherResponseInterface';
+import { Label } from '../Label';
+import Interface from './Interface';
 
 import './index.css';
 
@@ -17,7 +18,7 @@ export const WeatherWidget = () => {
 
 		LocateMe().then((pos: unknown) => {
 	      if (isMounted && pos) {
-	      	let weather = pos as WetherResponseInterface;
+	      	let weather = pos as Interface;
 	      	setTemperature(weather.current.temp_c);
 	      	setLocation(weather.location.name);
 	      	setIcon(weather.current.condition.icon);
@@ -36,11 +37,11 @@ export const WeatherWidget = () => {
 		<div 
 			className='widget__icon' 
 			style={{ backgroundImage: `url(${icon})` }}/>
-		<label className='text text--temperature'>
-			{ temperature}
-		</label>
-		<label className='text text--city'>
-			{ location }
-		</label>
+		<Label 
+			className='text text--temperature'
+			text={ temperature}/>
+		<Label 
+			className='text text--city'
+			text={ location }/>
 	</div>)
 }

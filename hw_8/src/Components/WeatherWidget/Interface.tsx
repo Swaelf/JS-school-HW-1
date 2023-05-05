@@ -1,5 +1,5 @@
 
-export default interface WetherResponseInterface {
+export default interface Interface {
   current: {
     temp_c: string,
     condition: {

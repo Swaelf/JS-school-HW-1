@@ -1,67 +1,35 @@
 import React from 'react';
 
-import { TaskRow } from '../TaskRow';
-import ItemInterface from '../../Interfaces/ItemInterface'
+import { TaskList} from '../TaskList';
+import ItemInterface from '../../Interfaces/ItemInterface';
 import SearchByPattern from '../../Functions/SearchByPattern';
+
+import Interface from './Interface';
 
 import './index.css';
 
-export const TaskBar = (
-	{ 
-		taskList,
-		setTaskList,
-		searchPattern
-	 }: { 
-	 	taskList: ItemInterface[],
-	 	setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
-	 	searchPattern: string
-	 } = {
-	 	taskList: [],
-	 	setTaskList: (() => {}),
-	 	searchPattern: ''
-	 }) => {
-
+export const TaskBar = (props: Interface) => {
 	
-	let filteredTaskList: ItemInterface[] = SearchByPattern(taskList, searchPattern);
+	let filteredTaskList: ItemInterface[] = SearchByPattern(props.taskList, props.searchPattern);
 
 	return (
 	  <div className='taskbar'> 
-	    <div className='tasklist'>
-	      All Tasks
-
-	      { filteredTaskList.map((task) => {
-
-	        if (!task.isCompleted) {
-
-	          return <TaskRow 
-	            key={task.id} 
-	            task={ task } 
-	            taskList={ taskList } 
-	            setTaskList={ setTaskList }/>;
-	        } else {
-
-	          return null;
-	        }
-	      }) }
-	    </div>
-	    <div className='tasklist'>
-	      Completed tasks
-
-	      { filteredTaskList.map((task) => {
-
-	        if (task.isCompleted) {
-	          
-	          return <TaskRow 
-	            key={task.id} 
-	            task={ task } 
-	            taskList={ taskList } 
-	            setTaskList={ setTaskList }/>;
-	        } else {
-
-	          return null;
-	        }
-	      }) }
-	    </div>
+	  	<TaskList
+	  		listName='All Tasks'
+	  		taskList={ filteredTaskList } 
+	        setTaskList={ props.setTaskList }
+	        isCompleted={ false }/>
+	    <TaskList
+	  		listName='Completed tasks'
+	  		taskList={ filteredTaskList } 
+	        setTaskList={ props.setTaskList }
+	        isCompleted={ true }/>
 	  </div>
 	);
-}
+};
+
+TaskBar.defaultProps = {
+  taskList: [],
+  setTaskList: (() => {}),
+  searchPattern: ''
+};

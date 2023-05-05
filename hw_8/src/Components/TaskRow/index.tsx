@@ -1,69 +1,50 @@
-import { TagElement } from '../TagElement';
-import ItemInterface from '../../Interfaces/ItemInterface'
 import { useCallback } from 'react';
+
+import { Checkbox } from '../Checkbox';
+import { Button } from '../Button';
+import { RowLabel } from '../RowLabel';
+
+import Interface from './Interface';
 
 import DeleteDataFromServer from '../../Functions/DeleteDataFromServer'
 import UpdateDataOnServer from '../../Functions/UpdateDataOnServer'
 
 import './index.css';
 
-export const TaskRow = (
-	{ 
-		task,
-		taskList,
-		setTaskList
-	}: { 
-		task: ItemInterface,
-		taskList: ItemInterface[], 
-		setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>
-	} = {
-		task: {},
-		taskList: [],
-		setTaskList: (() => {})
-	}) => {
+export const TaskRow = (props: Interface) => {
 
-	const index: number = taskList.indexOf(task);
-	const buttonClass = taskList[index].isCompleted ? 'button__delete button__delete--disabled': 'button__delete';
-	const rowClassName: string = task.filter ? 'taskrow' : 'taskrow taskrow--hidden';
-  	const actualTag: string = task.isCompleted ? 'inactive' : taskList[index].tag as string;
-  	const labelClassName: string = task.isCompleted ? 'taskname taskname--inactive' : 'taskname';
-
+	const index: number = props.task ? props.taskList.indexOf(props.task): 0;
 	
 	const changeCompleteState = useCallback(() => {
-    	taskList[index].isCompleted = !taskList[index].isCompleted;
-    	UpdateDataOnServer(taskList[index]);
-    	setTaskList([...taskList]);
+    	props.taskList[index].isCompleted = !(props.taskList[index].isCompleted);
+    	UpdateDataOnServer(props.taskList[index]);
+    	props.setTaskList([...props.taskList]);
     	// eslint-disable-next-line
-  	}, [taskList]); //setTaskList is a function and shall not change
+  	}, [props.taskList]); //setTaskList is a function and shall not change
 
 	const deleteTask = useCallback(() => {
-    	DeleteDataFromServer(taskList[index]);
-     	taskList.splice(index, 1);
-    	setTaskList([...taskList]);
+    	DeleteDataFromServer(props.taskList[index]);
+     	props.taskList.splice(index, 1);
+    	props.setTaskList([...props.taskList]);
     	// eslint-disable-next-line
-  	}, [taskList]); //setTaskList is a function and shall not change
+  	}, [props.taskList]); //setTaskList is a function and shall not change
 
   	
 	return (
-	<div className={ rowClassName }> 
-		<input 
-			className='checkbox' 
-			type='checkbox' 
-			defaultChecked={ taskList[index].isCompleted } 
+	<div className={ props.task.filter ? 'taskrow' : 'taskrow taskrow--hidden' }> 
+		<Checkbox 
+			defaultChecked={ props.task.isCompleted } 
 			onChange={ changeCompleteState }/>
-		<div className='taskcontent'>
-			<label 
-				className={ labelClassName }>
-				{ taskList[index].name }</label>
-			<TagElement 
-				tag={ actualTag } 
-				text={ taskList[index].tag }/>
-			<TagElement 
-				tag='time' 
-				text={ taskList[index].plannedDate }/>
-		</div>
-		<button 
-			className={ buttonClass } 
+		<RowLabel 
+			task={ props.task }/>
+		<Button 
+			className={ props.task.isCompleted ? 'button__delete button__delete--disabled': 'button__delete' } 
 			onClick={ deleteTask }/>
 	</div>)
-}
+};
+
+TaskRow.defaultProps = {
+	task: { filter: false, isCompleted: false, name: '', id: 0, tag: 'other'},
+  	taskList: [],
+  	setTaskList: (() => {})
+};
