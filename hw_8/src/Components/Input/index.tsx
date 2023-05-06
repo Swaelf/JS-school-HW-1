@@ -1,4 +1,3 @@
-import React from 'react';
 import Interface from './Interface';
 
 import './index.css';

@@ -1,5 +1,3 @@
-import { LegacyRef } from 'react';
-
 export default interface ItemInterface {
   id?: number,
   name?: string,
