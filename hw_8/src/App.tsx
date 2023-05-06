@@ -15,22 +15,24 @@ import './App.css';
 
 function App() {
 
-  const [modalWindowState, setModalWindowState] = useState(
-    (localStorage.getItem('currentDate') !== new Date().toJSON().slice(0, 10).split("-").reverse().join(".")) ? 1: 0
-    );
+  const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
 
-  const [taskList, setTaskList] = useState<ItemInterface[]|null>(null);
+  const [modalWindowState, setModalWindowState] = useState((localStorage.getItem('currentDate') !== currentDate) ? 1 : 0);
+  const [taskList, setTaskList] = useState<ItemInterface[]>([]);
   const [searchPattern, setSearchPattern] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
     let isMounted = true;
-    
+
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
           setTaskList(data);
+          setIsLoading(true);
         }
-      });
+      })
+      .catch((error) => {window.alert(error.message)});
 
     return () => {
         isMounted = false;
@@ -38,7 +40,8 @@ function App() {
 
   }, []); //we call it only once
 
-  if (!taskList) {
+
+  if (!isLoading) {
     return <div>Loading...</div>;
   }
  
@@ -46,6 +49,7 @@ function App() {
     <div className="App">
       <TopBar/>
       <SearchBar 
+        currentDate={ currentDate }      
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList } 
@@ -60,6 +64,7 @@ function App() {
       <ScreenLock 
         modalWindowState={ modalWindowState }/>
       <ModalNewDay 
+        currentDate={ currentDate }
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
         taskList={ taskList }/> 

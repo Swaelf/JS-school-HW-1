@@ -38,6 +38,7 @@ export const SearchBar = (props: Interface) => {
 			onClick={ handleClick }
 			text='+ New Task'/>
 		<ModalNewTask 
+			currentDate={ props.currentDate }
         	modalWindowState={ props.modalWindowState } 
         	setModalWindowState={ props.setModalWindowState } 
         	taskList={ props.taskList } 
@@ -46,6 +47,7 @@ export const SearchBar = (props: Interface) => {
 };
 
 SearchBar.defaultProps = {
+	currentDate: '',
   	modalWindowState: 0,
   	setModalWindowState: (() => {}), 
   	taskList: [],

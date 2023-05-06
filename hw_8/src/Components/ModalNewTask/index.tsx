@@ -16,20 +16,12 @@ import './index.css';
 export const ModalNewTask = (props: Interface) => {
 
 	const [currentTag, setCurrentTag] = useState('other');
-	const [selectedTag, setSelectedTag] = useState('');
+	const [selectedTag, setSelectedTag] = useState('other');
 	const [currentName, setCurrentName] = useState('');
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	const labelRef = useRef<HTMLLabelElement>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
-
-	let newTaskWindowClass: string;
-
-	if (props.modalWindowState === 2) {
-		newTaskWindowClass = 'new_task_window';
-	} else {
-		newTaskWindowClass = 'new_task_window new_task_window--hidden';
-	}
 
     if (inputRef.current) {
 		inputRef.current.value = currentName;
@@ -38,7 +30,7 @@ export const ModalNewTask = (props: Interface) => {
   	const cancelClick = useCallback(() => {
   		setCurrentName('');
   		setCurrentTag('other');
-  		setSelectedTag('');
+  		setSelectedTag('other');
     	props.setModalWindowState(0);
     	// eslint-disable-next-line
   	}, []); //setModalWindowState, setCurrentTag and setCurrentName are functions and shall not change
@@ -73,7 +65,7 @@ export const ModalNewTask = (props: Interface) => {
     		}
 
         	setCurrentName('');
-        	setSelectedTag('');
+        	setSelectedTag('other');
         	setCurrentTag('other');
       		PostNewDataIntoServer(newTask);
       		props.setTaskList([...props.taskList, newTask]);
@@ -85,7 +77,7 @@ export const ModalNewTask = (props: Interface) => {
 
 
 	return ( 
-	<div className={ newTaskWindowClass }> 
+	<div className={ (props.modalWindowState === 2) ? 'new_task_window' : 'new_task_window new_task_window--hidden' }> 
 		<Label 
 			className='head__label'
 			text='Add New Item'/>
@@ -97,6 +89,7 @@ export const ModalNewTask = (props: Interface) => {
 			selectedTag={ selectedTag } 
 			setSelectedTag={ setSelectedTag }/>
 		<DateSelect
+			currentDate={ props.currentDate }
 			inputRef={ inputRef }
 			labelRef={ labelRef }
 			/>
@@ -105,15 +98,16 @@ export const ModalNewTask = (props: Interface) => {
 			onClick={ cancelClick }
 			text='Cancel'/>
 		<Button 
-			className={ (inputRef.current && inputRef.current.value === '') ? 'button button--apply button--disabled': 'button button--apply button--enabled' }
+			className={ (inputRef.current && inputRef.current.value === '') ? 'button button--apply button--disabled' : 'button button--apply button--enabled' }
 			onClick={ addTask }
-			disabled={ (inputRef.current && inputRef.current.value === '') ? true: false }
+			disabled={ (inputRef.current && inputRef.current.value === '') ? true : false }
 			buttonRef={ buttonRef }
 			text='Add Task'/>
 	</div>)
 };
 
 ModalNewTask.defaultProps = {
+	currentDate: '',
   	modalWindowState: 0,
   	setModalWindowState: (() => {}), 
   	taskList: [],

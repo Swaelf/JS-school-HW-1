@@ -1,12 +1,11 @@
 import React, { useCallback, useRef } from 'react';
-import Interface from './Interface'
+import Interface from './Interface';
 
 import './index.css';
 
 export const DateSelect = ( props: Interface ) => {
 
 	const dateInputRef = useRef<HTMLInputElement>(null);
-	const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
 
 	const showDatePicker = useCallback(() => {
 
@@ -31,7 +30,7 @@ export const DateSelect = ( props: Interface ) => {
 			className='date'
 			ref={ props.labelRef }
 			onClick={ showDatePicker }>
-			{ currentDate }
+			{ props.currentDate }
 		</label>
 		<input 
 			id='date-input'
@@ -43,6 +42,7 @@ export const DateSelect = ( props: Interface ) => {
 };
 
 DateSelect.defaultProps = {
+	currentDate: '',
     inputRef: null,
   	labelRef: null
 };

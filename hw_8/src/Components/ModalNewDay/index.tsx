@@ -8,24 +8,14 @@ import './index.css';
 
 export const ModalNewDay = (props: Interface) => {
 
-	const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
-
-	let newDayWindowClass: string;
-
-	if (props.modalWindowState === 1) {
-		newDayWindowClass = 'new_day_window';
-	} else {
-		newDayWindowClass = 'new_day_window new_day_window--hidden';
-	}
-
   	const handleClick = useCallback(() => {
     	props.setModalWindowState(0);
-    	localStorage.setItem('currentDate', currentDate);
+    	localStorage.setItem('currentDate', props.currentDate);
     	// eslint-disable-next-line
-  	}, [ currentDate ]); //setModalWindowState is a function and shall not change
+  	}, [ props.currentDate ]); //setModalWindowState is a function and shall not change
 	
 	return (
-	<div className={ newDayWindowClass }> 
+	<div className={ (props.modalWindowState === 1) ? 'new_day_window': 'new_day_window new_day_window--hidden' }> 
 		<Label 
 			className="head__label"
 			text='Good Morning'/>
@@ -33,6 +23,7 @@ export const ModalNewDay = (props: Interface) => {
 			className="tasklist__label"
 			text='You have the next planned tasks for today:'/>
 		<CurrentTaskList
+			currentDate={ props.currentDate }
 			taskList={ props.taskList }/>
 		<Button 
 			className="button__ok" 
@@ -42,6 +33,7 @@ export const ModalNewDay = (props: Interface) => {
 };
 
 ModalNewDay.defaultProps = {
+	currentDate: '',
   	modalWindowState: 0,
   	setModalWindowState: (() => {}), 
   	taskList: []
