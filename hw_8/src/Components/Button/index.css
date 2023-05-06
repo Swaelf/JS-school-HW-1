@@ -1,0 +1,74 @@
+.button__ok {
+    width: 100%;
+    height: 52px;
+    padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: #3C86F4;
+}
+
+.button {
+    width: 220px;
+    height: 52px;
+    padding: 16px 32px 16px 32px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+}
+
+.button--disabled {
+    background-color: #D3D3D3;
+}
+
+.button--enabled {
+    background-color: #3C86F4;
+}
+
+.button--apply {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.button--cancel {
+    background-color: #FFFFFF;
+    color: #0053CF;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+
+.button__add {
+    width: 158.15px;
+    background-color: #3C86F426;
+    border-radius: 12px;
+    padding: 16px 32px 16px 32px;
+    gap: 10px;
+    border: none;
+    color: #0053CF;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.button__delete {
+    background-image: url(icons/Delete.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+.button__delete--disabled {
+    display: none;
+}
+
+.button__delete:hover {
+    background-image: url(icons/Delete_hover.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+}

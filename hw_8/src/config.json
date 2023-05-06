@@ -1,0 +1,7 @@
+{
+  	"localurl": "http://localhost:3004/tasks",
+  	"githuburl": "https://my-json-server.typicode.com/Swaelf/JS-school-HW-1/tasks",
+	"weatherUrl": "https://api.weatherapi.com/v1",
+	"defaultCity": "Tbilisi",
+	"weathericon": "icons/weather/64x64/day/113.png"
+}

@@ -1,0 +1,7 @@
+.widget__icon {
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 64px;
+    max-height: 64px;
+    min-width: 64px;
+}

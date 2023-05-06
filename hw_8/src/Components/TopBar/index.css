@@ -1,0 +1,10 @@
+.topbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 36px;
+    color: #1D1D1D;
+    align-items: center;
+}
