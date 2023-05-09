@@ -11,24 +11,32 @@ import ItemInterface from './Interfaces/ItemInterface';
 
 import GetDataFromServer from './Functions/GetDataFromServer';
 
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import { addItem } from './actions/addItem';
+import { printItem } from './actions/printItem';
+
 import './App.css';
 
 function App() {
 
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
+  const dispatch = useDispatch();
+  const tasks: any = useSelector((state: any) => state.tasks);
 
   const [modalWindowState, setModalWindowState] = useState((localStorage.getItem('currentDate') !== currentDate) ? 1 : 0);
-  const [taskList, setTaskList] = useState<ItemInterface[]>([]);
+  //const [taskList, setTaskList] = useState<ItemInterface[]>([]);
   const [searchPattern, setSearchPattern] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
     let isMounted = true;
-
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
-          setTaskList(data);
+          //setTaskList(data);
+          dispatch(addItem(data));
           setIsLoading(true);
         }
       })
@@ -40,10 +48,15 @@ function App() {
 
   }, []); //we call it only once
 
+ 
+  const data = useSelector(state => state);
+  console.log(data);
+
 
   if (!isLoading) {
     return <div>Loading...</div>;
   }
+
  
   return (
     <div className="App">
@@ -52,22 +65,20 @@ function App() {
         currentDate={ currentDate }      
         modalWindowState={ modalWindowState } 
         setModalWindowState={ setModalWindowState } 
-        taskList={ taskList } 
-        setTaskList={ setTaskList }
         searchPattern={ searchPattern } 
         setSearchPattern={ setSearchPattern }
         />
       <TaskBar 
-        taskList={ taskList } 
-        setTaskList={ setTaskList }
-        searchPattern={ searchPattern }/>
+        searchPattern={ searchPattern }
+        currentDate={ currentDate }      
+        modalWindowState={ modalWindowState } 
+        setModalWindowState={ setModalWindowState }/>
       <ScreenLock 
         modalWindowState={ modalWindowState }/>
       <ModalNewDay 
         currentDate={ currentDate }
         modalWindowState={ modalWindowState } 
-        setModalWindowState={ setModalWindowState } 
-        taskList={ taskList }/> 
+        setModalWindowState={ setModalWindowState } /> 
       </div>
   );
 }

@@ -1,15 +1,11 @@
 import React from 'react';
 import { TagHolder } from '../TagHolder';
 import { useState, useCallback, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import ItemInterface from '../../Interfaces/ItemInterface';
 import { Input } from '../Input';
 import { DateSelect } from '../DateSelect';
 import { Button } from '../Button';
 import { Label } from '../Label';
-import { addItem } from '../../actions/addItem';
-import { updateTasks } from '../../actions/updateTasks';
 
 import Interface from './Interface';
 
@@ -17,11 +13,7 @@ import PostNewDataIntoServer from '../../Functions/PostNewDataIntoServer';
 
 import './index.css';
 
-export const ModalNewTask = (props: Interface) => {
-
-	const dispatch = useDispatch();
-	const data: any = useSelector(state => state);
-	const tasks: ItemInterface[] = data.tasks as ItemInterface[];
+export const ModalEditTask = (props: Interface) => {
 
 	const [currentTag, setCurrentTag] = useState('other');
 	const [selectedTag, setSelectedTag] = useState('other');
@@ -50,12 +42,12 @@ export const ModalNewTask = (props: Interface) => {
   	}, []); //setCurrentName is a function and shall not change
 
 
-  	const addTask = useCallback(() => {
+  	const editTask = useCallback(() => {
 
-  		let id: number = tasks.length + 1;
+  		let id: number = props.taskList.length + 1;
 
-	    for (let index: number = 0; index <= tasks.length - 1; index++) {
-	        if ((tasks.find(task => task.id === index + 1)) === undefined) {
+	    for (let index: number = 0; index <= props.taskList.length - 1; index++) {
+	        if ((props.taskList.find(task => task.id === index + 1)) === undefined) {
 	            id = index + 1; 
 	            break;
 	        }
@@ -64,31 +56,31 @@ export const ModalNewTask = (props: Interface) => {
     	if (inputRef.current) {
 
     		let newTask: ItemInterface = {
+    			id: id, 
     			name: inputRef.current.value,
-    			id: id,
     			isCompleted: false,
-    			plannedDate: labelRef.current!.innerHTML||'',
     			tag: currentTag,
+    			plannedDate: labelRef.current!.innerHTML||'',
     			filter: false
     		}
 
-      		PostNewDataIntoServer(newTask);
-      		dispatch(addItem(newTask));
-      		setCurrentName('');
+        	setCurrentName('');
         	setSelectedTag('other');
         	setCurrentTag('other');
+      		PostNewDataIntoServer(newTask);
+      		props.setTaskList([...props.taskList, newTask]);
     	}
 
     	props.setModalWindowState(0);
 		// eslint-disable-next-line
-  	}, [ currentTag, tasks ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
+  	}, [ props.taskList, currentTag ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
 
 
 	return ( 
-	<div className={ (props.modalWindowState === 2) ? 'new_task_window' : 'new_task_window new_task_window--hidden' }> 
+	<div className={ (props.modalWindowState === 3) ? 'edit_task_window' : 'edit_task_window edit_task_window--hidden' }> 
 		<Label 
 			className='head__label'
-			text='Add New Item'/>
+			text='Edit Task'/>
 		<Input 
 			onChange={ aprooveName } 
 			inputRef={ inputRef }/>
@@ -107,17 +99,18 @@ export const ModalNewTask = (props: Interface) => {
 			text='Cancel'/>
 		<Button 
 			className={ (inputRef.current && inputRef.current.value === '') ? 'button button--apply button--disabled' : 'button button--apply button--enabled' }
-			onClick={ addTask }
+			onClick={ editTask }
 			disabled={ (inputRef.current && inputRef.current.value === '') ? true : false }
 			buttonRef={ buttonRef }
 			text='Add Task'/>
 	</div>)
 };
 
-ModalNewTask.defaultProps = {
+ModalEditTask.defaultProps = {
 	currentDate: '',
   	modalWindowState: 0,
   	setModalWindowState: (() => {}), 
+  	task: { filter: false, isCompleted: false, name: '', id: 0, tag: 'other'},
   	taskList: [],
   	setTaskList: (() => {})
 };

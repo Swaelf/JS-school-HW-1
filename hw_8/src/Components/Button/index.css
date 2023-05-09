@@ -58,17 +58,40 @@
     background-image: url(icons/Delete.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
+    background-size: cover;
     width: 16px;
+    min-width: 16px;
     height: 16px;
     border: none;
 }
 
-.button__delete--disabled {
+.button__icon--disabled {
     display: none;
 }
 
 .button__delete:hover {
     background-image: url(icons/Delete_hover.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+}
+
+.button__edit {
+    background-image: url(icons/Edit.svg);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    border: none;
+}
+
+.button__edit--disabled {
+    display: none;
+}
+
+.button__edit:hover {
+    background-image: url(icons/Edit_hover.svg);
     background-color: #FFF;
     background-repeat: no-repeat;
 }

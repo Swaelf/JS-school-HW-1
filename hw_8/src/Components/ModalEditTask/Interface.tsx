@@ -5,5 +5,7 @@ export default interface Interface {
   currentDate: string,
   modalWindowState: number,
   setModalWindowState: React.Dispatch<React.SetStateAction<number>>, 
-  taskList?: ItemInterface[]
+  task?: ItemInterface,
+  taskList: ItemInterface[],
+  setTaskList: React.Dispatch<React.SetStateAction<ItemInterface[]>>
 }

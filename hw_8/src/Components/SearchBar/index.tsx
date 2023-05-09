@@ -1,9 +1,15 @@
 import { useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../Button';
 import { Search } from '../Search';
-
 import { ModalNewTask } from '../ModalNewTask';
+
+import SearchByPattern from '../../Functions/SearchByPattern';
+
+import ItemInterface from '../../Interfaces/ItemInterface';
+
+import { updateTasks } from '../../actions/updateTasks';
 
 import Interface from './Interface';
 
@@ -13,13 +19,17 @@ export const SearchBar = (props: Interface) => {
 
 	const searchRef = useRef<HTMLInputElement>(null);
 
+	const dispatch = useDispatch();
+	const tasks: any = useSelector((state: any) => state.tasks);
+
+
 	const handleClick = useCallback(() => {
     	props.setModalWindowState(2);
     	// eslint-disable-next-line
   	}, []); //setModalWindowState is a function and shall not change
 
   	const handleSearch = useCallback(() => {
-
+		
   		if (searchRef && searchRef.current) {
   			props.setSearchPattern(searchRef.current.value);
 		} 
@@ -37,12 +47,6 @@ export const SearchBar = (props: Interface) => {
 			className='button__add' 
 			onClick={ handleClick }
 			text='+ New Task'/>
-		<ModalNewTask 
-			currentDate={ props.currentDate }
-        	modalWindowState={ props.modalWindowState } 
-        	setModalWindowState={ props.setModalWindowState } 
-        	taskList={ props.taskList } 
-        	setTaskList={ props.setTaskList }/> 
 	</div>)
 };
 
