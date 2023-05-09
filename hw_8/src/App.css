@@ -1,3 +1,14 @@
 .App {
   text-align: center;
 }
+
+.screenlock {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background-color: #88888850;
+    height: calc(max(100%, 100vh));
+    width: calc(max(100%, 100vw));
+}

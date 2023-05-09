@@ -1,5 +1,5 @@
 import Interface from './Interface';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ItemInterface from '../../Interfaces/ItemInterface';
 
 import './index.css';

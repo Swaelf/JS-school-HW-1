@@ -1,5 +1,6 @@
 import './index.css';
-import Interface from './Interface'
+import Interface from './Interface';
+import { Routes, Route } from 'react-router-dom';
 
 export const ScreenLock = (props: Interface) => {
 	

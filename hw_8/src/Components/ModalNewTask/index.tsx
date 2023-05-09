@@ -9,7 +9,8 @@ import { DateSelect } from '../DateSelect';
 import { Button } from '../Button';
 import { Label } from '../Label';
 import { addItem } from '../../actions/addItem';
-import { updateTasks } from '../../actions/updateTasks';
+
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Interface from './Interface';
 
@@ -23,6 +24,8 @@ export const ModalNewTask = (props: Interface) => {
 	const data: any = useSelector(state => state);
 	const tasks: ItemInterface[] = data.tasks as ItemInterface[];
 
+	const location = useLocation();
+
 	const [currentTag, setCurrentTag] = useState('other');
 	const [selectedTag, setSelectedTag] = useState('other');
 	const [currentName, setCurrentName] = useState('');
@@ -35,11 +38,11 @@ export const ModalNewTask = (props: Interface) => {
 		inputRef.current.value = currentName;
 	}
 
+
   	const cancelClick = useCallback(() => {
   		setCurrentName('');
   		setCurrentTag('other');
   		setSelectedTag('other');
-    	props.setModalWindowState(0);
     	// eslint-disable-next-line
   	}, []); //setModalWindowState, setCurrentTag and setCurrentName are functions and shall not change
 
@@ -78,40 +81,46 @@ export const ModalNewTask = (props: Interface) => {
         	setSelectedTag('other');
         	setCurrentTag('other');
     	}
-
-    	props.setModalWindowState(0);
 		// eslint-disable-next-line
   	}, [ currentTag, tasks ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
 
-
+//<div className={ (props.modalWindowState === 2) ? 'new_task_window' : 'new_task_window new_task_window--hidden' }> 
+			
 	return ( 
-	<div className={ (props.modalWindowState === 2) ? 'new_task_window' : 'new_task_window new_task_window--hidden' }> 
-		<Label 
-			className='head__label'
-			text='Add New Item'/>
-		<Input 
-			onChange={ aprooveName } 
-			inputRef={ inputRef }/>
-		<TagHolder 
-			setTag={ setCurrentTag } 
-			selectedTag={ selectedTag } 
-			setSelectedTag={ setSelectedTag }/>
-		<DateSelect
-			currentDate={ props.currentDate }
-			inputRef={ inputRef }
-			labelRef={ labelRef }
-			/>
-		<Button 
-			className='button button--cancel' 
-			onClick={ cancelClick }
-			text='Cancel'/>
-		<Button 
-			className={ (inputRef.current && inputRef.current.value === '') ? 'button button--apply button--disabled' : 'button button--apply button--enabled' }
-			onClick={ addTask }
-			disabled={ (inputRef.current && inputRef.current.value === '') ? true : false }
-			buttonRef={ buttonRef }
-			text='Add Task'/>
-	</div>)
+	<Routes>
+	  	<Route path='/NewTask/*' element={
+	  		<div className='screenlock'>
+			<div className='new_task_window'> 
+				<Label 
+					className='head__label'
+					text='Add New Item'/>
+				<Input 
+					onChange={ aprooveName } 
+					inputRef={ inputRef }/>
+				<TagHolder 
+					setTag={ setCurrentTag } 
+					selectedTag={ selectedTag } 
+					setSelectedTag={ setSelectedTag }/>
+				<DateSelect
+					currentDate={ props.currentDate }
+					inputRef={ inputRef }
+					labelRef={ labelRef }
+					/>
+				<Button 
+					className='button button--cancel' 
+					to={ location.pathname.replace('/NewTask', '') + location.search}
+					onClick={ cancelClick }
+					text='Cancel'/>
+				<Button 
+					className={ (currentName === '') ? 'button button--apply button--disabled' : 'button button--apply button--enabled' }
+					onClick={ addTask }
+					to={ location.pathname.replace('/NewTask', '') + location.search}
+					disabled={ (currentName === '') ? true : false }
+					buttonRef={ buttonRef }
+					text='Add Task'/>
+			</div>
+			</div>}/>
+	</Routes>)
 };
 
 ModalNewTask.defaultProps = {

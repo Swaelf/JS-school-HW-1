@@ -1,19 +1,20 @@
 import Interface from './Interface';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ItemInterface from '../../Interfaces/ItemInterface'
-import { ModalNewTask } from '../ModalNewTask';
+
 import SearchByPattern from '../../Functions/SearchByPattern';
 
 import { TaskRow } from '../TaskRow';
+import { useLocation } from 'react-router-dom';
 
 import './index.css';
 
 export const TaskList = (props: Interface) => {
 
-	const dispatch = useDispatch();
 	const tasks: any = useSelector((state: any) => state.tasks);
+	const location = useLocation();
 
-	let filteredTaskList: ItemInterface[] = SearchByPattern(tasks, props.searchPattern);
+	let filteredTaskList: ItemInterface[] = SearchByPattern(tasks, decodeURIComponent(location.search).replace('?q=', ''));
 	/*console.log('filtered:', filteredTaskList);
   dispatch(updateTasks(filteredTaskList));*/
 

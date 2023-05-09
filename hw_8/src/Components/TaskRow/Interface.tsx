@@ -5,5 +5,5 @@ export default interface Interface {
   task: ItemInterface,
   taskList?: ItemInterface[], 
   setTaskList?: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
-  setModalWindowState: React.Dispatch<React.SetStateAction<number>>
+  setModalWindowState?: React.Dispatch<React.SetStateAction<number>>
 }

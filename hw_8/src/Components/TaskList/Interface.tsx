@@ -5,6 +5,6 @@ export default interface Interface {
   setTaskList?: React.Dispatch<React.SetStateAction<ItemInterface[]>>,
   listName: string,
   isCompleted: boolean,
-  setModalWindowState: React.Dispatch<React.SetStateAction<number>>,
-  searchPattern: string
+  setModalWindowState?: React.Dispatch<React.SetStateAction<number>>,
+  searchPattern?: string
 }

@@ -10,6 +10,7 @@ export const Search = (props: Interface) => {
 		onChange={ props.onChange }
 		placeholder={ props.placeholder }
 		type='search'
+		value={ props.value }
 		ref={ props.inputRef }
 		>
 	</input>)
@@ -19,5 +20,6 @@ Search.defaultProps = {
   	inputRef: null,
   	className: '',
   	onChange: (() => {}),
-  	placeholder: 'placeholder'
+  	placeholder: 'placeholder',
+  	value: ''
 };

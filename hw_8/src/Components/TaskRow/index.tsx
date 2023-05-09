@@ -39,7 +39,7 @@ export const TaskRow = (props: Interface) => {
   	}, []); //setTaskList is a function and shall not change
 
   	const editTask = useCallback(() => {
- 		props.setModalWindowState(3);
+ 		//props.setModalWindowState(3);
 
     	// eslint-disable-next-line
   	}, [props.setModalWindowState]); //setTaskList is a function and shall not change
