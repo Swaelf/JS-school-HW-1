@@ -15,26 +15,25 @@ import './index.css';
 
 export const TaskRow = (props: Interface) => {
 
-	//const index: number = props.task ? props.taskList.indexOf(props.task): 0;
-
 	const dispatch = useDispatch();
 	const tasks: any = useSelector((state: any) => state.tasks);
 	const index: number = props.task ? tasks.indexOf(props.task): 0;
 	
 	const changeCompleteState = useCallback(() => {
+
     	tasks[index].isCompleted = !(tasks[index].isCompleted);
-    	console.log('update =',tasks[index])
     	UpdateDataOnServer(tasks[index]);
     	dispatch(updateTasks([...tasks]));
+
     	// eslint-disable-next-line
   	}, []); //setTaskList is a function and shall not change
 
 	const deleteTask = useCallback(() => {
-    	
-     	console.log('delete =',tasks[index])
+
      	DeleteDataFromServer(tasks[index]);
      	tasks.splice(index, 1);
      	dispatch(updateTasks([...tasks]));
+     	
     	// eslint-disable-next-line
   	}, []); //setTaskList is a function and shall not change
 

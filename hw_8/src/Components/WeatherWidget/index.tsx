@@ -17,14 +17,14 @@ export const WeatherWidget = () => {
    useEffect(() => {
     	let isMounted = true;
 
-		/*LocateMe().then((pos: unknown) => {
+		LocateMe().then((pos: unknown) => {
 	      if (isMounted && pos) {
 	      	let weather = pos as Interface;
 	      	setTemperature(weather.current.temp_c);
 	      	setLocation(weather.location.name);
 	      	setIcon(weather.current.condition.icon);
 	      }
-	    });*/
+	    });
 
 	    return () => {
       		isMounted = false;

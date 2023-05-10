@@ -3,10 +3,9 @@ import { useCallback, useRef } from 'react';
 import { Button } from '../Button';
 import { Search } from '../Search';
 
-import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Interface from './Interface';
 
 import './index.css';
@@ -22,12 +21,19 @@ export const SearchBar = (props: Interface) => {
 
   	const handleSearch = useCallback(() => {
   		if (searchRef && searchRef.current) {
-  			navigate('/tasks?q=' + encodeURIComponent(searchRef.current.value));
+  			
+  			navigate(
+  				'/tasks?q=' + 
+  				encodeURIComponent(searchRef.current.value) + 
+  				'&' + 
+  				decodeURIComponent(location.search.substring(location.search.lastIndexOf('&') + 1, location.search.length))
+  				);
+  			//console.log(decodeURIComponent(location.search.substring(0, location.search.lastIndexOf('&'))))
 		} 
 
 		// eslint-disable-next-line
-  	}, []); //setSearchPattern is a function and shall not change
-  	
+  	}, [location]); //setSearchPattern is a function and shall not change
+
   	return (
 	<Routes>
 	  	<Route path={'*'} element={
@@ -37,7 +43,7 @@ export const SearchBar = (props: Interface) => {
 					onChange={ handleSearch } 
 					placeholder='Search Task'
 					inputRef={ searchRef }
-					value={ decodeURIComponent(location.search).replace('?q=', '') }/>
+					value={ decodeURIComponent(location.search.substring(0, location.search.lastIndexOf('&'))).replace('?q=', '') }/>
 				<Button 
 					className='button__add' 
 					to={ location.search ? '/NewTask' + location.pathname + location.search: '/NewTask' }

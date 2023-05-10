@@ -15,9 +15,9 @@ export const TagHolder = (props: Interface) => {
         		key={ tag } 
         		tag={ tag }
         		text={ tagNames[index] }
-        		setTag={ props.setTag }
         		selectedTag={ props.selectedTag }
-        		setSelectedTag={ props.setSelectedTag }/>
+        		onClick={ props.setSelectedTag }
+        		onClickParameter={ tag }/>
 			}
       	) }
 		

@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import ItemInterace from './Interfaces/ItemInterface'
 
 const initialState: ItemInterace[] = [];
@@ -20,11 +20,6 @@ const tasksReducer = (state: ItemInterace[] = initialState, action: any ) => {
       }
       //console.log('state =', newState);
       return [...newState];
-
-    case 'DELETE_TASK':
-      const printItem = { id: action.payload.id, name: action.payload.name };
-      //console.log('state', [...state, printItem]);
-      return state;
 
     case 'UPDATE_TASKS':
       //console.log('payload =', action.payload)

@@ -26,7 +26,6 @@ export const ModalNewTask = (props: Interface) => {
 
 	const location = useLocation();
 
-	const [currentTag, setCurrentTag] = useState('other');
 	const [selectedTag, setSelectedTag] = useState('other');
 	const [currentName, setCurrentName] = useState('');
 
@@ -41,7 +40,6 @@ export const ModalNewTask = (props: Interface) => {
 
   	const cancelClick = useCallback(() => {
   		setCurrentName('');
-  		setCurrentTag('other');
   		setSelectedTag('other');
     	// eslint-disable-next-line
   	}, []); //setModalWindowState, setCurrentTag and setCurrentName are functions and shall not change
@@ -71,7 +69,7 @@ export const ModalNewTask = (props: Interface) => {
     			id: id,
     			isCompleted: false,
     			plannedDate: labelRef.current!.innerHTML||'',
-    			tag: currentTag,
+    			tag: selectedTag,
     			filter: false
     		}
 
@@ -79,10 +77,9 @@ export const ModalNewTask = (props: Interface) => {
       		dispatch(addItem(newTask));
       		setCurrentName('');
         	setSelectedTag('other');
-        	setCurrentTag('other');
     	}
 		// eslint-disable-next-line
-  	}, [ currentTag, tasks ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
+  	}, [ selectedTag, tasks ]); //setModalWindowState, setCurrentTag, setTaskList, setSelectedTag and setCurrentName are functions and shall not change
 
 //<div className={ (props.modalWindowState === 2) ? 'new_task_window' : 'new_task_window new_task_window--hidden' }> 
 			
@@ -98,7 +95,6 @@ export const ModalNewTask = (props: Interface) => {
 					onChange={ aprooveName } 
 					inputRef={ inputRef }/>
 				<TagHolder 
-					setTag={ setCurrentTag } 
 					selectedTag={ selectedTag } 
 					setSelectedTag={ setSelectedTag }/>
 				<DateSelect

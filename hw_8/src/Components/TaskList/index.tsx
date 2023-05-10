@@ -14,9 +14,11 @@ export const TaskList = (props: Interface) => {
 	const tasks: any = useSelector((state: any) => state.tasks);
 	const location = useLocation();
 
-	let filteredTaskList: ItemInterface[] = SearchByPattern(tasks, decodeURIComponent(location.search).replace('?q=', ''));
-	/*console.log('filtered:', filteredTaskList);
-  dispatch(updateTasks(filteredTaskList));*/
+	let filteredTaskList: ItemInterface[] = SearchByPattern(
+		tasks, 
+		decodeURIComponent(location.search.substring(0, location.search.lastIndexOf('&'))).replace('?q=', ''),
+		decodeURIComponent(location.search.substring(location.search.lastIndexOf('&') + 1, location.search.length))
+		);
 
 	return (
 	<div className="tasklist">

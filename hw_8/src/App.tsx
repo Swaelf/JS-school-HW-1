@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { ScreenLock } from './Components/ScreenLock';
 import { ModalNewDay } from './Components/ModalNewDay';
 import { TopBar } from './Components/TopBar';
 import { SearchBar } from './Components/SearchBar';
@@ -12,12 +11,11 @@ import ItemInterface from './Interfaces/ItemInterface';
 import GetDataFromServer from './Functions/GetDataFromServer';
 
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import { addItem } from './actions/addItem';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { redirect } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -28,9 +26,7 @@ function App() {
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const tasks: any = useSelector((state: any) => state.tasks);
 
-  //const [searchPattern, setSearchPattern] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
   
@@ -51,7 +47,8 @@ function App() {
     return () => {
         isMounted = false;
     }
-
+    
+    // eslint-disable-next-line
   }, []); //we call it only once
 
 
