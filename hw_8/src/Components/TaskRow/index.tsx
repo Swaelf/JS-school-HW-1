@@ -54,10 +54,11 @@ export const TaskRow = (props: Interface) => {
 			task={ tasks[index] }/>
 		<Button 
 			className={ tasks[index].isCompleted ? 'button__edit button__icon--disabled': 'button__edit' } 
-			to={ location.search ? '/ModalTask/' + tasks[index].id + location.pathname + location.search: '/ModalTask/' + tasks[index].id }
+			to={ '/ModalTask/' + tasks[index].id + location.pathname + location.search }
 			onClick={ editTask }/>
 		<Button 
 			className={ tasks[index].isCompleted ? 'button__delete button__icon--disabled': 'button__delete' } 
+			to={ location.pathname + location.search }
 			onClick={ deleteTask }/>
 	</div>)
 };

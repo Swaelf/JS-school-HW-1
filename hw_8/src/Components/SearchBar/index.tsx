@@ -14,23 +14,18 @@ export const SearchBar = (props: Interface) => {
 	const searchRef = useRef<HTMLInputElement>(null);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const handleClick = useCallback(() => {
-    	// eslint-disable-next-line
-  	}, []); //setModalWindowState is a function and shall not change
 
   	const handleSearch = useCallback(() => {
   		if (searchRef && searchRef.current) {
-
-  			navigate(
-  				'/tasks?q=' + 
-  				encodeURIComponent(searchRef.current.value) + 
-  				'&' + 
-  				decodeURIComponent(location.search.substring(location.search.lastIndexOf('&') + 1, location.search.length))
-  				);
-		} 
+  			if (searchRef.current.value) {
+  				navigate(location.pathname + '?q=' + encodeURIComponent(searchRef.current.value));
+  			} else {
+  				navigate(location.pathname);
+  			}
+  		};
 
 		// eslint-disable-next-line
-  	}, [location]); //setSearchPattern is a function and shall not change
+  	}, [location]); 
 
   	return (
 	<Routes>
@@ -41,11 +36,10 @@ export const SearchBar = (props: Interface) => {
 					onChange={ handleSearch } 
 					placeholder='Search Task'
 					inputRef={ searchRef }
-					value={ decodeURIComponent(location.search.substring(0, location.search.lastIndexOf('&'))).replace('?q=', '') }/>
+					value={ decodeURIComponent(location.search).replace('?q=', '') }/>
 				<Button 
 					className='button__add' 
-					to={ location.search ? '/ModalTask' + location.pathname + location.search: '/ModalTask' }
-					onClick={ handleClick }
+					to={ location.search ? '/ModalTask' + location.pathname + location.search: '/ModalTask' + location.pathname }
 					text='+ New Task'/>
 			</div>}/>
 		 </Routes>

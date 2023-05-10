@@ -12,25 +12,15 @@ export const RowLabel = ( props: Interface ) => {
 	const navigate = useNavigate();
 
 	const handleClick = useCallback(() => {
-		if (decodeURIComponent(location.search.substring(location.search.lastIndexOf('&') + 1, location.search.length)) !== '') {
-			navigate(
-	    		location.pathname + 
-	    		'?q=' +
-	    		decodeURIComponent(location.search.substring(3, location.search.lastIndexOf('&'))) + 
-	    		'&' + 
-	    		''
-	    		);
+		
+		if (location.pathname.indexOf(props.task.tag as string) !== -1) {
+			navigate( location.pathname.replace('/' + props.task.tag as string, '') + location.search );
 		} else {
-	    	navigate(
-	    		location.pathname + 
-	    		'?q=' +
-	    		decodeURIComponent(location.search.substring(3, location.search.lastIndexOf('&'))) + 
-	    		'&' + 
-	    		props.task.tag
-	    		);
+	    	navigate( location.pathname + '/' + props.task.tag + location.search );
     	}
+
     	// eslint-disable-next-line
-  	}, [location]); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
+  	}, [location]); 
 	
 	return (
 	<div className='taskcontent'>

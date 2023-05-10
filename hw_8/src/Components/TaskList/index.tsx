@@ -16,8 +16,8 @@ export const TaskList = (props: Interface) => {
 
 	let filteredTaskList: ItemInterface[] = SearchByPattern(
 		tasks, 
-		decodeURIComponent(location.search.substring(0, location.search.lastIndexOf('&'))).replace('?q=', ''),
-		decodeURIComponent(location.search.substring(location.search.lastIndexOf('&') + 1, location.search.length))
+		decodeURIComponent(location.search.replace('?q=', '')),
+		location.pathname.substring(location.pathname.lastIndexOf('tasks') + 6, location.pathname.length)
 		);
 
 	return (

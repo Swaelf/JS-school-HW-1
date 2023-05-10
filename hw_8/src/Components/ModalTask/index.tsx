@@ -38,11 +38,10 @@ export const ModalTask = (props: Interface) => {
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	useEffect(() => {
-	    if (location.pathname.substring(11, location.pathname.length)) {
 
-			let index: number = location.pathname.substring(11, location.pathname.length) as unknown as number - 1;
+	    if ((location.pathname.indexOf('/ModalTask') !== -1) && (location.pathname.indexOf('/ModalTask') + 11 < location.pathname.indexOf('/tasks'))) {
 
-			console.log(tasks[index].name)
+			let index: number = location.pathname.substring(11, location.pathname.indexOf('/tasks')) as unknown as number - 1;
 
 			setLabelName('Edit Task');
 			
@@ -77,7 +76,7 @@ export const ModalTask = (props: Interface) => {
 
   	const editTask = useCallback(() => {
 
-  		let index: number = location.pathname.substring(11, location.pathname.length) as unknown as number - 1;
+  		let index: number = location.pathname.substring(11, location.pathname.indexOf('/tasks')) as unknown as number - 1;
 
     	if (inputRef.current) {
 
@@ -129,7 +128,7 @@ export const ModalTask = (props: Interface) => {
     	}
 
 		// eslint-disable-next-line
-  	}, [ selectedTag, tasks ]);
+  	}, [ selectedTag, tasks, location ]);
 			
 	return ( 
 	<Routes>
@@ -152,13 +151,13 @@ export const ModalTask = (props: Interface) => {
 					/>
 				<Button 
 					className='button button--cancel' 
-					to={ '/tasks' + location.search}
+					to={ location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search}
 					onClick={ cancelClick }
 					text='Cancel'/>
 				<Button 
 					className={ (currentName === '') ? 'button button--apply button--disabled' : 'button button--apply button--enabled' }
 					onClick={ labelName === 'Add New Item' ? addTask : editTask }
-					to={ '/tasks' + location.search}
+					to={ location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search}
 					disabled={ (currentName === '') ? true : false }
 					buttonRef={ buttonRef }
 					text={ labelName === 'Add New Item' ? 'Add Task' : 'Edit Task'}/>

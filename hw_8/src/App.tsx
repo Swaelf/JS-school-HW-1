@@ -16,7 +16,7 @@ import { addItem } from './actions/addItem';
 
 import { Routes, Route } from 'react-router-dom';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 import './App.css';
@@ -26,13 +26,14 @@ function App() {
   const currentDate: string = new Date().toJSON().slice(0, 10).split("-").reverse().join(".");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(false);
   
   
   useEffect(() => {
     let isMounted = true;
-    navigate("/tasks");
+    location.pathname.indexOf('/tasks') === -1 ? navigate("/tasks") : navigate( location.pathname + location.search);
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
