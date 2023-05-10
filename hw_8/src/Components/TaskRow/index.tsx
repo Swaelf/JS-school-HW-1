@@ -20,29 +20,30 @@ export const TaskRow = (props: Interface) => {
 	const tasks: any = useSelector((state: any) => state.tasks);
 	const index: number = props.task ? tasks.indexOf(props.task): 0;
 	const location = useLocation();
+	const channel = new BroadcastChannel("ToDoApp");
 	
 	const changeCompleteState = useCallback(() => {
 
     	tasks[index].isCompleted = !(tasks[index].isCompleted);
     	UpdateDataOnServer(tasks[index]);
     	dispatch(updateTasks([...tasks]));
-
+    	channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
     	// eslint-disable-next-line
-  	}, []); 
+  	}, [ tasks, location ]); 
 
 	const deleteTask = useCallback(() => {
 
      	DeleteDataFromServer(tasks[index]);
      	tasks.splice(index, 1);
      	dispatch(updateTasks([...tasks]));
-
+     	channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
     	// eslint-disable-next-line
-  	}, []); 
+  	}, [ tasks, location ]); 
 
   	const editTask = useCallback(() => {
-
+  		channel.postMessage({ path: '/ModalTask/' + tasks[index].id + location.pathname + location.search });
     	// eslint-disable-next-line
-  	}, [location]); 
+  	}, [ tasks, location ]); 
 
   	
   	return (

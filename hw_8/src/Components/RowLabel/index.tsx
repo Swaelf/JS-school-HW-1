@@ -10,13 +10,16 @@ export const RowLabel = ( props: Interface ) => {
 
 	const location = useLocation();
 	const navigate = useNavigate();
+	const channel = new BroadcastChannel("ToDoApp");
 
 	const handleClick = useCallback(() => {
 		
 		if (location.pathname.indexOf(props.task.tag as string) !== -1) {
 			navigate( location.pathname.replace('/' + props.task.tag as string, '') + location.search );
+			channel.postMessage({ path: location.pathname.replace('/' + props.task.tag as string, '') + location.search });
 		} else {
 	    	navigate( location.pathname + '/' + props.task.tag + location.search );
+	    	channel.postMessage({ path: location.pathname + '/' + props.task.tag + location.search });
     	}
 
     	// eslint-disable-next-line

@@ -14,18 +14,27 @@ export const SearchBar = (props: Interface) => {
 	const searchRef = useRef<HTMLInputElement>(null);
 	const location = useLocation();
 	const navigate = useNavigate();
+	const channel = new BroadcastChannel("ToDoApp");
 
   	const handleSearch = useCallback(() => {
   		if (searchRef && searchRef.current) {
   			if (searchRef.current.value) {
   				navigate(location.pathname + '?q=' + encodeURIComponent(searchRef.current.value));
+  				channel.postMessage({ path: location.pathname + '?q=' + encodeURIComponent(searchRef.current.value) });
   			} else {
   				navigate(location.pathname);
+  				channel.postMessage({ path: location.pathname });
   			}
   		};
 
+  		
 		// eslint-disable-next-line
   	}, [location]); 
+
+  	const handleClick = useCallback(() => {
+  		channel.postMessage({ path: location.search ? '/ModalTask' + location.pathname + location.search: '/ModalTask' + location.pathname });
+    	// eslint-disable-next-line
+  	}, [ location ]); 
 
   	return (
 	<Routes>
@@ -40,6 +49,7 @@ export const SearchBar = (props: Interface) => {
 				<Button 
 					className='button__add' 
 					to={ location.search ? '/ModalTask' + location.pathname + location.search: '/ModalTask' + location.pathname }
+					onClick={ handleClick }
 					text='+ New Task'/>
 			</div>}/>
 		 </Routes>

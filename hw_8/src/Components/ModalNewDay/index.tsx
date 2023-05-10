@@ -10,9 +10,12 @@ import './index.css';
 
 export const ModalNewDay = (props: Interface) => {
 
+	const channel = new BroadcastChannel("ToDoApp");
+
   	const handleClick = useCallback(() => {
 
     	localStorage.setItem('currentDate', props.currentDate);
+    	channel.postMessage({ path: '/tasks' });
     	
     	// eslint-disable-next-line
   	}, [ props.currentDate ]); //setModalWindowState is a function and shall not change

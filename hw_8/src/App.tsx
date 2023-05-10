@@ -10,9 +10,10 @@ import ItemInterface from './Interfaces/ItemInterface';
 
 import GetDataFromServer from './Functions/GetDataFromServer';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem } from './actions/addItem';
+import { updateTasks } from './actions/updateTasks';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -29,11 +30,17 @@ function App() {
   const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(false);
-  
-  
+
   useEffect(() => {
     let isMounted = true;
-    location.pathname.indexOf('/tasks') === -1 ? navigate("/tasks") : navigate( location.pathname + location.search);
+    const channel = new BroadcastChannel("ToDoApp");
+
+    channel.onmessage = (event) => {
+      if (event.data.tasks) { dispatch(updateTasks(event.data.tasks)) };
+      if (event.data.path) {navigate(event.data.path)};
+    };
+
+    location.pathname.indexOf('/tasks') === -1 ? navigate("/tasks") : navigate( location.pathname + location.search );
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
@@ -41,6 +48,7 @@ function App() {
           setIsLoading(true);
           if (localStorage.getItem('currentDate') !== currentDate) {
             navigate("/NewDay");
+            channel.postMessage({ path: '/NewDay' });
           }
         }
       })
@@ -48,16 +56,16 @@ function App() {
 
     return () => {
         isMounted = false;
+        channel.close();
     }
 
     // eslint-disable-next-line
   }, []); //we call it only once
 
-
-
   if (!isLoading) {
     return <div>Loading...</div>;
   }
+
 
   return (
     

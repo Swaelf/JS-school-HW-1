@@ -27,6 +27,7 @@ export const ModalTask = (props: Interface) => {
 	const tasks: ItemInterface[] = data.tasks as ItemInterface[];
 
 	const location = useLocation();
+	const channel = new BroadcastChannel("ToDoApp");
 
 	const [selectedTag, setSelectedTag] = useState('other');
 	const [currentName, setCurrentName] = useState('');
@@ -63,6 +64,7 @@ export const ModalTask = (props: Interface) => {
   		setPlannedDate(props.currentDate);
   		setLabelName('Add New Item');
 
+  		channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
     	// eslint-disable-next-line
   	}, [props.currentDate]);
 
@@ -90,9 +92,10 @@ export const ModalTask = (props: Interface) => {
         	setSelectedTag('other');
         	setPlannedDate(props.currentDate);
         	setLabelName('Add New Item');
+        	channel.postMessage({ path: location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search, tasks: tasks });
     	}
 
-		// eslint-disable-next-line
+    	// eslint-disable-next-line
   	}, [ selectedTag, tasks, location ]); 
 
 
@@ -120,14 +123,16 @@ export const ModalTask = (props: Interface) => {
     		}
 
       		PostNewDataIntoServer(newTask);
-      		dispatch(addItem(newTask));
+      		dispatch(updateTasks([...tasks, newTask]));
       		setCurrentName('');
         	setSelectedTag('other');
         	setPlannedDate(props.currentDate);
         	setLabelName('Add New Item');
+        	channel.postMessage({ path: location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search, tasks: [...tasks, newTask] });
+
     	}
 
-		// eslint-disable-next-line
+    			// eslint-disable-next-line
   	}, [ selectedTag, tasks, location ]);
 			
 	return ( 
@@ -151,7 +156,7 @@ export const ModalTask = (props: Interface) => {
 					/>
 				<Button 
 					className='button button--cancel' 
-					to={ location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search}
+					to={ location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search }
 					onClick={ cancelClick }
 					text='Cancel'/>
 				<Button 
