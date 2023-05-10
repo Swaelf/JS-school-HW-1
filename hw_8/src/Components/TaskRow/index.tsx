@@ -28,6 +28,7 @@ export const TaskRow = (props: Interface) => {
     	UpdateDataOnServer(tasks[index]);
     	dispatch(updateTasks([...tasks]));
     	channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
+
     	// eslint-disable-next-line
   	}, [ tasks, location ]); 
 
@@ -37,11 +38,14 @@ export const TaskRow = (props: Interface) => {
      	tasks.splice(index, 1);
      	dispatch(updateTasks([...tasks]));
      	channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
+
     	// eslint-disable-next-line
   	}, [ tasks, location ]); 
 
   	const editTask = useCallback(() => {
+  		
   		channel.postMessage({ path: '/ModalTask/' + tasks[index].id + location.pathname + location.search });
+
     	// eslint-disable-next-line
   	}, [ tasks, location ]); 
 

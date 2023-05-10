@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { TagElement } from '../TagElement';
+
 import Interface from './Interface';
 
 import './index.css';

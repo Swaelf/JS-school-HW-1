@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Label } from '../Label';
 import { TagElement } from '../TagElement';
+
 import Interface from './Interface';
 
 import './index.css';
@@ -25,6 +27,7 @@ export const RowLabel = ( props: Interface ) => {
     	// eslint-disable-next-line
   	}, [location]); 
 	
+
 	return (
 	<div className='taskcontent'>
 		<Label 

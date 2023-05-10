@@ -30,12 +30,3 @@ Button.defaultProps = {
   	onClick: (() => {}),
   	disabled: false
 };
-
-/*<button 
-		className={ props.className }
-		onClick={ props.onClick }
-		disabled={ props.disabled }
-		ref={ props.buttonRef }
-		>
-		{ props.text }
-	</button>*/

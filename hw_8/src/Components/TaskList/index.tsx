@@ -1,11 +1,12 @@
-import Interface from './Interface';
 import { useSelector } from 'react-redux';
-import ItemInterface from '../../Interfaces/ItemInterface'
+import { useLocation } from 'react-router-dom';
 
 import SearchByPattern from '../../Functions/SearchByPattern';
 
 import { TaskRow } from '../TaskRow';
-import { useLocation } from 'react-router-dom';
+
+import ItemInterface from '../../Interfaces/ItemInterface'
+import Interface from './Interface';
 
 import './index.css';
 

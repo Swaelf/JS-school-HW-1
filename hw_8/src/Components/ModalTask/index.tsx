@@ -1,18 +1,16 @@
-import React from 'react';
-import { TagHolder } from '../TagHolder';
-import { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
-import ItemInterface from '../../Interfaces/ItemInterface';
+import { TagHolder } from '../TagHolder';
 import { Input } from '../Input';
 import { DateSelect } from '../DateSelect';
 import { Button } from '../Button';
 import { Label } from '../Label';
-import { addItem } from '../../actions/addItem';
+
 import { updateTasks } from '../../actions/updateTasks';
 
-import { Routes, Route, useLocation } from 'react-router-dom';
-
+import ItemInterface from '../../Interfaces/ItemInterface';
 import Interface from './Interface';
 
 import PostNewDataIntoServer from '../../Functions/PostNewDataIntoServer';
@@ -54,6 +52,7 @@ export const ModalTask = (props: Interface) => {
 				inputRef.current.value = tasks[index].name as string;
 			}
 		}
+
 	    // eslint-disable-next-line
 	}, [location]); 
  
@@ -64,9 +63,9 @@ export const ModalTask = (props: Interface) => {
   		setPlannedDate(props.currentDate);
   		setLabelName('Add New Item');
 
-  		channel.postMessage({ path: location.pathname + location.search, tasks: tasks });
+  		channel.postMessage({ path: location.pathname.substring(location.pathname.indexOf('/tasks'), location.pathname.length) + location.search, tasks: tasks });
     	// eslint-disable-next-line
-  	}, [props.currentDate]);
+  	}, [ props.currentDate, location, tasks ]);
 
 
   	const aprooveName = useCallback(() => {

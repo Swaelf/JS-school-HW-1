@@ -1,10 +1,7 @@
 import React from 'react';
-
-import { TaskList} from '../TaskList';
-
 import { Routes, Route } from 'react-router-dom';
 
-//import { ModalEditTask } from '../ModalEditTask';
+import { TaskList} from '../TaskList';
 import { ModalTask } from '../ModalTask';
 
 import Interface from './Interface';

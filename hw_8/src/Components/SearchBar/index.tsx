@@ -1,10 +1,9 @@
 import { useCallback, useRef } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../Button';
 import { Search } from '../Search';
 
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
 import Interface from './Interface';
 
 import './index.css';
@@ -17,7 +16,9 @@ export const SearchBar = (props: Interface) => {
 	const channel = new BroadcastChannel("ToDoApp");
 
   	const handleSearch = useCallback(() => {
+
   		if (searchRef && searchRef.current) {
+
   			if (searchRef.current.value) {
   				navigate(location.pathname + '?q=' + encodeURIComponent(searchRef.current.value));
   				channel.postMessage({ path: location.pathname + '?q=' + encodeURIComponent(searchRef.current.value) });
@@ -32,7 +33,9 @@ export const SearchBar = (props: Interface) => {
   	}, [location]); 
 
   	const handleClick = useCallback(() => {
+
   		channel.postMessage({ path: location.search ? '/ModalTask' + location.pathname + location.search: '/ModalTask' + location.pathname });
+    	
     	// eslint-disable-next-line
   	}, [ location ]); 
 

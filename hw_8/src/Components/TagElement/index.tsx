@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
-import Interface from './Interface';
+
 import { Label } from '../Label'
+
+import Interface from './Interface';
 
 import './index.css';
 
@@ -19,6 +21,7 @@ export const TagElement = (props: Interface) => {
     	} else {
     		props.onClick();
     	};
+
     	// eslint-disable-next-line
   	}, [props.onClick, props.onClickParameter]); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
 	

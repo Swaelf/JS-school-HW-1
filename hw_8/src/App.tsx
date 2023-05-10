@@ -1,5 +1,6 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 import { ModalNewDay } from './Components/ModalNewDay';
 import { TopBar } from './Components/TopBar';
@@ -10,15 +11,8 @@ import ItemInterface from './Interfaces/ItemInterface';
 
 import GetDataFromServer from './Functions/GetDataFromServer';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import { addItem } from './actions/addItem';
 import { updateTasks } from './actions/updateTasks';
-
-import { Routes, Route } from 'react-router-dom';
-
-import { useNavigate, useLocation } from "react-router-dom";
-
 
 import './App.css';
 
