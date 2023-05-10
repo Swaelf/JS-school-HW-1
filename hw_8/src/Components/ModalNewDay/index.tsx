@@ -11,8 +11,9 @@ import './index.css';
 export const ModalNewDay = (props: Interface) => {
 
   	const handleClick = useCallback(() => {
-    	//props.setModalWindowState(0);
+
     	localStorage.setItem('currentDate', props.currentDate);
+    	
     	// eslint-disable-next-line
   	}, [ props.currentDate ]); //setModalWindowState is a function and shall not change
 	
@@ -32,6 +33,7 @@ export const ModalNewDay = (props: Interface) => {
 					taskList={ props.taskList }/>
 				<Button 
 					className="button__ok" 
+					to='/tasks'
 					onClick={ handleClick }
 					text='OK'/>
 				</div>

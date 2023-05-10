@@ -32,6 +32,7 @@ function App() {
   
   useEffect(() => {
     let isMounted = true;
+    navigate("/tasks");
     GetDataFromServer()
       .then((data: ItemInterface[]) => {
         if (isMounted) {
@@ -47,7 +48,7 @@ function App() {
     return () => {
         isMounted = false;
     }
-    
+
     // eslint-disable-next-line
   }, []); //we call it only once
 

@@ -5,7 +5,7 @@ import { TaskList} from '../TaskList';
 import { Routes, Route } from 'react-router-dom';
 
 //import { ModalEditTask } from '../ModalEditTask';
-import { ModalNewTask } from '../ModalNewTask';
+import { ModalTask } from '../ModalTask';
 
 import Interface from './Interface';
 
@@ -27,7 +27,7 @@ export const TaskBar = (props: Interface) => {
 			      isCompleted={ true }
 			      searchPattern={ props.searchPattern }
 			      setModalWindowState={ props.setModalWindowState }/>
-			    <ModalNewTask 
+			    <ModalTask 
 						currentDate={ props.currentDate }
 		        modalWindowState={ props.modalWindowState } 
 		        setModalWindowState={ props.setModalWindowState }/> 

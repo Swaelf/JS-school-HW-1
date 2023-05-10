@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { Checkbox } from '../Checkbox';
 import { Button } from '../Button';
@@ -18,6 +19,7 @@ export const TaskRow = (props: Interface) => {
 	const dispatch = useDispatch();
 	const tasks: any = useSelector((state: any) => state.tasks);
 	const index: number = props.task ? tasks.indexOf(props.task): 0;
+	const location = useLocation();
 	
 	const changeCompleteState = useCallback(() => {
 
@@ -26,22 +28,21 @@ export const TaskRow = (props: Interface) => {
     	dispatch(updateTasks([...tasks]));
 
     	// eslint-disable-next-line
-  	}, []); //setTaskList is a function and shall not change
+  	}, []); 
 
 	const deleteTask = useCallback(() => {
 
      	DeleteDataFromServer(tasks[index]);
      	tasks.splice(index, 1);
      	dispatch(updateTasks([...tasks]));
-     	
+
     	// eslint-disable-next-line
-  	}, []); //setTaskList is a function and shall not change
+  	}, []); 
 
   	const editTask = useCallback(() => {
- 		//props.setModalWindowState(3);
 
     	// eslint-disable-next-line
-  	}, [props.setModalWindowState]); //setTaskList is a function and shall not change
+  	}, [location]); 
 
   	
   	return (
@@ -53,6 +54,7 @@ export const TaskRow = (props: Interface) => {
 			task={ tasks[index] }/>
 		<Button 
 			className={ tasks[index].isCompleted ? 'button__edit button__icon--disabled': 'button__edit' } 
+			to={ location.search ? '/ModalTask/' + tasks[index].id + location.pathname + location.search: '/ModalTask/' + tasks[index].id }
 			onClick={ editTask }/>
 		<Button 
 			className={ tasks[index].isCompleted ? 'button__delete button__icon--disabled': 'button__delete' } 
