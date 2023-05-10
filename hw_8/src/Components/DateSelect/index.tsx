@@ -1,4 +1,5 @@
 import { useCallback, useRef } from 'react';
+
 import Interface from './Interface';
 
 import './index.css';
@@ -12,6 +13,7 @@ export const DateSelect = ( props: Interface ) => {
 		if (dateInputRef.current) {
       		dateInputRef.current.showPicker();
     	}
+
     	// eslint-disable-next-line
   	}, []); //dateInputRef is static and shall not change
 
@@ -20,6 +22,7 @@ export const DateSelect = ( props: Interface ) => {
 		if (props.labelRef && props.labelRef.current && dateInputRef.current) {
       		props.labelRef.current.innerHTML = dateInputRef.current.value.slice(0, 10).split("-").reverse().join(".");
     	}
+
     	// eslint-disable-next-line
   	}, []); //labelRef and dateInputRef are static and shall not change
 

@@ -1,5 +1,4 @@
 import ItemInterface from '../../Interfaces/ItemInterface';
-
 const config = require ('../../config.json');
 
 export default async function getDataFromServer() {

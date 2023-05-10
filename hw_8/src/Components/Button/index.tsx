@@ -1,22 +1,30 @@
 import Interface from './Interface';
+import { NavLink } from 'react-router-dom';
 
 import './index.css';
 
 export const Button = (props: Interface) => {
-
-	return (
-	<button 
-		className={ props.className }
-		onClick={ props.onClick }
-		disabled={ props.disabled }
-		ref={ props.buttonRef }
-		>
-		{ props.text }
-	</button>)
+	
+	if (props.disabled) {
+		return (
+			<span 
+				className={ props.className }
+			>{ props.text }</span>
+		)
+	} else {
+		return (
+			<NavLink 
+				to={ props.to ? props.to : '/' }
+				className={ props.className }
+				onClick={ props.onClick }
+			>{ props.text }</NavLink>
+		)
+	}
 };
 
 Button.defaultProps = {
   	buttonRef: null,
+  	to: '',
   	text: '',
   	className: '',
   	onClick: (() => {}),

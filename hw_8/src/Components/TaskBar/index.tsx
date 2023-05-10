@@ -1,35 +1,44 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import { TaskList} from '../TaskList';
-import ItemInterface from '../../Interfaces/ItemInterface';
-import SearchByPattern from '../../Functions/SearchByPattern';
+import { ModalTask } from '../ModalTask';
 
 import Interface from './Interface';
 
 import './index.css';
 
 export const TaskBar = (props: Interface) => {
-	
-	let filteredTaskList: ItemInterface[] = SearchByPattern(props.taskList, props.searchPattern);
 
 	return (
-	  <div className='taskbar'> 
-	  	<TaskList
-	  		listName='All Tasks'
-	  		taskList={ filteredTaskList } 
-	        setTaskList={ props.setTaskList }
-	        isCompleted={ false }/>
-	    <TaskList
-	  		listName='Completed tasks'
-	  		taskList={ filteredTaskList } 
-	        setTaskList={ props.setTaskList }
-	        isCompleted={ true }/>
-	  </div>
+		<Routes>
+	  	<Route path='*' element={
+	  		<div className='taskbar'> 
+			  	<TaskList
+			  		listName='All Tasks'
+			      isCompleted={ false }
+			      searchPattern={ props.searchPattern }
+			      setModalWindowState={ props.setModalWindowState }/>
+			    <TaskList
+			  		listName='Completed tasks'
+			      isCompleted={ true }
+			      searchPattern={ props.searchPattern }
+			      setModalWindowState={ props.setModalWindowState }/>
+			    <ModalTask 
+						currentDate={ props.currentDate }
+		        modalWindowState={ props.modalWindowState } 
+		        setModalWindowState={ props.setModalWindowState }/> 
+		  	</div>}/>
+		 </Routes>
 	);
+	
 };
 
 TaskBar.defaultProps = {
   taskList: [],
   setTaskList: (() => {}),
-  searchPattern: ''
+  searchPattern: '',
+  currentDate: '',   
+  modalWindowState: 0, 
+  setModalWindowState: (() => {})
 };

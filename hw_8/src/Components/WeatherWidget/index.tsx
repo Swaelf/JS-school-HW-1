@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+
 import LocateMe from '../../Functions/LocateMe';
+
 import { Label } from '../Label';
 import { Icon } from '../Icon'
+
 import Interface from './Interface';
 
 import './index.css';
@@ -11,10 +14,11 @@ const config = require ('../../config.json');
 export const WeatherWidget = () => {
 
 	const [temperature, setTemperature] = useState('??');
-	const [location, setLocation] = useState(config.defaultCity)
-	const [icon, setIcon] = useState(config.weathericon)
+	const [location, setLocation] = useState(config.defaultCity);
+	const [icon, setIcon] = useState(config.weathericon);
 
-   useEffect(() => {
+
+   	useEffect(() => {
     	let isMounted = true;
 
 		LocateMe().then((pos: unknown) => {

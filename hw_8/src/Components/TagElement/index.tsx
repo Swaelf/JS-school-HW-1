@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
-import Interface from './Interface';
+
 import { Label } from '../Label'
+
+import Interface from './Interface';
 
 import './index.css';
 
@@ -13,10 +15,15 @@ export const TagElement = (props: Interface) => {
 	}
 	
 	const handleClick = useCallback(() => {
-    	if (props.setTag && props.tag) {props.setTag(props.tag)};
-    	if (props.setSelectedTag && props.tag) {props.setSelectedTag(props.tag)};
+
+    	if (props.onClick && props.onClickParameter) {
+    		props.onClick(props.onClickParameter)
+    	} else {
+    		props.onClick();
+    	};
+
     	// eslint-disable-next-line
-  	}, []); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
+  	}, [props.onClick, props.onClickParameter]); //setSelectedTag and setTag are functions and shall not change, tag is static parameter and shall not change
 	
 	return (
 	<Label 
@@ -27,9 +34,9 @@ export const TagElement = (props: Interface) => {
 };
 
 TagElement.defaultProps = {
-  	setTag: (() => {}),
   	selectedTag: '',
-  	setSelectedTag: (() => {}),
+  	onClick: (() => {}),
   	tag: 'other', 
-  	text: 'other'	
+  	text: 'other',
+  	onClickParameter: ''	
 };
